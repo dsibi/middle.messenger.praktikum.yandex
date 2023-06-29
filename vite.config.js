@@ -12,6 +12,10 @@ export default defineConfig({
           __dirname,
           "src/pages/registration/registration.html"
         ),
+        chats: resolve(__dirname, "src/pages/chats/chats.html"),
+        error404: resolve(__dirname, "src/pages/error/404.html"),
+        error500: resolve(__dirname, "src/pages/error/500.html"),
+        settings: resolve(__dirname, "src/pages/settings/settings.html"),
       },
     },
   },
