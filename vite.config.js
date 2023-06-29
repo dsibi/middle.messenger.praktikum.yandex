@@ -40,6 +40,8 @@ export default defineConfig({
           { label: "New Password", id: "newPassword" },
         ],
         btns: {
+          logInBtn: "LogIn",
+          sgnUpBtn: "SignUp",
           regBtn: "Register",
           setBtn: "Settings",
           submitBtn: "Save",

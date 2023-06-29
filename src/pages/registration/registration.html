@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/default.css" />
-    <link rel="stylesheet" href="./registration.css" />
     <title>My Chat_Registation</title>
   </head>
   <body>
@@ -19,12 +18,12 @@
     <div id="wrapper">
       <form action="" method="get">
         {{#fields}}
-        <div class="reg">
+        <div class="fields">
           <label for="login">{{label}} </label>
           <input type="text" id="{{id}}" name="{{id}}" required />
         </div>
         {{/fields}}
-        <div id="regBtn">
+        <div id="btn">
           {{> button value=btns.regBtn href="'../error/500.html'"}}
         </div>
       </form>

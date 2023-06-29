@@ -22,7 +22,7 @@
           />
         </div>
         {{#fieldsToEdit}}
-        <div class="settings">
+        <div class="fields">
           <label for="{{id}}">{{label}} </label>
           <input
             type="text"
@@ -37,7 +37,7 @@
         {{/fieldsToEdit}}
         <hr />
         {{#passToEdit}}
-        <div class="settings">
+        <div class="fields">
           <label for="{{id}}" id="{{id}}">{{label}} </label>
           <input
             id="{{id}}"
@@ -50,7 +50,7 @@
           />
         </div>
         {{/passToEdit}}
-        <div id="saveBtn">
+        <div id="btn">
           {{> button value=btns.submitBtn href="'../error/404.html'"}} {{>
           button value=btns.cancelBtn href="'../error/404.html'"}}
         </div>
