@@ -13,3 +13,4 @@ function setColor(item, arg) {
     item.style.borderColor = "gray";
   }
 }
+window.editStart = editStart;
