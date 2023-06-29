@@ -38,4 +38,4 @@
 
 ---
 
-### [Прототип приложения](/static/img/proto/prototype.pdf)
+### [Прототип приложения](/ui/prototype.pdf)
