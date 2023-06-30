@@ -9,23 +9,25 @@
   </head>
   <body>
     {{> header/header}}
-    <!-- {{> button label="sdsafasd"}} -->
-    <!-- <ul>
+    <main>
+      <!-- {{> button label="sdsafasd"}} -->
+      <!-- <ul>
       {{#kids}}
       <li>{{name}} is {{age}}</li>
       {{/kids}}
     </ul> -->
-    <div id="wrapper">
-      <form action="" method="get">
-        {{#fields}}
-        <div class="fields">
-          <label for="login">{{label}} </label>
-          <input type="text" id="{{id}}" name="{{id}}" required />
-        </div>
-        {{/fields}}
-        <div id="btn">{{> button value=btns.regBtn href="'/'"}}</div>
-      </form>
-    </div>
+      <div id="wrapper">
+        <form action="" method="get">
+          {{#fields}}
+          <div class="fields">
+            <label for="login">{{label}} </label>
+            <input type="text" id="{{id}}" name="{{id}}" required />
+          </div>
+          {{/fields}}
+          <div id="btn">{{> button value=btns.regBtn href="'/'"}}</div>
+        </form>
+      </div>
+    </main>
     <script type="module" src="/src/modules/auth/auth.js"></script>
   </body>
 </html>
