@@ -1,14 +1,14 @@
 import setColor from "./setColorFields";
 
-export function overOutField(inputField: HTMLElement) {
+export function overOutField(inputField: HTMLSelectElement) {
   inputField.onmouseover = function () {
-    if (!(inputField as any).disabled) {
+    if (!inputField.disabled) {
       setColor(inputField, true);
     }
   };
 
   inputField.onmouseout = function () {
-    if (!(inputField as any).disabled) {
+    if (!inputField.disabled) {
       setColor(inputField, false);
     }
   };
