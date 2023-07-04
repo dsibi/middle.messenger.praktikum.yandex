@@ -5,7 +5,7 @@ import "./auth.css";
 let lgField: HTMLElement = document.getElementById("login")!;
 let pwField: HTMLElement = document.getElementById("password")!;
 
-overOutField(lgField);
-onClickField(lgField);
+overOutField(lgField as any);
+onClickField(lgField as any);
 
-overOutField(pwField);
+overOutField(pwField as any);
