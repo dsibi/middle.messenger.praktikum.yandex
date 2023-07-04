@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es2016",
     "declaration": false,
+    "isolatedModules": true,
     "module": "commonjs",
-    "strictNullChecks": true,
+    "outDir": "dist",
     "sourceMap": true,
-    "isolatedModules": true
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "es2016"
   }
 }

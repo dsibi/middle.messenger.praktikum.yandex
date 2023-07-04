@@ -14,7 +14,7 @@ export function overOutField(inputField: HTMLSelectElement) {
   };
 }
 
-export function onClickField(inputField) {
+export function onClickField(inputField: HTMLSelectElement) {
   let defLgField = (inputField.value = "login/email/phone");
   inputField.onclick = function () {
     if (defLgField == inputField.value) {
