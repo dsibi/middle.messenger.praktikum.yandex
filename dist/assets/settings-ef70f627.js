@@ -1,0 +1,1 @@
+import"./button-34cbd3cc.js";/* empty css                */function e(o){r(o,!0),setTimeout(r,3e3,o,!1),o.removeAttribute("readonly")}function r(o,t){t?(o.style.backgroundColor="yellow",o.style.borderColor="red"):(o.style.backgroundColor="white",o.style.borderColor="gray")}window.editStart=e;
