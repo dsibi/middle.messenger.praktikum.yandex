@@ -1,14 +1,16 @@
 import { defineConfig } from "vite";
-import path from "path";
+import { resolve } from "path";
+import handlebars from "./vite-plugin-handlebars-precompile";
 
 export default defineConfig({
-  root: path.resolve(__dirname, "src"),
-  // build: {
-  //   outDir: path.resolve(__dirname, "dist"),
-  //   rollupOptions: {
-  //     input: {
-  //       index: path.resolve(__dirname, "src/index.html"),
-  //     },
-  //   },
-  // },
+  root: resolve(__dirname, "src"),
+  build: {
+    outDir: resolve(__dirname, "dist"),
+  },
+  plugins: [handlebars()],
+  resolve: {
+    alias: {
+      handlebars: "handlebars/runtime",
+    },
+  },
 });
