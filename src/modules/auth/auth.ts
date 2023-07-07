@@ -1,10 +1,12 @@
-import { overOutField, onClickField } from "./inputFields";
-import "./auth.css";
+import { overOutField, onClickField } from './inputFields'
+import './auth.css'
 
-let lgField: HTMLElement = document.getElementById("login")!;
-let pwField: HTMLElement = document.getElementById("password")!;
+const lgField: HTMLElement | boolean =
+  document.getElementById('login') ?? false
+const pwField: HTMLElement | boolean =
+  document.getElementById('password') ?? false
 
-overOutField(lgField as any);
-onClickField(lgField as any);
+overOutField(lgField as HTMLSelectElement)
+onClickField(lgField as HTMLSelectElement)
 
-overOutField(pwField as any);
+overOutField(pwField as HTMLSelectElement)
