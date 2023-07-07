@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/semi */
 import setColor from './setColorFields';
 
-export function overOutField (inputField: HTMLSelectElement) {
+export function overOutField (inputField: HTMLSelectElement): void {
   inputField.onmouseover = function () {
     if (!inputField.disabled) {
       setColor(inputField, true);
@@ -15,10 +15,10 @@ export function overOutField (inputField: HTMLSelectElement) {
   };
 }
 
-export function onClickField (inputField: HTMLSelectElement) {
+export function onClickField (inputField: HTMLSelectElement): void {
   const defLgField = (inputField.value = 'login/email/phone');
   inputField.onclick = function () {
-    if (defLgField == inputField.value) {
+    if (defLgField === inputField.value) {
       inputField.value = '';
     } else {
       return inputField.value;
