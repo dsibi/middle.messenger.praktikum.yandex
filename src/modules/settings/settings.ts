@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/semi */
 function editStart(item: HTMLElement): void {
   setColor(item, true);
   setTimeout(setColor, 3000, item, false);

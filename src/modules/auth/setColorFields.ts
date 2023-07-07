@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/semi */
 export default function setColor(
   element: HTMLElement,
   useHighlightColor: boolean

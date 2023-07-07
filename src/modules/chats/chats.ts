@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/semi */
 class Repo {
   user: string;
   chat: string;
