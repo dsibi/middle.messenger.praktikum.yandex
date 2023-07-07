@@ -1,6 +1,6 @@
 import logoPath from "../static/img/logo.png";
-// import mainPage from "./pages/main/main";
-import mainPage from "./pages/auth/auth";
+import mainPage from "./pages/main/main";
+// import regPage from "./pages/reg/reg";
 // import mainPage from "./pages/settings/settings";
 import "./default.css";
 

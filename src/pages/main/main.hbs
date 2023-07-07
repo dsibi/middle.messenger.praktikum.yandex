@@ -14,14 +14,14 @@
         <a href="src/pages/error/404.html">Forgot password</a>
       </div>
       <div id="logIn">
-        {{> button value="LogIn" href="'pages/main_copy/main_copy.js'"}}
+        {{> button value="LogIn" openPage="openReg()"}}
         <br />
       </div>
     </form>
     <div class="signUp">
       <h3>Not a user</h3>
       {{> button value='SignUp'
-          href="'src/pages/registration/registration.html'"}}
+          openPage="/"}}
     </div>
   </div>
 </main>

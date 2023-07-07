@@ -3,6 +3,7 @@ import "../../pages/main/main.css";
 import iHeader from "../../components/header/header.hbs";
 import iButton from "../../components/button/button.hbs";
 import logoPath from "../../../static/img/logo.png";
+import regPage from "/pages/reg/reg";
 import Handlebars from "handlebars";
 
 Handlebars.registerPartial("header", iHeader);
@@ -13,4 +14,8 @@ export default function mainPage() {
   const root = document.getElementById("app");
   const result = main;
   root.innerHTML = result;
+
+  function openReg() {
+    regPage();
+  }
 }
