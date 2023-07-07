@@ -1,0 +1,14 @@
+{{>header}}
+<main>
+      <div id="wrapper">
+        <form action="" method="get">
+          {{#fields}}
+          <div class="fields">
+            <label for="login">{{label}} </label>
+            <input type="text" id="{{id}}" name="{{id}}" required onclick="editStart(this)"/>
+          </div>
+          {{/fields}}
+          <div id="btn">{{> button value="Register" href="'/'"}}</div>
+        </form>
+      </div>
+    </main>

@@ -3,7 +3,6 @@ import "../../pages/main/main.css";
 import iHeader from "../../components/header/header.hbs";
 import iButton from "../../components/button/button.hbs";
 import logoPath from "../../../static/img/logo.png";
-import "../../default.css";
 import Handlebars from "handlebars";
 
 Handlebars.registerPartial("header", iHeader);
