@@ -8,6 +8,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": ["**/*.hbs", "**/*.css", "**/*.html"],
   "rules": {},
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
