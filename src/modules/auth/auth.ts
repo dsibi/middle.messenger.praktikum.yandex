@@ -20,7 +20,7 @@ Handlebars.registerPartial("button", iButton);
 // overOutField(pwField as HTMLSelectElement);
 
 document.addEventListener("DOMContentLoaded", () => {
-  const root = document.querySelector("body") as HTMLBodyElement;
+  const root = document.getElementById("wrapper") as HTMLInputElement;
   const result = auth({ value: "DDDDdsfsd" });
   root.innerHTML = result;
 });
