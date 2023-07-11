@@ -52,6 +52,39 @@ export default defineConfig({
           submitBtn: "Save",
           cancelBtn: "Cancel",
         },
+        bestfriendChat: [
+          {
+            msgText: "Dude you should stop drinking",
+            time: new Date("July 01, 2023 10:24:00"),
+            isInbox: "bubble sender",
+            status: "read",
+          },
+          {
+            msgText: "Why?",
+            time: new Date("July 01, 2023 10:25:00"),
+            isInbox: "bubble recipient",
+            status: "read",
+          },
+          {
+            msgText: "Remember last night?",
+            time: new Date("July 01, 2023 10:26:00"),
+            isInbox: "bubble sender",
+            status: "read",
+          },
+          {
+            msgText: "Yeah, but I wasn't really drunk",
+            time: new Date("July 01, 2023 10:27:00"),
+            isInbox: "bubble recipient",
+            status: "read",
+          },
+          {
+            msgText:
+              "DUDE U ALMOST JUMP DOWN FROM THE 15TH FLOOR SINGING I BELIEVE I CAN FLY!",
+            time: new Date("July 01, 2023 10:28:00"),
+            isInbox: "bubble sender",
+            status: "read",
+          },
+        ],
       },
     }),
   ],

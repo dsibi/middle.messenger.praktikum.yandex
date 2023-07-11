@@ -1,0 +1,71 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#wrapper {
+  flex-direction: row;
+  margin: 0;
+}
+
+#chatsList {
+  background: #ff99c8;
+  flex: 1.5;
+  min-height: 100vh;
+}
+
+#chat {
+  flex: 5;
+  min-height: 100vh;
+}
+
+#contact {
+  background: #fcf6bd;
+  min-height: 10vh;
+}
+
+#messages {
+  background: rgb(142, 219, 57);
+  background: linear-gradient(
+    90deg,
+    rgba(142, 219, 57, 1) 0%,
+    rgba(229, 133, 241, 1) 100%
+  );
+  min-height: 80vh;
+  padding: 10px;
+}
+
+#input {
+  background: #a9def9;
+  min-height: 10vh;
+}
+
+#messages {
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+#messages > .bubble {
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  margin: 0.0625em;
+  max-width: 50%;
+}
+
+#messages > .bubble.sender {
+  align-self: flex-start;
+  background-color: #8639db;
+  color: #fff;
+}
+#messages > .bubble.recipient {
+  align-self: flex-end;
+  background-color: #fff;
+}
+
+#messages {
+  font-size: smaller;
+}
