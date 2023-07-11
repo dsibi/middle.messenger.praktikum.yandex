@@ -1,13 +1,26 @@
 /* eslint-disable @typescript-eslint/semi */
-import { overOutField, onClickField } from './inputFields';
-import './auth.css';
+// import { overOutField, onClickField } from "./inputFields";
+import "./auth.css";
+import iHeader from "../../components/header/header.hbs";
+import iButton from "../../components/button.hbs";
+import auth from "../../pages/auth.hbs";
+import Handlebars from "handlebars";
 
-const lgField: HTMLElement | boolean =
-  document.getElementById('login') ?? false;
-const pwField: HTMLElement | boolean =
-  document.getElementById('password') ?? false;
+Handlebars.registerPartial("header", iHeader);
+Handlebars.registerPartial("button", iButton);
 
-overOutField(lgField as HTMLSelectElement);
-onClickField(lgField as HTMLSelectElement);
+// const lgField: HTMLElement | boolean =
+//   document.getElementById("login") ?? false;
+// const pwField: HTMLElement | boolean =
+//   document.getElementById("password") ?? false;
 
-overOutField(pwField as HTMLSelectElement);
+// overOutField(lgField as HTMLSelectElement);
+// onClickField(lgField as HTMLSelectElement);
+
+// overOutField(pwField as HTMLSelectElement);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.querySelector("body") as HTMLBodyElement;
+  const result = auth({ value: "DDDDdsfsd" });
+  root.innerHTML = result;
+});

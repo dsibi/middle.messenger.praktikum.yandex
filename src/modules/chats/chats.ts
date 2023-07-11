@@ -1,4 +1,8 @@
 /* eslint-disable @typescript-eslint/semi */
+import iChats from "./chats.hbs";
+// import Handlebars from "handlebars";
+// Handlebars.registerPartial("header", iChats);
+
 class Contact {
   name: string;
   avatar: string;
@@ -90,3 +94,14 @@ let bestfriendInput = new Input(
   "/static/img/smile.png",
   "/static/img/media.png"
 );
+// console.log(bestfriendChat.messageCollection[0].msgText);
+
+const chats = iChats({
+  bestfriendChat: bestfriendChat,
+  msgText: bestfriendChat.messageCollection[0].msgText,
+  isInbox: bestfriendChat.messageCollection[0].isInbox,
+});
+
+const root = document.getElementById("messages");
+const result = chats;
+root.innerHTML = result;

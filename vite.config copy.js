@@ -1,7 +1,8 @@
-import { resolve } from "path";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { resolve } from "path";
 import { defineConfig } from "vite";
-import handlebars from "vite-plugin-handlebars";
+import handlebars_plugin from "vite-plugin-handlebars";
+import handlebars from "./vite-plugin-handlebars-precompile";
 
 export default defineConfig({
   // root: resolve(__dirname, "src"),
@@ -18,6 +19,11 @@ export default defineConfig({
         error500: resolve(__dirname, "src/pages/error/500.html"),
         settings: resolve(__dirname, "src/pages/settings/settings.html"),
       },
+    },
+  },
+  resolve: {
+    alias: {
+      handlebars: "handlebars/runtime",
     },
   },
   plugins: [
