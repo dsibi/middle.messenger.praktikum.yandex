@@ -2,7 +2,7 @@
 import { overOutField, onClickField } from "./inputFields";
 import "./auth.css";
 import iHeader from "../../components/header/header.hbs";
-import iButton from "../../components/button.hbs";
+import iButton from "../../components/button/button.hbs";
 import auth from "../../pages/auth.hbs";
 import Handlebars from "handlebars";
 
