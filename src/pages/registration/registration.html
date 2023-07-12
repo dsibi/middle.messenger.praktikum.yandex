@@ -8,26 +8,9 @@
     <title>My Chat_Registation</title>
   </head>
   <body>
-    {{> header/header}}
     <main>
-      <!-- {{> button label="sdsafasd"}} -->
-      <!-- <ul>
-      {{#kids}}
-      <li>{{name}} is {{age}}</li>
-      {{/kids}}
-    </ul> -->
-      <div id="wrapper">
-        <form action="" method="get">
-          {{#fields}}
-          <div class="fields">
-            <label for="login">{{label}} </label>
-            <input type="text" id="{{id}}" name="{{id}}" required />
-          </div>
-          {{/fields}}
-          <div id="btn">{{> button value=btns.regBtn href="'/'"}}</div>
-        </form>
-      </div>
+      <div id="app"></div>
     </main>
-    <script type="module" src="/src/modules/auth/auth.ts"></script>
+    <script type="module" src="registration.ts"></script>
   </body>
 </html>

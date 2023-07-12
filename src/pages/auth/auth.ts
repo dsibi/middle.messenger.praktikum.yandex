@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/semi */
-import { overOutField, onClickField } from "./inputFields";
+import { overOutField, onClickField } from "../../modules/fields/inputFields";
 import "./auth.css";
 import iHeader from "../../components/header/header.hbs";
 import iButton from "../../components/button/button.hbs";
-import auth from "../../pages/auth.hbs";
+import auth from "./auth.hbs";
 import Handlebars from "handlebars";
 
 Handlebars.registerPartial("header", iHeader);
