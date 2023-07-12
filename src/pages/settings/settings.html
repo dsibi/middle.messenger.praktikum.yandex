@@ -5,59 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/default.css" />
-    <link rel="stylesheet" href="./settings.css" />
     <title>My Chat_Settings</title>
   </head>
   <body>
-    {{> header/header}}
     <main>
-      <div id="wrapper">
-        <form action="" method="get">
-          <div class="box">
-            <img
-              src="/static/img/avatar.png"
-              alt="My Avatar"
-              id="avatar"
-              name="avatar"
-              width="80px"
-            />
-          </div>
-          {{#fieldsToEdit}}
-          <div class="fields">
-            <label for="{{id}}">{{msgText}} </label>
-            <input
-              type="text"
-              id="{{id}}"
-              name="{{id}}"
-              value="{{value}}"
-              required
-              readonly
-              onclick="editStart(this)"
-            />
-          </div>
-          {{/fieldsToEdit}}
-          <hr />
-          {{#passToEdit}}
-          <div class="fields">
-            <label for="{{id}}" id="{{id}}">{{label}} </label>
-            <input
-              id="{{id}}"
-              name="{{id}}"
-              value="{{value}}"
-              required
-              readonly
-              onclick="editStart(this)"
-              type="password"
-            />
-          </div>
-          {{/passToEdit}}
-          <div id="btn">
-            {{> button value=btns.submitBtn href="'/'"}} {{> button
-            value=btns.cancelBtn href="'/'"}}
-          </div>
-        </form>
-      </div>
+      <div id="app"></div>
     </main>
-    <script type="module" src="/src/modules/settings/settings.ts"></script>
+    <script type="module" src="settings.ts"></script>
   </body>
 </html>
