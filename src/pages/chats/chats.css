@@ -47,25 +47,22 @@ body {
   margin: 0 auto;
   display: flex;
   flex-flow: column wrap;
+  font-size: smaller;
 }
 
-#messages > .bubble {
+#messages > div {
   border-radius: 1em;
   padding: 0.25em 0.75em;
   margin: 0.0625em;
   max-width: 50%;
 }
 
-#messages > .bubble.sender {
+[isInbox="true"] {
   align-self: flex-start;
   background-color: #8639db;
   color: #fff;
 }
-#messages > .bubble.recipient {
+[isInbox="false"] {
   align-self: flex-end;
   background-color: #fff;
-}
-
-#messages {
-  font-size: smaller;
 }
