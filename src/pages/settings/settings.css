@@ -17,3 +17,7 @@
   width: 100px;
   height: 100px;
 }
+
+input[type="text"] {
+  margin-left: 20px;
+}

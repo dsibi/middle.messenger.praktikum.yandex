@@ -8,11 +8,79 @@ Handlebars.registerPartial("button", button);
 class Contact {
   name: string;
   avatar: string;
-  constructor(name: string, avatar: string) {
+  lastMsg: string;
+  constructor(name: string, avatar: string, lastMsg: string) {
     this.name = name;
     this.avatar = avatar;
+    this.lastMsg = lastMsg;
   }
 }
+
+type NameLastMsg = {
+  name: string;
+  lastMsg: string;
+};
+
+const nameLastMsg: NameLastMsg[] = [
+  {
+    name: "Reed Bryant",
+    lastMsg: "web browser or other runtime system provides JavaScript APIs for",
+  },
+  {
+    name: "Germaine Barry",
+    lastMsg:
+      "(APIs) for working with text, dates, regular expressions, standard data",
+  },
+  {
+    name: "Fallon Mathis",
+    lastMsg:
+      "standard.[11] It has dynamic typing, prototype-based object-orientation, and first-class functions.",
+  },
+  {
+    name: "Ashton Brennan",
+    lastMsg:
+      "Paradigm Multi-paradigm: event-driven, functional, imperative, procedural, object-oriented programming Designed by",
+  },
+  {
+    name: "Brielle Martin",
+    lastMsg:
+      "appeared December 4, 1995; 27 years ago[1] Stable release ECMAScript",
+  },
+  {
+    name: "Oleg Contreras",
+    lastMsg:
+      "JavaScript (/ˈdʒɑːvəskrɪpt/), often abbreviated as JS, is a programming language",
+  },
+  {
+    name: "Brian Michael",
+    lastMsg: "CSS. As of 2023, 98.7% of websites use JavaScript on",
+  },
+  {
+    name: "Ciaran Rogers",
+    lastMsg:
+      "years ago[1] Stable release ECMAScript 2021[2] Edit this on Wikidata",
+  },
+  {
+    name: "Sharon Sosa",
+    lastMsg: "is one of the core technologies of the World Wide",
+  },
+  {
+    name: "Darius Crosby",
+    lastMsg: "release ECMAScript 2021[2] Edit this on Wikidata / June 2021;",
+  },
+];
+
+let myContacts: Contact[] = [];
+
+nameLastMsg.forEach((item, index) =>
+  myContacts.push(
+    new Contact(
+      item.name,
+      `../../../static/img/avatars/avatar_${index}.png`,
+      item.lastMsg
+    )
+  )
+);
 
 class Chat {
   messageCollection: Message[];
@@ -36,35 +104,35 @@ class Message {
   }
 }
 
-class Input {
-  attachIcon: string;
-  inputField: string;
-  smileIcon: string;
-  mediaIcon: string;
-  constructor(
-    attachIcon: string,
-    inputField: string,
-    smileIcon: string,
-    mediaIcon: string
-  ) {
-    this.attachIcon = attachIcon;
-    this.inputField = inputField;
-    this.smileIcon = smileIcon;
-    this.mediaIcon = mediaIcon;
-  }
-}
+// class Input {
+//   attachIcon: string;
+//   inputField: string;
+//   smileIcon: string;
+//   mediaIcon: string;
+//   constructor(
+//     attachIcon: string,
+//     inputField: string,
+//     smileIcon: string,
+//     mediaIcon: string
+//   ) {
+//     this.attachIcon = attachIcon;
+//     this.inputField = inputField;
+//     this.smileIcon = smileIcon;
+//     this.mediaIcon = mediaIcon;
+//   }
+// }
 
-let bestfriendContact = new Contact(
-  "Best Friend",
-  "/static/img/bestFriend.png"
-);
+// let bestfriendContact = new Contact(
+//   "Best Friend",
+//   "/static/img/bestFriend.png"
+// );
 
-let bestfriendInput = new Input(
-  "/static/img/attach.png",
-  "",
-  "/static/img/smile.png",
-  "/static/img/media.png"
-);
+// let bestfriendInput = new Input(
+//   "/static/img/attach.png",
+//   "",
+//   "/static/img/smile.png",
+//   "/static/img/media.png"
+// );
 // console.log(bestfriendChat.messageCollection[0].msgText);
 
 // const chats = iChats({
@@ -108,12 +176,16 @@ document.addEventListener("DOMContentLoaded", () => {
     ],
     ["Clear history", "Delete chat"]
   );
-
-  // isInbox==true?'.bubble.sender':'.bubble.recipient'
+  let lastMessage =
+    bestfriendChat.messageCollection[
+      bestfriendChat.messageCollection.length - 1
+    ].msgText;
 
   const root = document.getElementById("app") as HTMLInputElement;
   const result = сhats({
     bestfriendChat: bestfriendChat.messageCollection,
+    lastMessage: lastMessage,
+    myContacts: myContacts,
   });
   root.innerHTML = result;
 });

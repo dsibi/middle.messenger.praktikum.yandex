@@ -1,16 +1,40 @@
 
-      <div id="wrapper">
-        <div id="chatsList">chatsList</div>
-        <div id="chat">
-          <div id="contact">contact</div>
-          <div id="messages">
-            {{#bestfriendChat}}
-            <div isInbox="{{isInbox}}">{{msgText}}</div>
-            {{/bestfriendChat}}
+<div id="wrapper">
+        <div id="chatsList">
+          <div class="chatListContact">
+            <div class="image-cropper">
+              <img src="../../../static/img/avatars/bestFriend.png" alt="Best Friend"></img>
+            </div>
+            <div class="nameLastMsg">
+              <p>Best Friend</p>
+              <p>{{lastMessage}}</p>
+            </div>
           </div>
-          <div id="input">input</div>
+          {{#myContacts}}
+          <div class="chatListContact">
+            <div class="image-cropper">
+              <img src="{{avatar}}" alt="Best Friend"></img>
+            </div>
+            <div class="nameLastMsg">
+              <p>{{name}}</p>
+              <p>{{lastMsg}}</p>
+            </div>
+          </div>
+          {{/myContacts}}
         </div>
-        <!-- <div id="setBtn">
-          {{> button value=btns.setBtn href="'../settings/settings.html'"}}
-        </div> -->
+      <div id="chat">
+        <div id="contact">
+          <p>Best Friend</p>
+          <div class="test"></div>
+        </div>
+        <div id="messages">
+          {{#bestfriendChat}}
+          <div isInbox="{{isInbox}}">{{msgText}}</div>
+          {{/bestfriendChat}}
+        </div>
+        <input type="text" id="message" name="message" required />
       </div>
+      <!-- <div id="setBtn">
+        {{> button value=btns.setBtn href="'../settings/settings.html'"}}
+      </div> -->
+    </div>
