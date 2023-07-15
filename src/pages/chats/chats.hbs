@@ -25,14 +25,21 @@
       <div id="chat">
         <div id="contact">
           <p>Best Friend</p>
-          <div class="test"></div>
+          <div class="settings"></div>
         </div>
         <div id="messages">
           {{#bestfriendChat}}
           <div isInbox="{{isInbox}}">{{msgText}}</div>
           {{/bestfriendChat}}
         </div>
-        <input type="text" id="message" name="message" required />
+        <div id="messageBlock">
+          <img src="../../../static/img/attach.png" alt="Attach" style="width:20px;height:auto;"></img>
+          <div id="messageHolder">
+        <input type="text" id="message" name="message" placeholder="Write a message..." />
+        </div>
+        <img src="../../../static/img/smile.png" alt="Smile" style="width:20px;height:auto;"></img>
+        <img src="../../../static/img/media.png" alt="Media" style="width:20px;height:auto;"></img>
+        </div>
       </div>
       <!-- <div id="setBtn">
         {{> button value=btns.setBtn href="'../settings/settings.html'"}}
