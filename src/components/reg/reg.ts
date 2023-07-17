@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/semi */
-import registration from "./registration.hbs";
+import registration from "./reg.hbs";
 import { overOutField, onClickField } from "../../modules/fields/inputFields";
 import Handlebars from "handlebars";
-import iHeader from "../../components/header/header.hbs";
-import iButton from "../../components/button/button.hbs";
+import iHeader from "../header/header.hbs";
+import iButton from "../button/button.hbs";
 
 Handlebars.registerPartial("header", iHeader);
 Handlebars.registerPartial("button", iButton);
