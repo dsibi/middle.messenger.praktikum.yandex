@@ -3,3 +3,4 @@ declare module "*.hbs" {
   export default tpl;
 }
 declare module "*.png";
+declare module "*.css";
