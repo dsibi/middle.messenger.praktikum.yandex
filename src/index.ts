@@ -1,5 +1,5 @@
 import { renderDom } from "./utils/renderDom";
 
 window.addEventListener("DOMContentLoaded", () => {
-  renderDom("errorPage404");
+  renderDom("errorPage500");
 });

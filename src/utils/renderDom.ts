@@ -3,7 +3,7 @@
 // import { ProfilePage } from "../pages/profile";
 import { ChatsPage } from "../pages/chats/index";
 import { ErrorPage as ErrorPage404 } from "../pages/errors/404";
-// import { ErrorPage as ErrorPage500 } from "../pages/errors/500";
+import { ErrorPage as ErrorPage500 } from "../pages/errors/500";
 
 export const ROUTES = {
   // authorizationPage: AuthorizationPage,
@@ -11,7 +11,7 @@ export const ROUTES = {
   //   profilePage: ProfilePage,
   chatsPage: ChatsPage,
   errorPage404: ErrorPage404,
-  //   errorPage500: ErrorPage500,
+  errorPage500: ErrorPage500,
 };
 
 export function renderDom(route: keyof typeof ROUTES) {
