@@ -1,4 +1,4 @@
-import EventBus from "./event-bus";
+import EventBus from "./EventBus";
 import { nanoid } from "nanoid";
 
 export default abstract class Block<
@@ -83,13 +83,13 @@ export default abstract class Block<
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected init() {}
+  protected init(): void {}
 
   _componentDidMount() {
     this.componentDidMount();
   }
   // Может переопределять пользователь, необязательно трогать
-  componentDidMount() {}
+  componentDidMount(): void {}
 
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -147,7 +147,7 @@ export default abstract class Block<
 
   protected compile(template: (context: any) => string, context: any) {
     const contextAndStubs = { ...context };
-
+    console.log(contextAndStubs.style);
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
         contextAndStubs[name] = component.map(
@@ -176,6 +176,8 @@ export default abstract class Block<
         stub.replaceWith(component.element!);
       }
     });
+    // console.log(temp.content.childNodes[0]);
+
     return temp.content;
   }
 
