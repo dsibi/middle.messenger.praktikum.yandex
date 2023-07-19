@@ -1,0 +1,15 @@
+.formInput {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: flex-end; */
+  /* padding: 20px; */
+  /* justify-content: space-between; */
+}
+
+.formInput input {
+  /* padding: 10px; */
+  border-radius: 10px;
+  border: 2px solid #8639db;
+  transition: 0.3s border-color;
+  margin-left: 20px;
+}

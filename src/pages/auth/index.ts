@@ -1,44 +1,77 @@
 /* eslint-disable @typescript-eslint/semi */
-// import { overOutField, onClickField } from "../../modules/fields/inputFields";
-import "./auth.css";
 import Block from "../../utils/Block";
-import iHeader from "../../components/header/header.hbs";
-import iButton from "../../components/button/button.hbs";
-import auth from "./auth.hbs";
-import Handlebars from "handlebars";
+import { renderDom } from "../../utils/renderDom";
+import template from "./template.hbs";
+import style from "./style.module.css";
+import { Form } from "../../components/Form";
+import { Header } from "../../components/Header";
+import { Button, ButtonProps } from "../../components/Button";
 
-Handlebars.registerPartial("header", iHeader);
-Handlebars.registerPartial("button", iButton);
-
-export class AuthorizationPage extends Block {
-  init() {}
+const inputs: Array<{
+  for: string;
+  label: string;
+  name: string;
+  type: string;
+  error: string;
+}> = [
+  {
+    for: "login",
+    label: "Login",
+    name: "login",
+    type: "text",
+    error: "",
+  },
+  {
+    for: "password",
+    label: "Password",
+    name: "password",
+    type: "password",
+    error: "",
+  },
+];
+export interface AuthorizationPageProps {
+  firstButton: ButtonProps;
+  secondButton: ButtonProps;
 }
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const root = document.getElementById("app") as HTMLInputElement;
-//     const result = auth();
-//     root.innerHTML = result;
+export class AuthorizationPage extends Block<AuthorizationPageProps> {
+  form = this.children.form as Form;
 
-//     const lgField: HTMLElement | null = document.getElementById("login");
-//     const pwField: HTMLElement | null = document.getElementById("password");
+  init() {
+    this.children.header = new Header();
+    this.children.form = new Form({
+      inputs: inputs.map((input) => ({
+        ...input,
+        events: {
+          // focusin: () => this.form.validate(input.name),
+          // focusout: () => this.form.validate(input.name),
+        },
+      })),
+    });
+    this.children.firstButton = new Button({
+      label: "Log In",
+      type: "submit",
+      events: {
+        click: (e: Event) => {
+          e.preventDefault();
+          const isValid = this.form.isValid();
+          const data = this.form.getValues();
+          console.log("form is valid: ", isValid);
+          console.log(data);
+        },
+      },
+      class: style.firstButton,
+    });
+    this.children.secondButton = new Button({
+      label: "Sign Up",
+      events: {
+        click: () => renderDom("chatsPage"),
+      },
+      class: style.secondButton,
+    });
+  }
 
-//     overOutField(lgField as HTMLSelectElement);
-//     onClickField(lgField as HTMLSelectElement);
-
-//     overOutField(pwField as HTMLSelectElement);
-//   });
-
-// export class ErrorPage extends Block {
-//   init() {
-//     this.children.button = new Button({
-//       label: 'назад к чатам',
-//       events: {
-//         click: () => renderDom('navigationPage')
-//       }
-//     })
-//   }
-
-//   render() {
-//     return this.compile(template, { style, type: '404' })
-//   }
-// }
+  render() {
+    return this.compile(template, { style });
+  }
+}

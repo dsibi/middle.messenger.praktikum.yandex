@@ -1,8 +1,8 @@
 import Block from "../../utils/Block";
-import template from "./template.hbs";
-import { Button } from "../../components/Button";
 import { renderDom } from "../../utils/renderDom";
+import template from "./template.hbs";
 import style from "./style.module.css";
+import { Button } from "../../components/Button";
 
 export class ErrorPage extends Block {
   init() {

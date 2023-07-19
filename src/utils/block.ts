@@ -147,13 +147,18 @@ export default abstract class Block<
 
   protected compile(template: (context: any) => string, context: any) {
     const contextAndStubs = { ...context };
+    // console.log(template(context));
+
     Object.entries(this.children).forEach(([name, component]) => {
+      // console.log(component);
       if (Array.isArray(component)) {
+        // console.log(contextAndStubs[name][1]);
         contextAndStubs[name] = component.map(
           (child) => `<div data-id="${child.id}"></div>`
         );
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+        // console.log(contextAndStubs);
       }
     });
 
@@ -175,7 +180,6 @@ export default abstract class Block<
         stub.replaceWith(component.element!);
       }
     });
-
     return temp.content;
   }
 

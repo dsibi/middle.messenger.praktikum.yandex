@@ -1,0 +1,7 @@
+.error {
+  margin-top: 5px;
+
+  @include CousineRegular(8px, 8px);
+
+  color: $red;
+}
