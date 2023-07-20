@@ -72,6 +72,6 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
   }
 
   render() {
-    return this.compile(template, { style });
+    return this.compile(template, { style, forgot: style.forgot });
   }
 }

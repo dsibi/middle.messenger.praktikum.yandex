@@ -1,2 +1,21 @@
 .authorization-container {
 }
+
+.forgot {
+  font-size: 10pt;
+  text-align: end;
+}
+
+button {
+  margin-top: 50px;
+}
+
+h4 {
+  margin-top: 100px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+button:last-child {
+  margin-top: 0px;
+}

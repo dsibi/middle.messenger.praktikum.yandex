@@ -1,15 +1,24 @@
 .formInput {
   display: flex;
   flex-direction: row;
-  /* justify-content: flex-end; */
-  /* padding: 20px; */
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.formInput label {
+  margin-right: 20px;
 }
 
 .formInput input {
-  /* padding: 10px; */
   border-radius: 10px;
   border: 2px solid #8639db;
   transition: 0.3s border-color;
-  margin-left: 20px;
+  margin-left: auto;
+  height: 30px;
+}
+
+input:focus {
+  outline: none !important;
+  border: 2px solid red;
+  border-color: #e585f1 #8edb39;
 }
