@@ -50,24 +50,26 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
     });
     this.children.firstButton = new Button({
       label: "Log In",
-      type: "submit",
+      class: style.login,
       events: {
-        click: (e: Event) => {
-          e.preventDefault();
-          const isValid = this.form.isValid();
-          const data = this.form.getValues();
-          console.log("form is valid: ", isValid);
-          console.log(data);
-        },
+        click: () => renderDom("errorPage500"),
+        // click: (e: Event) => {
+        //   e.preventDefault();
+        //   const isValid = this.form.isValid();
+        //   const data = this.form.getValues();
+        //   console.log("form is valid: ", isValid);
+        //   console.log(data);
+
+        // },
       },
-      class: style.firstButton,
     });
     this.children.secondButton = new Button({
       label: "Sign Up",
+      type: "button",
+      class: style.signup,
       events: {
-        click: () => renderDom("chatsPage"),
+        click: () => renderDom("registrationPage"),
       },
-      class: style.secondButton,
     });
   }
 

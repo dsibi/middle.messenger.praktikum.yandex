@@ -6,7 +6,7 @@
   text-align: end;
 }
 
-button {
+.login {
   margin-top: 50px;
 }
 
@@ -16,6 +16,6 @@ h4 {
   margin-bottom: 25px;
 }
 
-button:last-child {
-  margin-top: 0px;
+.signup {
+  margin-top: 10px;
 }

@@ -3,7 +3,7 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 
 export interface ButtonProps {
-  label: string;
+  // label: string;
   type?: string;
   events: {
     click: () => void;
