@@ -1,7 +1,7 @@
 import { AuthorizationPage } from "../pages/auth";
 import { RegistrationPage } from "../pages/reg";
 import { ProfilePage } from "../pages/profile";
-import { ChatsPage } from "../pages/chats/index";
+// import { ChatsPage } from "../pages/chats/index";
 import { ErrorPage as ErrorPage404 } from "../pages/errors/404";
 import { ErrorPage as ErrorPage500 } from "../pages/errors/500";
 
@@ -9,7 +9,7 @@ export const ROUTES = {
   authorizationPage: AuthorizationPage,
   registrationPage: RegistrationPage,
   profilePage: ProfilePage,
-  chatsPage: ChatsPage,
+  // chatsPage: ChatsPage,
   errorPage404: ErrorPage404,
   errorPage500: ErrorPage500,
 };

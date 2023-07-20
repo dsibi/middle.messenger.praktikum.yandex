@@ -66,6 +66,7 @@ export class ProfilePage extends Block<ProfilePagePageProps> {
       })),
     });
     this.children.passwords = new Form({
+      class: style.pass,
       inputs: passFields.map((password) => ({
         ...password,
         events: {
