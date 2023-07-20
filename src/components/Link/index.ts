@@ -2,18 +2,17 @@ import Block from "../../utils/Block";
 import template from "./template.hbs";
 import style from "./style.module.css";
 
-export interface ButtonProps {
-  type?: string;
+export interface LinkProps {
+  text: string;
   events: {
     click: () => void;
   };
 }
 
-export class Button extends Block<ButtonProps> {
+export class Link extends Block<LinkProps> {
   render() {
     return this.compile(template, {
       ...this.props,
-      type: this.props.type || "submit",
       style,
     });
   }

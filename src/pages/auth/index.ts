@@ -6,6 +6,7 @@ import style from "./style.module.css";
 import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
+import { Link } from "../../components/Link";
 
 const inputs: Array<{
   for: string;
@@ -32,6 +33,7 @@ const inputs: Array<{
 export interface AuthorizationPageProps {
   firstButton: ButtonProps;
   secondButton: ButtonProps;
+  forgot: Link;
 }
 
 export class AuthorizationPage extends Block<AuthorizationPageProps> {
@@ -71,9 +73,15 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
         click: () => renderDom("registrationPage"),
       },
     });
+    this.children.forgot = new Link({
+      text: "Forgot password",
+      events: {
+        click: () => renderDom("errorPage404"),
+      },
+    });
   }
 
   render() {
-    return this.compile(template, { style, forgot: style.forgot });
+    return this.compile(template, { style });
   }
 }
