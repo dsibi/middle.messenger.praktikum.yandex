@@ -54,7 +54,7 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
       label: "Log In",
       class: style.login,
       events: {
-        click: () => renderDom("errorPage500"),
+        click: () => renderDom("profilePage"),
         // click: (e: Event) => {
         //   e.preventDefault();
         //   const isValid = this.form.isValid();

@@ -1,21 +1,17 @@
 import { AuthorizationPage } from "../pages/auth";
 import { RegistrationPage } from "../pages/reg";
-// import { ProfilePage } from "../pages/profile";
+import { ProfilePage } from "../pages/profile";
 import { ChatsPage } from "../pages/chats/index";
 import { ErrorPage as ErrorPage404 } from "../pages/errors/404";
 import { ErrorPage as ErrorPage500 } from "../pages/errors/500";
-import { Form } from "../components/Form/index";
-// import { Header } from "../components/Header/index";
 
 export const ROUTES = {
   authorizationPage: AuthorizationPage,
   registrationPage: RegistrationPage,
-  //   profilePage: ProfilePage,
+  profilePage: ProfilePage,
   chatsPage: ChatsPage,
   errorPage404: ErrorPage404,
   errorPage500: ErrorPage500,
-  Form: Form,
-  // button: Header,
 };
 
 export function renderDom(route: keyof typeof ROUTES) {
