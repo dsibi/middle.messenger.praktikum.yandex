@@ -16,14 +16,13 @@
 .attachIcon,
 .smileIcon,
 .mediaIcon {
-  width: 30px;
-  height: 30px;
+  width: 25px;
   background-color: transparent;
   border: none;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-  margin: 2px 10px;
+  margin: 4px 10px;
 }
 
 .mediaIcon {
