@@ -4,3 +4,7 @@
 .pass {
   border-top: solid 1px grey;
 }
+
+.box {
+  margin-bottom: 20px;
+}

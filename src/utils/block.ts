@@ -156,15 +156,29 @@ export default abstract class Block<
         contextAndStubs[name] = component.map(
           (child) => `<div data-id="${child.id}"></div>`
         );
+        // console.log(contextAndStubs);
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
         // console.log(contextAndStubs);
+        // if (contextAndStubs) {
+        //   console.log(contextAndStubs);
+        // }
       }
     });
 
-    const html = template(contextAndStubs);
-    const temp = document.createElement("template");
+    if (contextAndStubs.chatListContact) {
+      // console.log(contextAndStubs);
+    }
 
+    const html = template(contextAndStubs);
+    if (contextAndStubs.chatListContact) {
+      // console.log(html);
+    }
+    // if (html != null) {
+    //   console.log(typeof html);
+    // }
+    // console.log(html.toString());
+    const temp = document.createElement("template");
     temp.innerHTML = html;
 
     Object.entries(this.children).forEach(([_, component]) => {

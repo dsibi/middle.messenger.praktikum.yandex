@@ -1,0 +1,11 @@
+.chats-container {
+  display: flex;
+}
+
+.listAndChat {
+  flex-grow: 1;
+}
+
+.chat {
+  flex-grow: 3;
+}

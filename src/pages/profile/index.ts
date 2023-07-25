@@ -55,7 +55,7 @@ export interface ProfilePagePageProps {
 export class ProfilePage extends Block<ProfilePagePageProps> {
   init() {
     this.children.header = new Header();
-    this.children.avatar = new Avatar({ avaPath: avaPath });
+    this.children.avatar = new Avatar({ avaPath: avaPath, width: "100px" });
     this.children.form = new Form({
       inputs: regFields.map((regField) => ({
         ...regField,

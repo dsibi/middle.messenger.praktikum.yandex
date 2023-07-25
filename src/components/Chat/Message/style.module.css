@@ -1,0 +1,27 @@
+.msgIncome {
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  margin: 1em;
+  max-width: 50%;
+  align-self: flex-start;
+  background-color: #e486ee;
+  color: #fff;
+}
+
+.msgOutcome {
+  border-radius: 1em;
+  padding: 0.25em 0.75em;
+  margin: 1em;
+  max-width: 50%;
+  align-self: flex-end;
+  background-color: #90da3d;
+  color: #fff;
+}
+
+.time {
+  margin-top: 5px;
+  width: 100%;
+  text-align: right;
+  @include CousineRegular(9px, 9px);
+  color: #97a1ff;
+}

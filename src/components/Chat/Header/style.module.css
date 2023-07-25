@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  background-color: #8639db;
+  padding: 10px;
+}
+
+.nameSettings {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.name {
+  font-size: smaller;
+  font-weight: bold;
+  color: #efefef;
+}

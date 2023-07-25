@@ -11,6 +11,8 @@ export interface ButtonProps {
 
 export class Button extends Block<ButtonProps> {
   render() {
+    // console.log(this.props);
+
     return this.compile(template, {
       ...this.props,
       type: this.props.type || "submit",
