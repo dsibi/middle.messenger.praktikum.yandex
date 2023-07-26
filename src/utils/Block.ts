@@ -19,6 +19,7 @@ export default abstract class Block<
   protected props: Props;
   private eventBus: () => EventBus;
   private _element: HTMLElement | null = null;
+
   public id = nanoid(6);
 
   constructor(propsWithChildren: any = {}) {
