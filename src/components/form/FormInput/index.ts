@@ -8,12 +8,11 @@ export interface FormInputProps {
   label: string;
   name: string;
   type: string;
-  error: string;
-  events: {
-    focus: () => void;
-    blur: () => void;
-  };
-  validate: (value: string) => string;
+  error?: string;
+  // events: {
+  //   click: () => void;
+  // };
+  // validate: (value: string) => string;
 }
 
 export class FormInput extends Block<FormInputProps> {
@@ -26,6 +25,7 @@ export class FormInput extends Block<FormInputProps> {
   }
 
   get name() {
+    // console.log(this.inputElement);
     return this.inputElement.name;
   }
 

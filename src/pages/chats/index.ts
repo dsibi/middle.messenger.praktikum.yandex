@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-import { renderDom } from "../../utils/renderDom";
 import template from "./template.hbs";
 import style from "./style.module.css";
 import { ChatList } from "../../components/ChatList";

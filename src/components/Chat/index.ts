@@ -3,7 +3,7 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 import { Message } from "./Message";
 import { Header } from "./Header";
-import { messageBlock } from "./messageBlock";
+import { MessageBlock } from "./messageBlock";
 import { bestFriendChat } from "../../data/chats";
 
 export class Chat extends Block {
@@ -12,7 +12,7 @@ export class Chat extends Block {
     this.children.message = bestFriendChat.messageCollection.map(
       (message) => new Message(message)
     );
-    this.children.messageBlock = new messageBlock();
+    this.children.messageBlock = new MessageBlock();
   }
 
   render() {

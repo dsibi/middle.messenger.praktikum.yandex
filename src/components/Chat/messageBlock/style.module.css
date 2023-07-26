@@ -3,19 +3,18 @@
   align-items: center;
 }
 
-.msg {
+.textInput {
   flex-grow: 1;
   border: none;
   height: 20px;
 }
 
-.msg::placeholder {
+.textInput::placeholder {
   color: #90da3d;
 }
 
 .attachIcon,
-.smileIcon,
-.mediaIcon {
+.smileIcon {
   width: 25px;
   background-color: transparent;
   border: none;
@@ -25,6 +24,13 @@
   margin: 4px 10px;
 }
 
-.mediaIcon {
+.submitButton {
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: none;
+  background-image: url("../../../static/img/smile.png");
+  background-repeat: no-repeat;
+  background-position: center;
   margin-right: 10px;
 }

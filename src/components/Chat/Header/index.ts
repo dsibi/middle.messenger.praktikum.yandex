@@ -3,7 +3,9 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 import { Avatar } from "../../../components/Avatar";
 
-export class Header extends Block {
+export interface HeaderProps {}
+
+export class Header extends Block<HeaderProps> {
   init() {
     this.children.settingsAva = new Avatar({
       avaPath: "../../../static/img/dots_white.png",
@@ -14,6 +16,6 @@ export class Header extends Block {
   render() {
     // console.log(this);
 
-    return this.compile(template, { style });
+    return this.compile(template, { style, ...this.props });
   }
 }

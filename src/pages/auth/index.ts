@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-import { renderDom } from "../../utils/renderDom";
 import template from "./template.hbs";
 import style from "./style.module.css";
+import { renderDom } from "../../utils/renderDom";
 import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
+import { isValidName } from "../../utils/validation";
 
 const inputs: Array<{
   for: string;
@@ -14,6 +15,7 @@ const inputs: Array<{
   name: string;
   type: string;
   error: string;
+  value: string;
 }> = [
   {
     for: "login",
@@ -21,6 +23,7 @@ const inputs: Array<{
     name: "login",
     type: "text",
     error: "",
+    value: "",
   },
   {
     for: "password",
@@ -28,13 +31,17 @@ const inputs: Array<{
     name: "password",
     type: "password",
     error: "",
+    value: "",
   },
 ];
+
 export interface AuthorizationPageProps {
   firstButton: ButtonProps;
   secondButton: ButtonProps;
   forgot: Link;
 }
+
+// console.log(inputs);
 
 export class AuthorizationPage extends Block<AuthorizationPageProps> {
   form = this.children.form as Form;
@@ -54,15 +61,10 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
       label: "Log In",
       class: style.login,
       events: {
-        click: () => renderDom("chatsPage"),
-        // click: (e: Event) => {
-        //   e.preventDefault();
-        //   const isValid = this.form.isValid();
-        //   const data = this.form.getValues();
-        //   console.log("form is valid: ", isValid);
-        //   console.log(data);
-
-        // },
+        click: () => {
+          let data = this.form.getValues();
+          console.log(data);
+        },
       },
     });
     this.children.secondButton = new Button({

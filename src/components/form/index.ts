@@ -24,6 +24,7 @@ export class Form extends Block<FormProps> {
   }
 
   getValues() {
+    // console.log(this.inputsElements[1].inputElement);
     return this.inputsElements.reduce(
       (agg, input) => ({ ...agg, [input.name]: input.value }),
       {}
