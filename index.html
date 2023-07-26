@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/static/img/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/default.css" />
+    <title>My Chat</title>
+  </head>
+  <body>
+    {{> header/header}}
+    <main>
+      <div id="wrapper">
+        <form action="" method="get">
+          <div class="fields">
+            <label for="login">Enter your login </label>
+            <input type="text" name="login" id="login" required />
+          </div>
+          <div class="fields" id="pass">
+            <label for="password">Enter your password </label>
+            <input type="password" name="password" id="password" required />
+          </div>
+          <div id="forgot">
+            <a href="src/pages/error/404.html">Forgot password</a>
+          </div>
+          <div id="logIn">
+            {{> button value=btns.logInBtn href="'src/pages/chats/chats.html'"}}
+            <br />
+          </div>
+        </form>
+        <div class="signUp">
+          <h3>Not a user</h3>
+          {{> button value=btns.sgnUpBtn
+          href="'src/pages/registration/registration.html'"}}
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/modules/auth/auth.js"></script>
+  </body>
+</html>
