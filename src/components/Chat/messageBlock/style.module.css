@@ -27,10 +27,11 @@
 .submitButton {
   width: 25px;
   height: 25px;
-  background-color: transparent;
+  /* background-color: transparent; */
   border: none;
   background-image: url("../../../static/img/smile.png");
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 10px;
+  cursor: pointer;
 }

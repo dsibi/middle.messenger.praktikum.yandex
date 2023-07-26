@@ -11,10 +11,10 @@
 
 .error-page[data-type="404"] {
   @extend .error-page;
-  background-image: url(../../../../static/img/error-404.png);
+  background-image: url(/../../static/img/error-404.png);
 }
 
 .error-page[data-type="500"] {
   @extend .error-page;
-  background-image: url(../../../../static/img/problem.png);
+  background-image: url(/../../static/img/problem.png);
 }
