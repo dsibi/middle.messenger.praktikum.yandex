@@ -7,7 +7,7 @@ import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
-import { isValidName } from "../../utils/validation";
+import { isValidLogin, isValidPassword } from "../../utils/validation";
 
 const inputs: Array<{
   for: string;
@@ -16,6 +16,7 @@ const inputs: Array<{
   type: string;
   error: string;
   value: string;
+  validate: (value: string) => string;
 }> = [
   {
     for: "login",
@@ -24,6 +25,7 @@ const inputs: Array<{
     type: "text",
     error: "",
     value: "",
+    validate: isValidLogin,
   },
   {
     for: "password",
@@ -32,6 +34,7 @@ const inputs: Array<{
     type: "password",
     error: "",
     value: "",
+    validate: isValidPassword,
   },
 ];
 
@@ -52,8 +55,8 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
       inputs: inputs.map((input) => ({
         ...input,
         events: {
-          // focusin: () => this.form.validate(input.name),
-          // focusout: () => this.form.validate(input.name),
+          focusin: () => this.form.validate(input.name),
+          focusout: () => this.form.validate(input.name),
         },
       })),
     });
@@ -61,8 +64,11 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
       label: "Log In",
       class: style.login,
       events: {
-        click: () => {
-          let data = this.form.getValues();
+        click: (e: Event) => {
+          e.preventDefault();
+          const isValid = this.form.isValid();
+          const data = this.form.getValues();
+          console.log("form is valid: ", isValid);
           console.log(data);
         },
       },

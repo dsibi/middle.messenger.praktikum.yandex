@@ -1,7 +1,10 @@
+/* .errorHolder {
+  width: 200px;
+  text-wrap: wrap;
+} */
+
 .error {
-  margin-top: 5px;
-
-  @include CousineRegular(8px, 8px);
-
-  color: $red;
+  margin: 0px;
+  font-size: 10px;
+  color: #90da3d;
 }

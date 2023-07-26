@@ -9,6 +9,13 @@ import { Header } from "../../components/Header";
 import { Avatar } from "../../components/Avatar";
 import avaPath from "../../../static/img/avatar.png";
 import { Button, ButtonProps } from "../../components/Button";
+import {
+  isValidLogin,
+  isValidEmail,
+  isValidName,
+  isValidPhone,
+  isValidPassword,
+} from "../../utils/validation";
 
 class ProfileField implements FormInputProps {
   for: string;
@@ -17,25 +24,34 @@ class ProfileField implements FormInputProps {
   type: string;
   id: string;
   value: string;
-  constructor(id: string, label: string, value: string) {
+  error?: string | undefined;
+  events!: { click: () => void };
+  validate: (value: string) => string;
+  constructor(
+    id: string,
+    label: string,
+    value: string,
+    validate: (value: string) => string
+  ) {
     this.for = id;
     this.label = label;
     this.id = id;
     this.value = value;
     this.type = id;
     this.name = id;
+    this.validate = validate;
   }
 }
 
 const pfFields: ProfileField[] = [
-  new ProfileField("first_name", "First Name", "Dmitry"),
-  new ProfileField("second_name", "Second Name", "Sib"),
-  new ProfileField("display_name", "Display Name", "Dmitry Sib"),
-  new ProfileField("login", "Login", "dimas"),
-  new ProfileField("email", "Email", "dimas@dimas.world"),
-  new ProfileField("phone", "Phone", "+7-777-777-7777"),
-  new ProfileField("old_password", "Old Password", "********"),
-  new ProfileField("new_password", "New Password", "********"),
+  new ProfileField("first_name", "First Name", "Dmitry", isValidName),
+  new ProfileField("second_name", "Second Name", "Sib", isValidName),
+  new ProfileField("display_name", "Display Name", "Dmitry Sib", isValidName),
+  new ProfileField("login", "Login", "dimas", isValidLogin),
+  new ProfileField("email", "Email", "dimas@dimas.world", isValidEmail),
+  new ProfileField("phone", "Phone", "+7-777-777-7777", isValidPhone),
+  new ProfileField("old_password", "Old Password", "********", isValidPassword),
+  new ProfileField("new_password", "New Password", "********", isValidPassword),
 ];
 
 export interface ProfilePagePageProps {
@@ -54,14 +70,21 @@ export class ProfilePage extends Block<ProfilePagePageProps> {
     this.children.form = new Form({
       inputs: pfFields.map((pfField) => ({
         ...pfField,
+        events: {
+          focusin: () => this.form.validate(pfField.name),
+          focusout: () => this.form.validate(pfField.name),
+        },
       })),
     });
     this.children.save = new Button({
       label: "Save",
       class: style.button,
       events: {
-        click: () => {
-          let data = this.form.getValues();
+        click: (e: Event) => {
+          e.preventDefault();
+          const isValid = this.form.isValid();
+          const data = this.form.getValues();
+          console.log("form is valid: ", isValid);
           console.log(data);
         },
       },

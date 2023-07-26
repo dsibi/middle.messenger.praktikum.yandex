@@ -6,6 +6,12 @@ import { Form } from "../../components/Form";
 import { FormInputProps } from "../../components/Form/FormInput";
 import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
+import {
+  isValidLogin,
+  isValidEmail,
+  isValidName,
+  isValidPhone,
+} from "../../utils/validation";
 
 class RegistationField implements FormInputProps {
   for: string;
@@ -13,22 +19,26 @@ class RegistationField implements FormInputProps {
   name: string;
   type: string;
   id: string;
-  constructor(id: string, label: string) {
+  error?: string | undefined;
+  events!: { click: () => void };
+  validate: (value: string) => string;
+  constructor(id: string, label: string, validate: (value: string) => string) {
     this.for = id;
     this.label = label;
     this.id = id;
     this.type = id;
     this.name = id;
+    this.validate = validate;
   }
 }
 
 const regFields: RegistationField[] = [
-  new RegistationField("first_name", "First Name"),
-  new RegistationField("second_name", "Second Name"),
-  new RegistationField("display_name", "Display Name"),
-  new RegistationField("login", "Login"),
-  new RegistationField("email", "Email"),
-  new RegistationField("phone", "Phone"),
+  new RegistationField("first_name", "First Name", isValidName),
+  new RegistationField("second_name", "Second Name", isValidName),
+  new RegistationField("display_name", "Display Name", isValidName),
+  new RegistationField("login", "Login", isValidLogin),
+  new RegistationField("email", "Email", isValidEmail),
+  new RegistationField("phone", "Phone", isValidPhone),
 ];
 
 export interface RegistrationPageProps {
@@ -44,8 +54,8 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
       inputs: regFields.map((regField) => ({
         ...regField,
         events: {
-          // focusin: () => this.form.validate(input.name),
-          // focusout: () => this.form.validate(input.name),
+          focusin: () => this.form.validate(regField.name),
+          focusout: () => this.form.validate(regField.name),
         },
       })),
     });
@@ -53,8 +63,11 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
       label: "Register",
       class: style.button,
       events: {
-        click: () => {
-          let data = this.form.getValues();
+        click: (e: Event) => {
+          e.preventDefault();
+          const isValid = this.form.isValid();
+          const data = this.form.getValues();
+          console.log("form is valid: ", isValid);
           console.log(data);
         },
       },

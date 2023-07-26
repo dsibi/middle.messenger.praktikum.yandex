@@ -3,6 +3,7 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 import { Button } from "../../Button";
 import { TextInput } from "../../TextInput";
+import { isValidMessage } from "../../../utils/validation";
 
 export class MessageBlock extends Block {
   init() {
@@ -12,14 +13,16 @@ export class MessageBlock extends Block {
       name: "message",
       events: {
         focusin: (e: Event) => {
-          // const { value, name } = e.target as HTMLInputElement;
-          // const isValidValue = isValidMessage(value)
-          // console.log(name, "is valid: ", isValidValue);
+          const { value, name } = e.target as HTMLInputElement;
+          const isValidValue = isValidMessage(value);
+          console.log(name, "is not valid: ", isValidValue);
         },
         focusout: (e: Event) => {
-          // const { value, name } = e.target as HTMLInputElement;
-          // const isValidValue = isValidMessage(value)
-          // console.log(name, 'is valid: ', isValidValue)
+          const { value, name } = e.target as HTMLInputElement;
+          const isValidValue = isValidMessage(value);
+          isValidValue
+            ? console.log(name, "is not valid: ", isValidValue)
+            : console.log(name, "is valid: ", isValidValue);
         },
       },
     });
@@ -31,8 +34,11 @@ export class MessageBlock extends Block {
         click: (e: Event) => {
           e.preventDefault();
           const { value, name } = this.children.textInput as TextInput;
-          // const isValidValue = isValidMessage(value)
-          // console.log('is valid: ', isValidValue)
+          const isValidValue = isValidMessage(value);
+          isValidValue
+            ? console.log("is not valid: ", isValidValue)
+            : console.log("is valid: ", isValidValue);
+
           console.log({ [name]: value });
         },
       },

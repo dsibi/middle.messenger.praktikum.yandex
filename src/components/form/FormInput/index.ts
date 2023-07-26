@@ -9,10 +9,10 @@ export interface FormInputProps {
   name: string;
   type: string;
   error?: string;
-  // events: {
-  //   click: () => void;
-  // };
-  // validate: (value: string) => string;
+  events: {
+    click: () => void;
+  };
+  validate: (value: string) => string;
 }
 
 export class FormInput extends Block<FormInputProps> {
