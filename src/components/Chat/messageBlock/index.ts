@@ -27,7 +27,7 @@ export class MessageBlock extends Block {
       },
     });
     this.children.submitButton = new Button({
-      label: "",
+      label: ">",
       class: style.submitButton,
       type: "submit",
       events: {
