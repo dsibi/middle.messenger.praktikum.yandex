@@ -5,8 +5,8 @@ import handlebars from "./vite-plugin-handlebars-precompile";
 
 export default defineConfig({
   build: {
-    outDir: resolve(__dirname, "dist"),
+    outDir: resolve("dist"),
   },
-  publicDir: "static",
+  publicDir: "/static",
   plugins: [handlebars()],
 });
