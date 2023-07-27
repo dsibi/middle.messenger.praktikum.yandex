@@ -22,6 +22,5 @@
   margin-top: 5px;
   width: 100%;
   text-align: right;
-  @include CousineRegular(9px, 9px);
   color: #97a1ff;
 }
