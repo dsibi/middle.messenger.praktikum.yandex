@@ -12,6 +12,8 @@ import {
   isValidName,
   isValidPhone,
 } from "../../utils/validation";
+import router from "../../utils/Router";
+import { PATHNAMES } from "../../utils/paths";
 
 class RegistationField implements FormInputProps {
   for: string;
@@ -64,7 +66,7 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
       class: style.button,
       events: {
         click: (e: Event) => {
-          e.preventDefault();
+          router.go(PATHNAMES.CHAT_PATH), e.preventDefault();
           const isValid = this.form.isValid();
           const data = this.form.getValues();
           console.log("form is valid: ", isValid);

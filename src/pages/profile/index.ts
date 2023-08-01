@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-import { renderDom } from "../../utils/renderDom";
+// import { renderDom } from "../../utils/renderDom";
 import template from "./template.hbs";
 import style from "./style.module.css";
 import { Form } from "../../components/Form";
@@ -16,6 +16,8 @@ import {
   isValidPhone,
   isValidPassword,
 } from "../../utils/validation";
+import router from "../../utils/Router";
+import { PATHNAMES } from "../../utils/paths";
 
 class ProfileField implements FormInputProps {
   for: string;
@@ -92,7 +94,7 @@ export class ProfilePage extends Block<ProfilePagePageProps> {
     this.children.cancel = new Button({
       label: "Cancel",
       events: {
-        click: () => renderDom("authorizationPage"),
+        click: () => router.go(PATHNAMES.SIGNIN_PATH),
       },
       class: style.button,
     });

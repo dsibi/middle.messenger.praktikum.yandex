@@ -2,12 +2,14 @@
 import Block from "../../utils/Block";
 import template from "./template.hbs";
 import style from "./style.module.css";
-import { renderDom } from "../../utils/renderDom";
+// import { renderDom } from "../../utils/renderDom";
 import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
 import { isValidLogin, isValidPassword } from "../../utils/validation";
+import router from "../../utils/Router";
+import { PATHNAMES } from "../../utils/paths";
 
 const inputs: Array<{
   for: string;
@@ -78,13 +80,13 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
       type: "button",
       class: style.signup,
       events: {
-        click: () => renderDom("registrationPage"),
+        click: () => router.go(PATHNAMES.SIGNUP_PATH),
       },
     });
     this.children.forgot = new Link({
       text: "Forgot password",
       events: {
-        click: () => renderDom("errorPage404"),
+        click: () => router.go(PATHNAMES.PATH_NOT_FOUND),
       },
     });
   }

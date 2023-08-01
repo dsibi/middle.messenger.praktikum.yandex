@@ -1,9 +1,6 @@
 import EventBus from "./EventBus";
 import { nanoid } from "nanoid";
-
-export default abstract class Block<
-  Props extends Record<string, any> = unknown
-> {
+export default class Block<Props = any> {
   static EVENTS = {
     // init — создание обёртки DOM-элемента и вызов CDM
     INIT: "init",
@@ -239,4 +236,9 @@ export default abstract class Block<
   hide() {
     this.getContent().style.display = "none";
   }
+}
+
+export interface BlockClass<Props> extends Function {
+  new (props: Props): Block<Props>;
+  componentName?: string;
 }
