@@ -1,0 +1,7 @@
+.text {
+  font-size: 10pt;
+  text-align: end;
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}

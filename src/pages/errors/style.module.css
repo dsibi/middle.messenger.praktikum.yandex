@@ -1,0 +1,20 @@
+.error-page {
+  height: 80vh;
+  padding-bottom: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px;
+}
+
+.error-page[data-type="404"] {
+  @extend .error-page;
+  background-image: url(/../../static/img/error-404.png);
+}
+
+.error-page[data-type="500"] {
+  @extend .error-page;
+  background-image: url(/../../static/img/problem.png);
+}

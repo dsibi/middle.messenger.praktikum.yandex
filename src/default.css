@@ -10,25 +10,13 @@ body {
   font: 20px Tahoma, sans-serif;
 }
 
-#wrapper {
+.main,
+.main_profile {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.main {
   margin: 100px;
-}
-
-.fields {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-input[type="text"] {
-  margin-left: 20px;
-}
-
-#btn {
-  margin-top: 50px;
-  text-align: center;
 }

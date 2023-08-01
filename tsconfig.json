@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "declaration": false,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "es2016"
+  }
+}
