@@ -3,7 +3,7 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 import { Avatar } from "../../../components/Avatar";
 import { Settings } from "../../../components/Settings";
-import controller from "../../../utils/ApiClient";
+import callMethod from "../../../utils/ApiClient";
 import { PATHNAMES } from "../../../utils/paths";
 
 export interface HeaderProps {
@@ -23,7 +23,8 @@ export class Header extends Block<HeaderProps> {
       width: "50px",
       events: {
         click: () => {
-          controller("logout", PATHNAMES.SIGNIN_PATH);
+          // callMethod("user", PATHNAMES.PROFILE_PATH);
+          callMethod("logout", PATHNAMES.SIGNIN_PATH);
         },
       },
     });

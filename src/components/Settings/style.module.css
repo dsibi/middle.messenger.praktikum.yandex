@@ -2,6 +2,7 @@
 .settings {
   position: relative;
   display: inline-block;
+  font-size: smaller;
 }
 
 /* Dropdown Button */

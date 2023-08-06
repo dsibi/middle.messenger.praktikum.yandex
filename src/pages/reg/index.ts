@@ -14,7 +14,7 @@ import {
   isValidPassword,
 } from "../../utils/validation";
 import { PATHNAMES } from "../../utils/paths";
-import controller from "../../utils/ApiClient";
+import callMethod from "../../utils/ApiClient";
 
 class RegistationField implements FormInputProps {
   for: string;
@@ -74,7 +74,7 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
           const isValid = this.form.isValid();
           const values = this.form.getValues();
           if (isValid && values) {
-            controller("signup", PATHNAMES.CHAT_PATH, values);
+            callMethod("signup", PATHNAMES.CHAT_PATH, values);
           }
           console.log("form is valid: ", isValid);
           console.log(values);
