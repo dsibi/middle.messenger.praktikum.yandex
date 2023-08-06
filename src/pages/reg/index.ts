@@ -11,6 +11,7 @@ import {
   isValidEmail,
   isValidName,
   isValidPhone,
+  isValidPassword,
 } from "../../utils/validation";
 import router from "../../utils/Router";
 import { PATHNAMES } from "../../utils/paths";
@@ -41,10 +42,48 @@ const regFields: RegistationField[] = [
   new RegistationField("login", "Login", isValidLogin),
   new RegistationField("email", "Email", isValidEmail),
   new RegistationField("phone", "Phone", isValidPhone),
+  new RegistationField("password", "Password", isValidPassword),
+  new RegistationField("password_conf", "Confirm password", isValidPassword),
 ];
 
 export interface RegistrationPageProps {
   button: ButtonProps;
+}
+
+function authController(data: {}) {
+  const host = "https://ya-praktikum.tech";
+
+  fetch(`${host}/api/v2/auth/signup`, {
+    method: "POST",
+    credentials: "include", // Нужно подставлять куки
+    mode: "cors", // Работаем с CORS
+    headers: {
+      "content-type": "application/json", // Данные отправляем в формате JSON
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.text()) // Можно вытащить через .json()
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .then(() => {
+      fetch(`${host}/api/v2/auth/user`, {
+        // Получаем подробную информацию о пользователе и проверяем, что куки проставились
+        method: "GET",
+        mode: "cors",
+        credentials: "include",
+      }).then((response) => {
+        // return response.json();
+        if (response.status == 200 || response.status == 400) {
+          router.go(PATHNAMES.CHAT_PATH);
+          // console.log("Go!!!");
+        }
+      });
+      // .then((data) => {
+      //   console.log("user", data);
+      // });
+    });
 }
 
 export class RegistrationPage extends Block<RegistrationPageProps> {
@@ -65,12 +104,16 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
       label: "Register",
       class: style.button,
       events: {
-        click: (e: Event) => {
-          router.go(PATHNAMES.CHAT_PATH), e.preventDefault();
+        click: () => {
+          // click: (e: Event) => {
+          // router.go(PATHNAMES.CHAT_PATH), e.preventDefault();
           const isValid = this.form.isValid();
-          const data = this.form.getValues();
+          const values = this.form.getValues();
+          if (isValid && values) {
+            authController(values);
+          }
           console.log("form is valid: ", isValid);
-          console.log(data);
+          console.log(values);
         },
       },
     });
