@@ -13,8 +13,8 @@ import {
   isValidPhone,
   isValidPassword,
 } from "../../utils/validation";
-import router from "../../utils/Router";
 import { PATHNAMES } from "../../utils/paths";
+import controller from "../../utils/api";
 
 class RegistationField implements FormInputProps {
   for: string;
@@ -50,42 +50,6 @@ export interface RegistrationPageProps {
   button: ButtonProps;
 }
 
-function authController(data: {}) {
-  const host = "https://ya-praktikum.tech";
-
-  fetch(`${host}/api/v2/auth/signup`, {
-    method: "POST",
-    credentials: "include", // Нужно подставлять куки
-    mode: "cors", // Работаем с CORS
-    headers: {
-      "content-type": "application/json", // Данные отправляем в формате JSON
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.text()) // Можно вытащить через .json()
-    .then((data) => {
-      console.log(data);
-      return data;
-    })
-    .then(() => {
-      fetch(`${host}/api/v2/auth/user`, {
-        // Получаем подробную информацию о пользователе и проверяем, что куки проставились
-        method: "GET",
-        mode: "cors",
-        credentials: "include",
-      }).then((response) => {
-        // return response.json();
-        if (response.status == 200 || response.status == 400) {
-          router.go(PATHNAMES.CHAT_PATH);
-          // console.log("Go!!!");
-        }
-      });
-      // .then((data) => {
-      //   console.log("user", data);
-      // });
-    });
-}
-
 export class RegistrationPage extends Block<RegistrationPageProps> {
   form = this.children.form as Form;
 
@@ -110,7 +74,7 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
           const isValid = this.form.isValid();
           const values = this.form.getValues();
           if (isValid && values) {
-            authController(values);
+            controller(values, PATHNAMES.CHAT_PATH);
           }
           console.log("form is valid: ", isValid);
           console.log(values);

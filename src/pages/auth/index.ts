@@ -8,8 +8,9 @@ import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
 import { isValidLogin, isValidPassword } from "../../utils/validation";
-import router from "../../utils/Router";
+import controller from "../../utils/api";
 import { PATHNAMES } from "../../utils/paths";
+import router from "../../utils/Router";
 
 const inputs: Array<{
   for: string;
@@ -46,8 +47,6 @@ export interface AuthorizationPageProps {
   forgot: Link;
 }
 
-// console.log(inputs);
-
 export class AuthorizationPage extends Block<AuthorizationPageProps> {
   form = this.children.form as Form;
 
@@ -69,9 +68,12 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
         click: (e: Event) => {
           e.preventDefault();
           const isValid = this.form.isValid();
-          const data = this.form.getValues();
+          const values = this.form.getValues();
           console.log("form is valid: ", isValid);
-          console.log(data);
+          console.log(values);
+          if (isValid && values) {
+            controller(values, PATHNAMES.CHAT_PATH);
+          }
         },
       },
     });
