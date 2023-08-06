@@ -2,13 +2,12 @@
 import Block from "../../utils/Block";
 import template from "./template.hbs";
 import style from "./style.module.css";
-// import { renderDom } from "../../utils/renderDom";
 import { Form } from "../../components/Form";
 import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
 import { isValidLogin, isValidPassword } from "../../utils/validation";
-import controller from "../../utils/api";
+import controller from "../../utils/ApiClient";
 import { PATHNAMES } from "../../utils/paths";
 import router from "../../utils/Router";
 
@@ -72,7 +71,7 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
           console.log("form is valid: ", isValid);
           console.log(values);
           if (isValid && values) {
-            controller(values, PATHNAMES.CHAT_PATH);
+            controller("signin", PATHNAMES.CHAT_PATH, values);
           }
         },
       },
