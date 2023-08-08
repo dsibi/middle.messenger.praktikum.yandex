@@ -55,7 +55,7 @@ const passFields: ProfileField[] = [
   new ProfileField("newPassword", "New Password", isValidPassword),
 ];
 
-let avaPath = "";
+let avaPath = "../../static/img/avatar.png";
 
 export function fillFields(data: any) {
   for (const key in data) {
