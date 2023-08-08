@@ -7,7 +7,7 @@ import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
 import { isValidLogin, isValidPassword } from "../../utils/validation";
-import callMethod from "../../api/ApiClient";
+import callMethod from "../../Api/ApiClient";
 import { PATHNAMES } from "../../utils/paths";
 import router from "../../utils/Router";
 

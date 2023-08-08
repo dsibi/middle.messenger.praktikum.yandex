@@ -1,75 +1,90 @@
-type Options = {
-  data?: any;
-  headers?: { key: string; value: string };
-  method?: string;
+enum METHODS {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
+}
+
+type RequestData = Record<string, string | number>;
+
+type Data = Document | XMLHttpRequestBodyInit | null | undefined;
+
+type RequestOptions = {
+  method?: METHODS;
+  headers?: Record<string, string>;
   timeout?: number;
+  data?: unknown;
+  withCredentials?: boolean;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
-
-const METHODS = {
-  GET: "GET",
-  PUT: "PUT",
-  POST: "POST",
-  DELETE: "DELETE",
-};
-
-const defaultTimeout = 5 * 1000; // 5 sec
-
-function queryStringify(data: any) {
-  return Object.entries(data)
-    .reduce((agg, [key, value]) => [...agg, `${key}=${value!.toString()}`], [])
-    .join("&");
+function queryStringify(data: RequestData) {
+  if (!data) {
+    return "";
+  }
+  return Object.entries(data).reduce(
+    (acc, [key, value], index, arr) =>
+      `${acc}${key}=${value}${index < arr.length - 1 ? "&" : ""}`,
+    "?"
+  );
 }
 
 export class HTTPTransport {
-  get: HTTPMethod = (url, options = {}) =>
-    this.request(
-      options.data ? `${url}?${queryStringify(options.data)}` : url,
-      { ...options, method: METHODS.GET }
-    );
+  public get = (url: string, options = {}) =>
+    this.request(url, { ...options, method: METHODS.GET });
 
-  post: HTTPMethod = (url, options = {}) =>
+  public post = (url: string, options = {}) =>
     this.request(url, { ...options, method: METHODS.POST });
 
-  put: HTTPMethod = (url, options = {}) =>
-    this.request(url, {
-      ...options,
-      method: METHODS.PUT,
-    });
+  public put = (url: string, options = {}) =>
+    this.request(url, { ...options, method: METHODS.PUT });
 
-  delete: HTTPMethod = (url, options = {}) =>
-    this.request(url, {
-      ...options,
-      method: METHODS.DELETE,
-    });
+  public patch = (url: string, options = {}) => {
+    return this.request(url, { ...options, method: METHODS.PATCH });
+  };
 
-  request: HTTPMethod = (url, options = {}) => {
-    const { method, data, headers, timeout = defaultTimeout } = options;
+  public delete = (url: string, options = {}) =>
+    this.request(url, { ...options, method: METHODS.DELETE });
 
-    if (!method) throw new Error("request method is undefined");
+  private request = (url: string, options: RequestOptions) => {
+    const {
+      method = METHODS.GET,
+      headers = {},
+      data,
+      timeout = 5000,
+      withCredentials = true,
+    } = options;
+
+    const dataTypeCov = data as RequestData;
+
+    const query = method === METHODS.GET ? queryStringify(dataTypeCov) : "";
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
 
-      if (headers) {
-        Object.entries(headers).forEach(([headerName, headerValue]) =>
-          xhr.setRequestHeader(headerName, headerValue)
-        );
+      xhr.open(method, `${url}${query}`);
+
+      if (withCredentials) {
+        xhr.withCredentials = true;
       }
 
-      xhr.timeout = timeout;
+      Object.entries(headers).forEach(([key, value]) =>
+        xhr.setRequestHeader(key, value)
+      );
 
-      xhr.onload = () => resolve(xhr);
+      xhr.onload = () => (xhr.status >= 300 ? reject(xhr) : resolve(xhr));
+
       xhr.onabort = reject;
       xhr.onerror = reject;
+      xhr.timeout = timeout;
       xhr.ontimeout = reject;
 
-      if (method === METHODS.GET || !data) {
-        xhr.send();
+      if (dataTypeCov?.constructor.name === "FormData") {
+        xhr.send(data as Data);
       } else {
-        xhr.send(JSON.stringify(data));
+        method === METHODS.GET || !data
+          ? xhr.send()
+          : xhr.send(JSON.stringify(data));
       }
     });
   };

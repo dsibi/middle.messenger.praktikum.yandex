@@ -16,7 +16,7 @@ import {
 } from "../../utils/validation";
 import router from "../../utils/Router";
 import { PATHNAMES } from "../../utils/paths";
-import { callPutMethod } from "../../api/Profile";
+import { callPutMethod } from "../../Api/Profile";
 
 class ProfileField implements FormInputProps {
   for: string;

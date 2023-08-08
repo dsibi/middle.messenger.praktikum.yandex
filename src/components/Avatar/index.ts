@@ -3,7 +3,7 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 import { AvatarInput } from "./AvatarInput";
 import { PATHNAMES } from "../../utils/paths";
-import { callPutAvaMethod } from "../../api/Profile";
+import { callPutAvaMethod } from "../../Api/Profile";
 
 export interface AvatarProps {
   avaPath: string;

@@ -2,8 +2,8 @@ import Block from "../../utils/Block";
 import template from "./template.hbs";
 import style from "./style.module.css";
 import { Link } from "./Link";
-import callMethod from "../../api/ApiClient";
-import { callGetMethod } from "../../api/Profile";
+import callMethod from "../../Api/ApiClient";
+import { callGetMethod } from "../../Api/Profile";
 import { PATHNAMES } from "../../utils/paths";
 
 export interface SettingsProps {

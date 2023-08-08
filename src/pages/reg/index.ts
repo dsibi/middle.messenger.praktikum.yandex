@@ -14,7 +14,7 @@ import {
   isValidPassword,
 } from "../../utils/validation";
 import { PATHNAMES } from "../../utils/paths";
-import callMethod from "../../api/ApiClient";
+import callMethod from "../../Api/ApiClient";
 
 class RegistationField implements FormInputProps {
   for: string;
