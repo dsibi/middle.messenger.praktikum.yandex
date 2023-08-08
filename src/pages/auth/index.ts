@@ -7,7 +7,7 @@ import { Header } from "../../components/Header";
 import { Button, ButtonProps } from "../../components/Button";
 import { Link } from "../../components/Link";
 import { isValidLogin, isValidPassword } from "../../utils/validation";
-import callMethod from "../../utils/ApiClient";
+import callMethod from "../../api/ApiClient";
 import { PATHNAMES } from "../../utils/paths";
 import router from "../../utils/Router";
 
@@ -71,7 +71,7 @@ export class AuthorizationPage extends Block<AuthorizationPageProps> {
           console.log("form is valid: ", isValid);
           console.log(values);
           if (isValid && values) {
-            callMethod("signin", PATHNAMES.CHAT_PATH, values);
+            callMethod("signin", "POST", PATHNAMES.CHAT_PATH, values);
           }
         },
       },

@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-// import { renderDom } from "../../utils/renderDom";
 import template from "./template.hbs";
 import style from "./style.module.css";
 import { Form } from "../../components/Form";
 import { FormInputProps } from "../../components/Form/FormInput";
 import { Header } from "../../components/Header";
 import { Avatar } from "../../components/Avatar";
-import avaPath from "../../../static/img/avatar.png";
 import { Button, ButtonProps } from "../../components/Button";
 import {
   isValidLogin,
@@ -18,83 +16,129 @@ import {
 } from "../../utils/validation";
 import router from "../../utils/Router";
 import { PATHNAMES } from "../../utils/paths";
+import { callPutMethod } from "../../api/Profile";
 
 class ProfileField implements FormInputProps {
   for: string;
   label: string;
   name: string;
   type: string;
-  id: string;
-  value: string;
+  id?: number;
+  value?: string;
   error?: string | undefined;
   events!: { click: () => void };
   validate: (value: string) => string;
   constructor(
-    id: string,
+    name: string,
     label: string,
-    value: string,
     validate: (value: string) => string
   ) {
-    this.for = id;
+    this.for = name;
     this.label = label;
-    this.id = id;
-    this.value = value;
-    this.type = id;
-    this.name = id;
+    this.type = name;
+    this.name = name;
     this.validate = validate;
   }
 }
 
-const pfFields: ProfileField[] = [
-  new ProfileField("first_name", "First Name", "Dmitry", isValidName),
-  new ProfileField("second_name", "Second Name", "Sib", isValidName),
-  new ProfileField("display_name", "Display Name", "Dmitry Sib", isValidName),
-  new ProfileField("login", "Login", "dimas", isValidLogin),
-  new ProfileField("email", "Email", "dimas@dimas.world", isValidEmail),
-  new ProfileField("phone", "Phone", "+7-777-777-7777", isValidPhone),
-  new ProfileField("old_password", "Old Password", "********", isValidPassword),
-  new ProfileField("new_password", "New Password", "********", isValidPassword),
+const userFields: ProfileField[] = [
+  new ProfileField("first_name", "First Name", isValidName),
+  new ProfileField("second_name", "Second Name", isValidName),
+  new ProfileField("display_name", "Display Name", isValidName),
+  new ProfileField("login", "Login", isValidLogin),
+  new ProfileField("email", "Email", isValidEmail),
+  new ProfileField("phone", "Phone", isValidPhone),
 ];
+
+const passFields: ProfileField[] = [
+  new ProfileField("oldPassword", "Old Password", isValidPassword),
+  new ProfileField("newPassword", "New Password", isValidPassword),
+];
+
+let avaPath = "";
+
+export function fillFields(data: any) {
+  for (const key in data) {
+    let index = userFields.findIndex((obj) => obj.name == key);
+    if (userFields[index] != undefined) {
+      userFields[index].value = data[key];
+    }
+  }
+  avaPath = data.avatar;
+}
 
 export interface ProfilePagePageProps {
   save: ButtonProps;
   cancel: ButtonProps;
 }
 
-// console.log(regFields);
-
 export class ProfilePage extends Block<ProfilePagePageProps> {
-  form = this.children.form as Form;
+  userForm = this.children.userFieldsForm as Form;
+  passForm = this.children.passFieldsForm as Form;
 
   init() {
     this.children.header = new Header();
-    this.children.avatar = new Avatar({ avaPath: avaPath, width: "100px" });
-    this.children.form = new Form({
-      inputs: pfFields.map((pfField) => ({
-        ...pfField,
+    this.children.avatar = new Avatar({
+      avaPath: `https://ya-praktikum.tech/api/v2/resources${avaPath}`,
+      width: "100px",
+    });
+    this.children.userFieldsForm = new Form({
+      inputs: userFields.map((userField) => ({
+        ...userField,
         events: {
-          focusin: () => this.form.validate(pfField.name),
-          focusout: () => this.form.validate(pfField.name),
+          focusin: () => this.userForm.validate(userField.name),
+          focusout: () => this.userForm.validate(userField.name),
         },
       })),
     });
-    this.children.save = new Button({
+    this.children.saveUserFields = new Button({
       label: "Save",
       class: style.button,
       events: {
         click: (e: Event) => {
           e.preventDefault();
-          const isValid = this.form.isValid();
-          const data = this.form.getValues();
+          const isValid = this.userForm.isValid();
+          const data = this.userForm.getValues();
           console.log("form is valid: ", isValid);
           console.log(data);
+          callPutMethod("profile", data, PATHNAMES.CHAT_PATH);
         },
       },
     });
-    this.children.cancel = new Button({
+    this.children.cancelUserFields = new Button({
       label: "Cancel",
       events: {
-        click: () => router.go(PATHNAMES.SIGNIN_PATH),
+        click: () => router.go(PATHNAMES.CHAT_PATH),
+      },
+      class: style.button,
+    });
+    this.children.passFieldsForm = new Form({
+      inputs: passFields.map((passField) => ({
+        ...passField,
+        events: {
+          focusin: () => this.passForm.validate(passField.name),
+          focusout: () => this.passForm.validate(passField.name),
+        },
+      })),
+    });
+    this.children.savePassFields = new Button({
+      label: "Save",
+      class: style.button,
+      events: {
+        click: (e: Event) => {
+          e.preventDefault();
+          const isValid = this.passForm.isValid();
+          const data = this.passForm.getValues();
+          console.log("form is valid: ", isValid);
+          console.log(data);
+          callPutMethod("password", data, PATHNAMES.CHAT_PATH);
+        },
+      },
+    });
+    this.children.cancelPassFields = new Button({
+      label: "Cancel",
+      events: {
+        click: () => router.go(PATHNAMES.CHAT_PATH),
       },
       class: style.button,
     });

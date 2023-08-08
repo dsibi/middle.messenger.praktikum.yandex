@@ -3,8 +3,6 @@ import template from "./template.hbs";
 import style from "./style.module.css";
 import { Avatar } from "../../../components/Avatar";
 import { Settings } from "../../../components/Settings";
-import callMethod from "../../../utils/ApiClient";
-import { PATHNAMES } from "../../../utils/paths";
 
 export interface HeaderProps {
   events: {
@@ -21,12 +19,6 @@ export class Header extends Block<HeaderProps> {
     this.children.settings = new Settings({
       avaPath: "../../../static/img/dots_white.png",
       width: "50px",
-      events: {
-        click: () => {
-          // callMethod("user", PATHNAMES.PROFILE_PATH);
-          callMethod("logout", PATHNAMES.SIGNIN_PATH);
-        },
-      },
     });
   }
 

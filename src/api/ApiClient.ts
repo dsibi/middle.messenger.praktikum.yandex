@@ -1,12 +1,17 @@
-import router from "./Router";
+import router from "../utils/Router";
 
-export default function callMethod(method: string, path: string, data?: {}) {
+export default function callMethod(
+  method: string,
+  httpVerb: HttpVerbs,
+  path: string,
+  data?: {}
+) {
   const host = "https://ya-praktikum.tech";
 
   fetch(`${host}/api/v2/auth/${method}`, {
-    method: "POST",
-    credentials: "include", // Нужно подставлять куки
-    mode: "cors", // Работаем с CORS
+    method: `${httpVerb}`,
+    mode: "cors",
+    credentials: "include",
     headers: {
       "content-type": "application/json", // Данные отправляем в формате JSON
     },
