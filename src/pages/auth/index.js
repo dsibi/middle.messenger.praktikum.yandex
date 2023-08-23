@@ -1,40 +1,13 @@
-import Handlebars from "handlebars";
+import tmpl from "./tmpl.hbs";
 
-export default function authPage() {
-  const template = Handlebars.compile(tmpl);
-  const result = template({
-    inputs: [
-      {
-        name: "login",
-        label: "Login",
-        type: "text",
-        placeholder: "Enter your login",
-        value: "",
-        disabled: "",
-        required: "required",
-      },
-      {
-        name: "password",
-        label: "Password",
-        type: "password",
-        placeholder: "Enter your password",
-        value: "",
-        disabled: "",
-        required: "required",
-      },
-    ].map((input) => input(input)),
-    button: button({
-      type: "submit",
-      id: "auth-submit",
-      name: "Авторизоваться",
-    }),
-  });
+const CHAT_NAMES = ["Название чата 1", "Название чата 2", "Название чата 3"];
 
-  document.querySelector("#app").innerHTML = result;
-  document
-    .querySelector("#auth-form")
-    .addEventListener("submit", authoriseFormHandler);
-  document
-    .querySelector("#back-to-registration")
-    .addEventListener("click", () => changePathName("registration"));
-}
+const chats = tmpl({
+  wrapperClassName: "chat__wrapper",
+  buttonText: "Добавить чат",
+  chatListClassName: "chat__list",
+  chatListItems: CHAT_NAMES,
+});
+console.log(chats);
+
+document.getElementById("app").innerHTML = chats;

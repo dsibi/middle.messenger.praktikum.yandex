@@ -1,11 +1,10 @@
 import { defineConfig } from "vite";
-import handlebars from "vite-plugin-handlebars";
-import path from "path";
+import handlebars from "./vite-plugin-handlebars-precompile";
 
 export default defineConfig({
-  root: path.resolve(__dirname, "src"),
+  root: "src",
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: "dist",
   },
   plugins: [handlebars()],
 });
