@@ -1,0 +1,17 @@
+@import "/default.scss";
+
+input {
+  width: 100%;
+  height: 24px;
+  border: none;
+  margin-bottom: 30px;
+
+  & {
+    border-bottom: 1px solid gray;
+  }
+
+  &:focus {
+    outline: none;
+    border-bottom: 2px solid $purple;
+  }
+}

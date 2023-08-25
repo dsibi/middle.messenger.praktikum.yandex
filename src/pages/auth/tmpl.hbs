@@ -1,12 +1,19 @@
-<div class="{{ wrapperClassName }}">
-<div class="chat__button">
-  <button class="button">
-    <span>{{ buttonText }}</span>
-  </button>
+<div class="authFormCont">
+<div class="authForm">
+  <div class="logoBox">
+<img
+      src="/static/img/logo.png"
+      alt="My Chat Logo"
+      id="logo"
+      width="100px"
+    />
+    </div>
+      {{> form}}
+      {{> link}}
+    <div class="buttonsCont">
+      {{> button signInBtn}}
+      <p>Not a user?</p>
+      {{> button signUpBtn}}
+    </div>
 </div>
-
-<ul class="{{ chatListClassName }}">
-  {{#each chatListItems }}
-  <li class="chat__item">{{this}}</li>
-  {{/each}}
-</ul>
+</div>

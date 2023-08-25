@@ -11,7 +11,7 @@ export default function handlebars(): PluginOption {
       }
       // vite transform .hbs to .js
       const code = `
-            import Handlebars from 'handlebars';
+            import Handlebars from 'handlebars/runtime';
             export default Handlebars.template(${Handlebars.precompile(src)});
         `;
       return {

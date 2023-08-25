@@ -1,13 +1,52 @@
-import tmpl from "./tmpl.hbs";
+import auth from "./tmpl.hbs";
+import form from "../../components/form/tmpl.hbs";
+import inputs from "../../components/form/input/tmpl.hbs";
+import link from "../../components/link/tmpl.hbs";
+import button from "../../components/button/tmpl.hbs";
+import Handlebars from "handlebars/runtime";
+import "./style.scss";
 
-const CHAT_NAMES = ["Название чата 1", "Название чата 2", "Название чата 3"];
-
-const chats = tmpl({
-  wrapperClassName: "chat__wrapper",
-  buttonText: "Добавить чат",
-  chatListClassName: "chat__list",
-  chatListItems: CHAT_NAMES,
+Handlebars.registerPartial({
+  form: form,
+  inputs: inputs,
+  link: link,
+  button: button,
 });
-console.log(chats);
 
-document.getElementById("app").innerHTML = chats;
+const inputsData = [
+  {
+    for: "login",
+    label: "Login",
+    name: "login",
+    type: "text",
+    error: "",
+    value: "",
+    // validate: isValidLogin,
+  },
+  {
+    for: "password",
+    label: "Password",
+    name: "password",
+    type: "password",
+    error: "",
+    value: "",
+    // validate: isValidPassword,
+  },
+];
+
+const page = auth({
+  input: inputsData,
+  linkText: "Forgot password?",
+  signInBtn: {
+    width: "100%",
+    id: "signIn",
+    label: "Sign In",
+  },
+  signUpBtn: {
+    width: "100%",
+    id: "signUp",
+    label: "Sign Up",
+  },
+});
+
+document.getElementById("app").innerHTML = page;

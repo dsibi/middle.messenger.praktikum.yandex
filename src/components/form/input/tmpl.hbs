@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="/components/form/input/style.scss" />
+{{#each input}}
+  <div>
+    <label for={{for}}>{{label}}</label>
+    <input type={{type}} name={{name}} />
+    {{!-- {{{error}}} --}}
+  </div>
+{{/each}}
