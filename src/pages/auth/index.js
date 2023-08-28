@@ -5,6 +5,11 @@ import link from "../../components/link/tmpl.hbs";
 import button from "../../components/button/tmpl.hbs";
 import Handlebars from "handlebars/runtime";
 import "./style.scss";
+import "../../components/form/style.scss";
+import "../../components/form/input/style.scss";
+import "../../components/link/style.scss";
+import "../../components/button/style.scss";
+import logoPath from "../../static/img/logo.png";
 
 Handlebars.registerPartial({
   form: form,
@@ -47,6 +52,7 @@ const page = auth({
     id: "signUp",
     label: "Sign Up",
   },
+  logoPath: logoPath,
 });
 
 document.getElementById("app").innerHTML = page;
