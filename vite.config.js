@@ -3,9 +3,9 @@ import { resolve } from "path";
 import handlebars from "./vite-plugin-handlebars-precompile";
 
 export default defineConfig({
-  root: "src",
+  root: resolve(__dirname, "src"),
   build: {
-    outDir: "dist",
+    outDir: resolve(__dirname, "dist"),
   },
   plugins: [handlebars()],
 });

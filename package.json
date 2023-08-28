@@ -13,6 +13,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "express": "^4.18.2",
     "handlebars": "^4.7.8",
     "lodash-es": "^4.17.21",
     "vite-plugin-handlebars": "^1.6.0"
