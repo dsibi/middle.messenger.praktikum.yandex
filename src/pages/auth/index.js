@@ -1,4 +1,6 @@
 import auth from "./tmpl.hbs";
+import logo from "../../components/appLogo/tmpl.hbs";
+import logoPath from "../../static/img/logo.png";
 import form from "../../components/form/tmpl.hbs";
 import inputs from "../../components/form/input/tmpl.hbs";
 import link from "../../components/link/tmpl.hbs";
@@ -9,9 +11,9 @@ import "../../components/form/style.scss";
 import "../../components/form/input/style.scss";
 import "../../components/link/style.scss";
 import "../../components/button/style.scss";
-import logoPath from "../../static/img/logo.png";
 
 Handlebars.registerPartial({
+  logo: logo,
   form: form,
   inputs: inputs,
   link: link,
@@ -40,19 +42,17 @@ const inputsData = [
 ];
 
 const page = auth({
+  logoPath: logoPath,
   input: inputsData,
   linkText: "Forgot password?",
   signInBtn: {
-    width: "100%",
     id: "signIn",
     label: "Sign In",
   },
   signUpBtn: {
-    width: "100%",
     id: "signUp",
     label: "Sign Up",
   },
-  logoPath: logoPath,
 });
 
 document.getElementById("app").innerHTML = page;

@@ -1,0 +1,10 @@
+@import "/default.scss";
+
+.avaBox {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+}

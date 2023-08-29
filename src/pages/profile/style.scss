@@ -1,0 +1,28 @@
+@import "/default.scss";
+
+.pfFormCont {
+  display: flex;
+  justify-content: center;
+
+  .pfForm {
+    width: 340px;
+    padding: 15px 30px 30px;
+    box-sizing: border-box;
+
+    img {
+      margin: 15px;
+      width: 100px;
+    }
+
+    .buttonCont {
+      // margin: 0px 80px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      button {
+        width: 130px;
+      }
+    }
+  }
+}
