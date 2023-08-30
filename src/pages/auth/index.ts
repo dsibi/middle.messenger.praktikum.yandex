@@ -55,4 +55,4 @@ const page = auth({
   },
 });
 
-document.getElementById("app").innerHTML = page;
+document.getElementById("app")!.innerHTML = page;

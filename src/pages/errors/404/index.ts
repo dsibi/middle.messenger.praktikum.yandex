@@ -14,4 +14,4 @@ const page = er404({
   desc: "Error 404 - page does not exist",
 });
 
-document.getElementById("app").innerHTML = page;
+document.getElementById("app")!.innerHTML = page;

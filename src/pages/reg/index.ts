@@ -1,18 +1,17 @@
-import pf from "./tmpl.hbs";
-import ava from "../../components/avatar/tmpl.hbs";
-import avaPath from "../../static/img/avatar.png";
+import reg from "./tmpl.hbs";
+import logo from "../../components/appLogo/tmpl.hbs";
+import logoPath from "../../static/img/logo.png";
 import form from "../../components/form/tmpl.hbs";
 import inputs from "../../components/form/input/tmpl.hbs";
 import button from "../../components/button/tmpl.hbs";
 import Handlebars from "handlebars/runtime";
 import "./style.scss";
-import "../../components/avatar/style.scss";
 import "../../components/form/style.scss";
 import "../../components/form/input/style.scss";
 import "../../components/button/style.scss";
 
 Handlebars.registerPartial({
-  ava: ava,
+  logo: logo,
   form: form,
   inputs: inputs,
   button: button,
@@ -25,7 +24,7 @@ const inputsData = [
     name: "first_name",
     type: "text",
     error: "",
-    value: "Dmitry",
+    value: "",
     // validate: isValidLogin,
   },
   {
@@ -34,7 +33,7 @@ const inputsData = [
     name: "second_name",
     type: "text",
     error: "",
-    value: "Sib",
+    value: "",
     // validate: isValidPassword,
   },
   {
@@ -43,7 +42,7 @@ const inputsData = [
     name: "login",
     type: "text",
     error: "",
-    value: "DmSib",
+    value: "",
     // validate: isValidPassword,
   },
   {
@@ -52,7 +51,7 @@ const inputsData = [
     name: "email",
     type: "text",
     error: "",
-    value: "dmsib@dmsib.ru",
+    value: "",
     // validate: isValidPassword,
   },
   {
@@ -61,42 +60,36 @@ const inputsData = [
     name: "phone",
     type: "text",
     error: "",
-    value: "+7-777-777-7777",
+    value: "",
     // validate: isValidPassword,
   },
   {
     for: "password",
-    label: "Old password",
-    name: "oldPassword",
-    type: "password",
+    label: "Password",
+    name: "password",
+    type: "text",
     error: "",
-    value: "Qwerty12345",
+    value: "",
     // validate: isValidPassword,
   },
   {
     for: "password",
-    label: "New password",
-    name: "newPassword",
-    type: "password",
+    label: "Password (repeat)",
+    name: "password",
+    type: "text",
     error: "",
-    value: "Qwerty12345",
+    value: "",
     // validate: isValidPassword,
   },
 ];
 
-const page = pf({
-  avaProps: {
-    avaPath: avaPath,
-  },
+const page = reg({
+  logoPath: logoPath,
   input: inputsData,
-  confirmBtn: {
-    id: "confirm",
-    label: "Confirm",
-  },
-  cancelBtn: {
-    id: "cancel",
-    label: "Cancel",
+  regBtn: {
+    id: "regBtn",
+    label: "Registration",
   },
 });
 
-document.getElementById("app").innerHTML = page;
+document.getElementById("app")!.innerHTML = page;

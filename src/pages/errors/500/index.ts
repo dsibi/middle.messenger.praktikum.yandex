@@ -14,4 +14,4 @@ const page = er500({
   desc: "Error 500 - server is unavailable",
 });
 
-document.getElementById("app").innerHTML = page;
+document.getElementById("app")!.innerHTML = page;
