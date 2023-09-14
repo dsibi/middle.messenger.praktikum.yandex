@@ -28,7 +28,7 @@ export default abstract class Block {
     propsAndChildren: Record<string | symbol, any> = {}
   ) {
     // элемент-обёртку,
-    const { children, props } = this.getChildren(propsAndChildren);
+    const { children, props } = this.getChildrenAndProps(propsAndChildren);
     // создаём Event Bus => this.eventBus = () => eventBus;
     this._eventBus = new EventBus();
     this._id = makeUUID();
@@ -43,7 +43,7 @@ export default abstract class Block {
   }
 
   registerEvents() {
-    this._eventBus.attach(Block.EVENTS.INIT, this.init.bind(this));
+    this._eventBus.attach(Block.EVENTS.INIT, this._init.bind(this));
     this._eventBus.attach(
       Block.EVENTS.FLOW_CDM,
       this._componentDidMount.bind(this)
@@ -60,10 +60,13 @@ export default abstract class Block {
     this._element = this.createDocumentElement(tagName);
   }
 
-  init() {
+  private _init() {
     this._createResources();
+    this.init();
     this._eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
+
+  protected init() {}
 
   createDocumentElement(tagName: string) {
     const element = document.createElement(tagName);
@@ -106,7 +109,7 @@ export default abstract class Block {
     });
   }
 
-  getChildren(propsAndChildren: Record<string | symbol, any>) {
+  getChildrenAndProps(propsAndChildren: Record<string | symbol, any>) {
     const children: Record<string, Block> | Record<string, Block[]> = {};
     const props: Record<string | symbol, any> = {};
 
@@ -210,7 +213,6 @@ export default abstract class Block {
     return oldProps !== newProps;
   }
 
-  // setProps(newProps: unknown) {
   setProps(newProps: unknown) {
     if (!newProps) {
       return;
@@ -219,7 +221,7 @@ export default abstract class Block {
     this._setUpdate = true;
     const oldValue = { ...this._props };
 
-    const { children, props } = this.getChildren(newProps);
+    const { children, props } = this.getChildrenAndProps(newProps);
 
     if (Object.values(children).length) {
       Object.assign(this._children, children);
