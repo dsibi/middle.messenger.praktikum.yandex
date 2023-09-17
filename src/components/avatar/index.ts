@@ -1,11 +1,11 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import path from "../../static/img/logo.png";
+import path from "../../static/img/avatar.png";
 
-export default class Logo extends Block {
+export default class Avatar extends Block {
   constructor() {
-    super({ logoPath: path });
+    super({ avaPath: path });
   }
   render() {
     return this.compile(template, { ...this.props });

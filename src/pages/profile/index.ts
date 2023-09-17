@@ -1,22 +1,9 @@
-import pf from "./tmpl.hbs";
-import ava from "../../components/avatar/tmpl.hbs";
-import avaPath from "../../static/img/avatar.png";
-import form from "../../components/form/tmpl.hbs";
-import inputs from "../../components/form/input/tmpl.hbs";
-import button from "../../components/button/tmpl.hbs";
-import Handlebars from "handlebars/runtime";
+import Block from "../../utils/Block";
+import template from "./tmpl.hbs";
 import "./style.scss";
-import "../../components/avatar/style.scss";
-import "../../components/form/style.scss";
-import "../../components/form/input/style.scss";
-import "../../components/button/style.scss";
-
-Handlebars.registerPartial({
-  ava: ava,
-  form: form,
-  inputs: inputs,
-  button: button,
-});
+import Avatar from "../../components/avatar";
+import Form from "../../components/form";
+import Button from "../../components/button";
 
 const inputsData = [
   {
@@ -84,19 +71,45 @@ const inputsData = [
   },
 ];
 
-const page = pf({
-  avaProps: {
-    avaPath: avaPath,
-  },
-  input: inputsData,
-  confirmBtn: {
-    id: "confirm",
-    label: "Confirm",
-  },
-  cancelBtn: {
-    id: "cancel",
-    label: "Cancel",
-  },
-});
+export default class PfPage extends Block {
+  init() {
+    this.children.avaProps = new Avatar();
+    this.children.form = new Form({
+      input: inputsData.map((input) => ({
+        ...input,
+        events: {
+          // focusin: () => this.form.validate(input.name),
+          // focusout: () => this.form.validate(input.name),
+        },
+      })),
+    });
+    this.children.confirmBtn = new Button({
+      id: "confirm",
+      label: "Confirm",
+    });
+    this.children.cancelBtn = new Button({
+      id: "cancel",
+      label: "Cancel",
+    });
+  }
+  render() {
+    return this.compile(template, { ...this.props });
+  }
+}
 
-document.getElementById("app")!.innerHTML = page;
+// const page = pf({
+//   avaProps: {
+//     avaPath: avaPath,
+//   },
+//   input: inputsData,
+//   confirmBtn: {
+//     id: "confirm",
+//     label: "Confirm",
+//   },
+//   cancelBtn: {
+//     id: "cancel",
+//     label: "Cancel",
+//   },
+// });
+
+// document.getElementById("app")!.innerHTML = page;

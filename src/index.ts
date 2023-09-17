@@ -1,7 +1,8 @@
 import Block from "./utils/Block";
 // import AuthPage from "./pages/auth";
 // import Error404 from "./pages/errors/404";
-import Error500 from "./pages/errors/500";
+// import Error500 from "./pages/errors/500";
+import PfPage from "./pages/profile";
 
 function renderPage(block: Block) {
   const root = document.querySelector("#app");
@@ -14,4 +15,4 @@ function renderPage(block: Block) {
 }
 
 // renderPage(new AuthPage());
-renderPage(new Error500());
+renderPage(new PfPage());
