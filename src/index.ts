@@ -1,10 +1,10 @@
 import Block from "./utils/Block";
-// import AuthPage from "./pages/auth";
-// import Error404 from "./pages/errors/404";
-// import Error500 from "./pages/errors/500";
-import RegPage from "./pages/reg";
+import AuthPage from "./pages/auth";
+import Error404 from "./pages/errors/404";
+import Error500 from "./pages/errors/500";
+import PfPage from "./pages/profile";
 
-function renderPage(block: Block) {
+function renderPage(block: Block<Record<string | symbol, any>>) {
   const root = document.querySelector("#app");
   if (root) {
     root.innerHTML = "";
@@ -14,5 +14,5 @@ function renderPage(block: Block) {
   return root;
 }
 
-// renderPage(new AuthPage());
-renderPage(new RegPage());
+// renderPage(new PfPage());
+renderPage(new AuthPage());

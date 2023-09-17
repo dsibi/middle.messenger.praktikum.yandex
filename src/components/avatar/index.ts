@@ -3,7 +3,11 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 import path from "../../static/img/avatar.png";
 
-export default class Avatar extends Block {
+export interface AvaProps {
+  avaPath: string;
+}
+
+export default class Avatar extends Block<AvaProps> {
   constructor() {
     super({ avaPath: path });
   }

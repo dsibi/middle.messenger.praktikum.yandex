@@ -1,7 +1,9 @@
 type VoidSubscriber = (oldProps?: unknown, newProps?: unknown) => void;
 
 export default class EventBus {
-  listeners: Record<string, VoidSubscriber[]>;
+  listeners: {
+    [key: string]: Function[];
+  };
   constructor() {
     this.listeners = {};
   }

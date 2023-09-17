@@ -3,7 +3,11 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 import path from "../../static/img/logo.png";
 
-export default class Logo extends Block {
+export interface LogoProps {
+  logoPath: string;
+}
+
+export default class Logo extends Block<LogoProps> {
   constructor() {
     super({ logoPath: path });
   }

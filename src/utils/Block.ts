@@ -1,8 +1,12 @@
 import EventBus from "./EventBus";
 import { v4 as makeUUID } from "uuid";
 
+type Nullable<T> = T | null;
+
 // Нельзя создавать экземпляр данного класса
-export default abstract class Block {
+export default abstract class Block<
+  Props extends Record<string | symbol, any>
+> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -10,11 +14,11 @@ export default abstract class Block {
     FLOW_RENDER: "flow:render",
   };
 
-  protected props: Record<string | symbol, any>;
-  protected children: Record<string, Block> | Record<string, Block[]> = {};
-  private id: null | string = null;
-  private _element: HTMLElement | null = null;
-  private eventBus: EventBus;
+  protected props;
+  protected children;
+  private id: Nullable<string> = null;
+  private _element: Nullable<HTMLElement> = null;
+  private eventBus;
   private setUpdate: boolean = false;
 
   // Создаём в конструкторе необходимые ресурсы для компонента:
@@ -100,12 +104,14 @@ export default abstract class Block {
   }
 
   getChildrenAndProps(propsAndChildren: Record<string | symbol, any>) {
-    const children: Record<string, Block> | Record<string, Block[]> = {};
+    const children:
+      | Record<string, Block<Props>>
+      | Record<string, Block<Props>[]> = {};
     const props: Record<string | symbol, any> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        const result: Block[] = [];
+        const result: Block<Props>[] = [];
         value.map((el) => {
           if (el instanceof Block) {
             result.push(el);

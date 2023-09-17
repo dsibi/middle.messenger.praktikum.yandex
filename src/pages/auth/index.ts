@@ -1,14 +1,13 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Logo from "../../components/appLogo/index";
-import Form from "../../components/form/index";
-import Link from "../../components/link/index";
-import Button from "../../components/button/index";
+import Logo, { LogoProps } from "../../components/appLogo/index";
+import Form, { FormProps } from "../../components/form/index";
+import Link, { LinkProps } from "../../components/link/index";
+import Button, { ButtonProps } from "../../components/button/index";
 
 const inputsData = [
   {
-    for: "login",
     label: "Login",
     name: "login",
     type: "text",
@@ -17,7 +16,6 @@ const inputsData = [
     // validate: isValidLogin,
   },
   {
-    for: "password",
     label: "Password",
     name: "password",
     type: "password",
@@ -27,28 +25,39 @@ const inputsData = [
   },
 ];
 
-export default class AuthPage extends Block {
-  init() {
-    this.children.logo = new Logo();
-    this.children.form = new Form({
-      input: inputsData.map((input) => ({
-        ...input,
-        events: {
-          // focusin: () => this.form.validate(input.name),
-          // focusout: () => this.form.validate(input.name),
-        },
-      })),
-    });
-    this.children.link = new Link({ linkText: "Forgot password?" });
-    this.children.signInBtn = new Button({
-      id: "signIn",
-      label: "Sign In",
-    });
-    this.children.signUpBtn = new Button({
-      id: "signUp",
-      label: "Sign Up",
+export interface AuthPageProps {
+  logo: LogoProps;
+  form: FormProps;
+  link: LinkProps;
+  signInBtn: ButtonProps;
+  signUpBtn: ButtonProps;
+}
+
+export default class AuthPage extends Block<AuthPageProps> {
+  constructor() {
+    super({
+      logo: new Logo(),
+      form: new Form({
+        input: inputsData.map((input) => ({
+          ...input,
+          events: {
+            // focusin: () => this.form.validate(input.name),
+            // focusout: () => this.form.validate(input.name),
+          },
+        })),
+      }),
+      link: new Link({ linkText: "Forgot password?" }),
+      signInBtn: new Button({
+        id: "signIn",
+        label: "Sign In",
+      }),
+      signUpBtn: new Button({
+        id: "signUp",
+        label: "Sign Up",
+      }),
     });
   }
+
   render() {
     return this.compile(template, { ...this.props });
   }
