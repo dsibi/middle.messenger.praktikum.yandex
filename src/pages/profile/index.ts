@@ -96,20 +96,3 @@ export default class PfPage extends Block {
     return this.compile(template, { ...this.props });
   }
 }
-
-// const page = pf({
-//   avaProps: {
-//     avaPath: avaPath,
-//   },
-//   input: inputsData,
-//   confirmBtn: {
-//     id: "confirm",
-//     label: "Confirm",
-//   },
-//   cancelBtn: {
-//     id: "cancel",
-//     label: "Cancel",
-//   },
-// });
-
-// document.getElementById("app")!.innerHTML = page;

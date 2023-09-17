@@ -1,21 +1,9 @@
-import reg from "./tmpl.hbs";
-import logo from "../../components/appLogo/tmpl.hbs";
-import logoPath from "../../static/img/logo.png";
-import form from "../../components/form/tmpl.hbs";
-import inputs from "../../components/form/input/tmpl.hbs";
-import button from "../../components/button/tmpl.hbs";
-import Handlebars from "handlebars/runtime";
+import Block from "../../utils/Block";
+import template from "./tmpl.hbs";
 import "./style.scss";
-import "../../components/form/style.scss";
-import "../../components/form/input/style.scss";
-import "../../components/button/style.scss";
-
-Handlebars.registerPartial({
-  logo: logo,
-  form: form,
-  inputs: inputs,
-  button: button,
-});
+import Logo from "../../components/appLogo/index";
+import Form from "../../components/form/index";
+import Button from "../../components/button/index";
 
 const inputsData = [
   {
@@ -83,13 +71,24 @@ const inputsData = [
   },
 ];
 
-const page = reg({
-  logoPath: logoPath,
-  input: inputsData,
-  regBtn: {
-    id: "regBtn",
-    label: "Registration",
-  },
-});
-
-document.getElementById("app")!.innerHTML = page;
+export default class RegPage extends Block {
+  init() {
+    this.children.logo = new Logo();
+    this.children.form = new Form({
+      input: inputsData.map((input) => ({
+        ...input,
+        events: {
+          // focusin: () => this.form.validate(input.name),
+          // focusout: () => this.form.validate(input.name),
+        },
+      })),
+    });
+    this.children.regBtn = new Button({
+      id: "regBtn",
+      label: "Registration",
+    });
+  }
+  render() {
+    return this.compile(template, { ...this.props });
+  }
+}

@@ -2,7 +2,7 @@ import Block from "./utils/Block";
 // import AuthPage from "./pages/auth";
 // import Error404 from "./pages/errors/404";
 // import Error500 from "./pages/errors/500";
-import PfPage from "./pages/profile";
+import RegPage from "./pages/reg";
 
 function renderPage(block: Block) {
   const root = document.querySelector("#app");
@@ -15,4 +15,4 @@ function renderPage(block: Block) {
 }
 
 // renderPage(new AuthPage());
-renderPage(new PfPage());
+renderPage(new RegPage());
