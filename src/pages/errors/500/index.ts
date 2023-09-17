@@ -1,17 +1,17 @@
-import er500 from "./tmpl.hbs";
-import error from "../../../components/error/tmpl.hbs";
-import errorPath from "../../../static/img/problem.png";
-import Handlebars from "handlebars/runtime";
+import Block from "../../../utils/Block";
+import template from "./tmpl.hbs";
 import "./style.scss";
-import "../../../components/error/style.scss";
+import Error from "../../../components/error/index";
+import path from "../../../static/img/problem.png";
 
-Handlebars.registerPartial({
-  error: error,
-});
-
-const page = er500({
-  errorPath: errorPath,
-  desc: "Error 500 - server is unavailable",
-});
-
-document.getElementById("app")!.innerHTML = page;
+export default class Error500 extends Block {
+  init() {
+    this.children.error = new Error({
+      errorPath: path,
+      desc: "Error 500 - server is unavailable",
+    });
+  }
+  render() {
+    return this.compile(template, { ...this.props });
+  }
+}

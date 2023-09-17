@@ -1,14 +1,10 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
+import "./style.scss";
 import Logo from "../../components/appLogo/index";
 import Form from "../../components/form/index";
 import Link from "../../components/link/index";
 import Button from "../../components/button/index";
-import "./style.scss";
-import "../../components/form/style.scss";
-import "../../components/form/input/style.scss";
-import "../../components/link/style.scss";
-import "../../components/button/style.scss";
 
 const inputsData = [
   {

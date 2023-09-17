@@ -1,17 +1,17 @@
-import er404 from "./tmpl.hbs";
-import error from "../../../components/error/tmpl.hbs";
-import errorPath from "../../../static/img/error-404.png";
-import Handlebars from "handlebars/runtime";
+import Block from "../../../utils/Block";
+import template from "./tmpl.hbs";
 import "./style.scss";
-import "../../../components/error/style.scss";
+import Error from "../../../components/error/index";
+import path from "../../../static/img/error-404.png";
 
-Handlebars.registerPartial({
-  error: error,
-});
-
-const page = er404({
-  errorPath: errorPath,
-  desc: "Error 404 - page does not exist",
-});
-
-document.getElementById("app")!.innerHTML = page;
+export default class Error404 extends Block {
+  init() {
+    this.children.error = new Error({
+      errorPath: path,
+      desc: "Error 404 - page does not exist",
+    });
+  }
+  render() {
+    return this.compile(template, { ...this.props });
+  }
+}
