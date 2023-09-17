@@ -2,7 +2,7 @@ import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
 import { InputProps } from "../../components/form/input/index";
-import Logo, { LogoProps } from "../../components/appLogo/index";
+import Logo, { LogoProps } from "../../components/logo/index";
 import Form, { FormProps } from "../../components/form/index";
 import Button, { ButtonProps } from "../../components/button/index";
 

@@ -4,11 +4,11 @@ import "./style.scss";
 import Error, { ErrorProps } from "../../../components/error/index";
 import path from "../../../static/img/error-404.png";
 
-export interface RegPageProps {
+export interface Error404PageProps {
   error: ErrorProps;
 }
 
-export default class Error404 extends Block<RegPageProps> {
+export default class Error404 extends Block<Error404PageProps> {
   constructor() {
     super({
       error: new Error({
