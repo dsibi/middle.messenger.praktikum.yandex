@@ -1,0 +1,60 @@
+import { InputProps } from "../components/form/input";
+
+export let inputsData: InputProps[] = [
+  {
+    label: "First Name",
+    name: "first_name",
+    type: "text",
+    error: "",
+    value: "Dmitry",
+    // validate: isValidLogin,
+  },
+  {
+    label: "Second Name",
+    name: "second_name",
+    type: "text",
+    error: "",
+    value: "Sib",
+    // validate: isValidPassword,
+  },
+  {
+    label: "Login",
+    name: "login",
+    type: "text",
+    error: "",
+    value: "DmSib",
+    // validate: isValidPassword,
+  },
+  {
+    label: "Email",
+    name: "email",
+    type: "text",
+    error: "",
+    value: "dmsib@dmsib.ru",
+    // validate: isValidPassword,
+  },
+  {
+    label: "Phone",
+    name: "phone",
+    type: "text",
+    error: "",
+    value: "+7-777-777-7777",
+    // validate: isValidPassword,
+  },
+  {
+    label: "Old password",
+    name: "oldPassword",
+    type: "password",
+    error: "",
+    value: "Qwerty12345",
+    // validate: isValidPassword,
+  },
+  {
+    label: "New password",
+    name: "newPassword",
+    type: "password",
+    error: "",
+    value: "Qwerty12345",
+    // validate: isValidPassword,
+  },
+];

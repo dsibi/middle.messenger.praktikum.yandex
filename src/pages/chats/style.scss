@@ -1,0 +1,14 @@
+@import "/default.scss";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.chats {
+  display: flex;
+}
+
+.messenger {
+  flex-grow: 10;
+}

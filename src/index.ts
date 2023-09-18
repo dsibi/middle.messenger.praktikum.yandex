@@ -3,6 +3,8 @@ import AuthPage from "./pages/auth";
 import Error404 from "./pages/errors/404";
 import Error500 from "./pages/errors/500";
 import PfPage from "./pages/profile";
+import ChatsPage from "./pages/chats";
+import RegPage from "./pages/reg";
 
 function renderPage(block: Block<Record<string | symbol, any>>) {
   const root = document.querySelector("#app");
@@ -14,5 +16,5 @@ function renderPage(block: Block<Record<string | symbol, any>>) {
   return root;
 }
 
-// renderPage(new PfPage());
-renderPage(new AuthPage());
+// renderPage(new RegPage());
+renderPage(new ChatsPage());

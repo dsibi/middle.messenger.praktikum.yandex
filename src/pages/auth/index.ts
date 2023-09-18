@@ -5,25 +5,7 @@ import Logo, { LogoProps } from "../../components/logo/index";
 import Form, { FormProps } from "../../components/form/index";
 import Link, { LinkProps } from "../../components/link/index";
 import Button, { ButtonProps } from "../../components/button/index";
-
-const inputsData = [
-  {
-    label: "Login",
-    name: "login",
-    type: "text",
-    error: "",
-    value: "",
-    // validate: isValidLogin,
-  },
-  {
-    label: "Password",
-    name: "password",
-    type: "password",
-    error: "",
-    value: "",
-    // validate: isValidPassword,
-  },
-];
+import { inputsData } from "../../data/auth";
 
 export interface AuthPageProps {
   logo: LogoProps;
