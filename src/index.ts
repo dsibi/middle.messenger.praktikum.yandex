@@ -5,4 +5,6 @@ window.addEventListener("DOMContentLoaded", () => {
   // renderDom("profilePage");
   // renderDom("registrationPage");
   // renderDom("chatsPage");
+  // renderDom("errorPage404");
+  // renderDom("errorPage500");
 });
