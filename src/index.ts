@@ -1,20 +1,8 @@
-import Block from "./utils/Block";
-import AuthPage from "./pages/auth";
-import Error404 from "./pages/errors/404";
-import Error500 from "./pages/errors/500";
-import PfPage from "./pages/profile";
-import ChatsPage from "./pages/chats";
-import RegPage from "./pages/reg";
+import { renderDom } from "./utils/renderDom";
 
-function renderPage(block: Block<Record<string | symbol, any>>) {
-  const root = document.querySelector("#app");
-  if (root) {
-    root.innerHTML = "";
-    root.appendChild(block.getContent()!);
-  }
-  block.dispatchComponentDidMount();
-  return root;
-}
-
-// renderPage(new RegPage());
-renderPage(new ChatsPage());
+window.addEventListener("DOMContentLoaded", () => {
+  renderDom("authorizationPage");
+  // renderDom("profilePage");
+  // renderDom("registrationPage");
+  // renderDom("chatsPage");
+});
