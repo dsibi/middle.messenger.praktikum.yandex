@@ -23,6 +23,7 @@ export default class Messenger extends Block<MessengerProps> {
             time: message.time.toLocaleTimeString().replace(/(.*)\D\d+/, "$1"),
             isInbox: message.isInbox,
             isRead: message.isRead,
+            msgStyle: "",
           })
       ),
       input: new Input(),
