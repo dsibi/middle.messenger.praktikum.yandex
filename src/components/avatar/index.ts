@@ -5,6 +5,9 @@ import "./style.scss";
 export interface AvaProps {
   avaPath: string;
   altText: string;
+  events?: {
+    click: () => void;
+  };
 }
 
 export default class Avatar extends Block<AvaProps> {

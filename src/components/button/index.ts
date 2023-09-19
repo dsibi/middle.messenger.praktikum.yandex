@@ -5,6 +5,9 @@ import "./style.scss";
 export interface ButtonProps {
   id: string;
   label: string;
+  events: {
+    click: () => void;
+  };
 }
 
 export default class Button extends Block<ButtonProps> {

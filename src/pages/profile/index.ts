@@ -6,6 +6,7 @@ import path from "../../static/img/avatar.png";
 import Form, { FormProps } from "../../components/form/index";
 import Button, { ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/profile";
+import { renderDom } from "../../utils/renderDom";
 
 export interface PfPageProps {
   myAva: AvaProps;
@@ -33,10 +34,16 @@ export default class PfPage extends Block<PfPageProps> {
       confirmBtn: new Button({
         id: "confirm",
         label: "Confirm",
+        events: {
+          click: () => renderDom("chatsPage"),
+        },
       }),
       cancelBtn: new Button({
         id: "cancel",
         label: "Cancel",
+        events: {
+          click: () => renderDom("chatsPage"),
+        },
       }),
     });
   }

@@ -5,6 +5,7 @@ import Logo, { LogoProps } from "../../components/logo/index";
 import Form, { FormProps } from "../../components/form/index";
 import Button, { ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
+import { renderDom } from "../../utils/renderDom";
 
 export interface RegPageProps {
   logo: LogoProps;
@@ -28,6 +29,9 @@ export default class RegPage extends Block<RegPageProps> {
       regBtn: new Button({
         id: "regBtn",
         label: "Registration",
+        events: {
+          click: () => renderDom("chatsPage"),
+        },
       }),
     });
   }

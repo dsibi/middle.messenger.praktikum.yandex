@@ -4,6 +4,9 @@ import "./style.scss";
 
 export interface LinkProps {
   linkText: string;
+  events: {
+    click: () => void;
+  };
 }
 
 export default class Link extends Block<LinkProps> {
