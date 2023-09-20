@@ -1,4 +1,5 @@
 import { InputProps } from "../components/form/input";
+import { isValidLogin, isValidPassword } from "../utils/validation";
 
 export let inputsData: InputProps[] = [
   {
@@ -7,7 +8,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidLogin,
+    validate: isValidLogin,
   },
   {
     label: "Second Name",
@@ -15,7 +16,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
   {
     label: "Login",
@@ -23,7 +24,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
   {
     label: "Email",
@@ -31,7 +32,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
   {
     label: "Phone",
@@ -39,7 +40,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
   {
     label: "Password",
@@ -47,14 +48,14 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
   {
     label: "Password (repeat)",
-    name: "password",
+    name: "password_repeat",
     type: "text",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
 ];

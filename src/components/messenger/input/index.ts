@@ -29,7 +29,17 @@ export default class Input extends Block<InputProps> {
         //   },
         // },
       }),
-      submitButton: new Button({ id: "submit", label: ">" }),
+      submitButton: new Button({
+        id: "submit",
+        label: ">",
+        events: {
+          click: (e) => {
+            e.preventDefault();
+            const { value, name } = this.children.text;
+            console.log({ [name]: value });
+          },
+        },
+      }),
     });
   }
   render() {

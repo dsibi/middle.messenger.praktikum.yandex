@@ -17,25 +17,29 @@ export interface PfPageProps {
 
 export default class PfPage extends Block<PfPageProps> {
   constructor() {
+    let form = new Form({
+      input: inputsData.map((input) => ({
+        ...input,
+        events: {
+          // focusin: () => this.form.validate(input.name),
+          // focusout: () => this.form.validate(input.name),
+        },
+      })),
+    });
     super({
       myAva: new Avatar({
         avaPath: path,
         altText: "My Ava",
       }),
-      form: new Form({
-        input: inputsData.map((input) => ({
-          ...input,
-          events: {
-            // focusin: () => this.form.validate(input.name),
-            // focusout: () => this.form.validate(input.name),
-          },
-        })),
-      }),
+      form: form,
       confirmBtn: new Button({
         id: "confirm",
         label: "Confirm",
         events: {
-          click: () => renderDom("chatsPage"),
+          click: () => {
+            const data = form.getValues();
+            console.log(data);
+          },
         },
       }),
       cancelBtn: new Button({

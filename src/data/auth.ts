@@ -1,4 +1,5 @@
 import { InputProps } from "../components/form/input";
+import { isValidLogin, isValidPassword } from "../utils/validation";
 
 export let inputsData: InputProps[] = [
   {
@@ -7,7 +8,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "",
-    // validate: isValidLogin,
+    validate: isValidLogin,
   },
   {
     label: "Password",
@@ -15,6 +16,6 @@ export let inputsData: InputProps[] = [
     type: "password",
     error: "",
     value: "",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
 ];

@@ -131,10 +131,8 @@ export default abstract class Block<
 
   compile(template: (props: any) => string, props: any) {
     if (typeof props == "undefined") props = this.props;
-    // console.log(props);
 
     const propsAndStubs = { ...props };
-    // console.log(propsAndStubs);
 
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {

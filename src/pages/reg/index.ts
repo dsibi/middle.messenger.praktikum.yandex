@@ -15,22 +15,26 @@ export interface RegPageProps {
 
 export default class RegPage extends Block<RegPageProps> {
   constructor() {
+    let form = new Form({
+      input: inputsData.map((input) => ({
+        ...input,
+        events: {
+          // focusin: () => this.form.validate(input.name),
+          // focusout: () => this.form.validate(input.name),
+        },
+      })),
+    });
     super({
       logo: new Logo(),
-      form: new Form({
-        input: inputsData.map((input) => ({
-          ...input,
-          events: {
-            // focusin: () => this.form.validate(input.name),
-            // focusout: () => this.form.validate(input.name),
-          },
-        })),
-      }),
+      form: form,
       regBtn: new Button({
         id: "regBtn",
         label: "Registration",
         events: {
-          click: () => renderDom("chatsPage"),
+          click: () => {
+            const data = form.getValues();
+            console.log(data);
+          },
         },
       }),
     });

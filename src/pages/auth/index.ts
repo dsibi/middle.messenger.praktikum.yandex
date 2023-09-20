@@ -18,17 +18,17 @@ export interface AuthPageProps {
 
 export default class AuthPage extends Block<AuthPageProps> {
   constructor() {
+    let form = new Form({
+      input: inputsData.map((input) => ({
+        ...input,
+        // events: {
+        //   focusin: () => this.form.validate,
+        // },
+      })),
+    });
     super({
       logo: new Logo(),
-      form: new Form({
-        input: inputsData.map((input) => ({
-          ...input,
-          events: {
-            // focusin: () => this.form.validate(input.name),
-            // focusout: () => this.form.validate(input.name),
-          },
-        })),
-      }),
+      form: form,
       link: new Link({
         linkText: "Forgot password?",
         events: {
@@ -38,8 +38,16 @@ export default class AuthPage extends Block<AuthPageProps> {
       signInBtn: new Button({
         id: "signIn",
         label: "Sign In",
+        // events: {
+        //   click: () => renderDom("chatsPage"),
+        // },
         events: {
-          click: () => renderDom("chatsPage"),
+          click: () => {
+            const data = form.getValues();
+            console.log(data);
+            // const isValid = this.form.isValid();
+            // console.log("form is valid: ", isValid);
+          },
         },
       }),
       signUpBtn: new Button({

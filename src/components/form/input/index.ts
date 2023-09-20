@@ -9,15 +9,37 @@ export interface InputProps {
   error?: string;
   value?: string;
   // events: {
-  //   click: () => void;
+  //   validate: (value: string) => string;
   // };
-  // validate: (value: string) => string;
+  validate: () => string;
 }
 
 export default class Input extends Block<InputProps> {
+  inputElement: HTMLInputElement;
   constructor(props: InputProps) {
     super(props);
+    this.inputElement = (this.element as HTMLElement)
+      .children[1] as HTMLInputElement;
   }
+
+  get value() {
+    return this.inputElement.value;
+  }
+
+  get name() {
+    return this.inputElement.name;
+  }
+
+  // validate(name: string) {
+  //   const currentInput = this.inputsElements.find(
+  //     (input) => input.name === name
+  //   );
+  //   if (!currentInput) throw new Error("input not found");
+  //   currentInput.validate();
+  // }
+
+  // errorElement = this.children.error as Error;
+
   render() {
     return this.compile(template, { ...this.props });
   }
