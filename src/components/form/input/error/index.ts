@@ -10,6 +10,11 @@ export default class Error extends Block<ErrorProps> {
   constructor(props: ErrorProps) {
     super(props);
   }
+
+  set error(text: string) {
+    this.setProps({ text });
+  }
+
   render() {
     return this.compile(template, { ...this.props });
   }

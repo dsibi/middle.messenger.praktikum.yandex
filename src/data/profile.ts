@@ -1,4 +1,11 @@
 import { InputProps } from "../components/form/input";
+import {
+  isValidEmail,
+  isValidLogin,
+  isValidName,
+  isValidPassword,
+  isValidPhone,
+} from "../utils/validation";
 
 export let inputsData: InputProps[] = [
   {
@@ -7,7 +14,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "Dmitry",
-    // validate: isValidLogin,
+    validate: isValidName,
   },
   {
     label: "Second Name",
@@ -15,7 +22,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "Sib",
-    // validate: isValidPassword,
+    validate: isValidName,
   },
   {
     label: "Login",
@@ -23,7 +30,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "DmSib",
-    // validate: isValidPassword,
+    validate: isValidLogin,
   },
   {
     label: "Email",
@@ -31,7 +38,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "dmsib@dmsib.ru",
-    // validate: isValidPassword,
+    validate: isValidEmail,
   },
   {
     label: "Phone",
@@ -39,7 +46,7 @@ export let inputsData: InputProps[] = [
     type: "text",
     error: "",
     value: "+7-777-777-7777",
-    // validate: isValidPassword,
+    validate: isValidPhone,
   },
   {
     label: "Old password",
@@ -47,7 +54,7 @@ export let inputsData: InputProps[] = [
     type: "password",
     error: "",
     value: "Qwerty12345",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
   {
     label: "New password",
@@ -55,6 +62,6 @@ export let inputsData: InputProps[] = [
     type: "password",
     error: "",
     value: "Qwerty12345",
-    // validate: isValidPassword,
+    validate: isValidPassword,
   },
 ];

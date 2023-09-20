@@ -45,8 +45,8 @@ export default class AuthPage extends Block<AuthPageProps> {
           click: () => {
             const data = form.getValues();
             console.log(data);
-            // const isValid = this.form.isValid();
-            // console.log("form is valid: ", isValid);
+            const isValid = form.isValid();
+            console.log("form is valid: ", isValid);
           },
         },
       }),

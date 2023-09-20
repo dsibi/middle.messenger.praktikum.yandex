@@ -1,6 +1,7 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
+import ErrorEl from "./error";
 
 export interface InputProps {
   label: string;
@@ -11,7 +12,7 @@ export interface InputProps {
   // events: {
   //   validate: (value: string) => string;
   // };
-  validate: () => string;
+  validate: (value: string) => string;
 }
 
 export default class Input extends Block<InputProps> {
@@ -30,15 +31,15 @@ export default class Input extends Block<InputProps> {
     return this.inputElement.name;
   }
 
-  // validate(name: string) {
-  //   const currentInput = this.inputsElements.find(
-  //     (input) => input.name === name
-  //   );
-  //   if (!currentInput) throw new Error("input not found");
-  //   currentInput.validate();
-  // }
+  get isValid() {
+    return this.props.validate(this.inputElement.value);
+  }
 
-  // errorElement = this.children.error as Error;
+  validate() {
+    const error = this.props.validate(this.inputElement.value);
+    this.props.error = error;
+    return error;
+  }
 
   render() {
     return this.compile(template, { ...this.props });

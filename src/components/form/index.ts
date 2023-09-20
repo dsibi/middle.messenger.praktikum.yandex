@@ -15,8 +15,6 @@ export default class Form extends Block<FormProps> {
   }
 
   getValues() {
-    console.log(this.inputElements);
-
     return this.inputElements.reduce(
       (agg, input) => ({
         ...agg,
@@ -26,20 +24,20 @@ export default class Form extends Block<FormProps> {
     );
   }
 
-  // validate(name: string) {
-  //   const currentInput = this.inputsElements.find(
-  //     (input) => input.name === name
-  //   );
-  //   if (!currentInput) throw new Error("input not found");
-  //   currentInput.validate();
-  // }
+  isValid() {
+    return this.inputElements.reduce(
+      (agg, input) => (input.validate().length === 0 ? agg : false),
+      true
+    );
+  }
 
-  // isValid() {
-  //   return this.children.reduce(
-  //     (agg, input) => (input.validate().length === 0 ? agg : false),
-  //     true
-  //   );
-  // }
+  validate(name: string) {
+    const currentInput = this.inputElements.find(
+      (input) => input.name === name
+    );
+    if (!currentInput) throw new Error("input not found");
+    currentInput.validate();
+  }
 
   render() {
     return this.compile(template, { ...this.props });
