@@ -3,7 +3,7 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 
 export interface ErrorProps {
-  text: string;
+  text?: string;
 }
 
 export default class Error extends Block<ErrorProps> {

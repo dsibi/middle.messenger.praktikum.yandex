@@ -7,10 +7,12 @@ export interface InputProps {
   label: string;
   name: string;
   type: string;
-  error?: string;
+  errorText?: string;
   value?: string;
   // events: {
-  //   validate: (value: string) => string;
+  //   // validate: (value: string) => string;
+  //   // focusin: (value: string) => string;
+  //   // focusout: (value: string) => string;
   // };
   validate: (value: string) => string;
 }
@@ -21,6 +23,7 @@ export default class Input extends Block<InputProps> {
     super(props);
     this.inputElement = (this.element as HTMLElement)
       .children[1] as HTMLInputElement;
+    this.children.error = new ErrorEl({ text: props.errorText });
   }
 
   get value() {
@@ -37,7 +40,8 @@ export default class Input extends Block<InputProps> {
 
   validate() {
     const error = this.props.validate(this.inputElement.value);
-    this.props.error = error;
+    this.children.error.error = error;
+    console.log(error);
     return error;
   }
 

@@ -22,7 +22,8 @@ export default class AuthPage extends Block<AuthPageProps> {
       input: inputsData.map((input) => ({
         ...input,
         // events: {
-        //   focusin: () => this.form.validate,
+        //   focusin: () => this.form.validate(input.name),
+        //   focusout: () => this.form.validate(input.name),
         // },
       })),
     });
