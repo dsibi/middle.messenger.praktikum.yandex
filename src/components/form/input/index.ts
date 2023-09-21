@@ -1,7 +1,7 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import ErrorEl from "./error";
+import Error from "./error";
 
 export interface InputProps {
   label: string;
@@ -9,39 +9,34 @@ export interface InputProps {
   type: string;
   errorText?: string;
   value?: string;
-  // events: {
-  //   // validate: (value: string) => string;
-  //   // focusin: (value: string) => string;
-  //   // focusout: (value: string) => string;
-  // };
   validate: (value: string) => string;
 }
 
 export default class Input extends Block<InputProps> {
-  inputElement: HTMLInputElement;
   constructor(props: InputProps) {
     super(props);
-    this.inputElement = (this.element as HTMLElement)
-      .children[1] as HTMLInputElement;
-    this.children.error = new ErrorEl({ text: props.errorText });
+    this.children.error = new Error({ text: props.errorText });
+  }
+
+  getHTMLInputElement(): HTMLInputElement {
+    return (this.element as HTMLElement).children[1] as HTMLInputElement;
   }
 
   get value() {
-    return this.inputElement.value;
+    return this.getHTMLInputElement().value;
   }
 
   get name() {
-    return this.inputElement.name;
+    return ((this.element as HTMLElement).children[1] as HTMLInputElement).name;
   }
 
   get isValid() {
-    return this.props.validate(this.inputElement.value);
+    return this.props.validate(this.getHTMLInputElement().value);
   }
 
   validate() {
-    const error = this.props.validate(this.inputElement.value);
+    const error = this.props.validate(this.getHTMLInputElement().value);
     this.children.error.error = error;
-    console.log(error);
     return error;
   }
 

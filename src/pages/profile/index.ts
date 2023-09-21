@@ -20,10 +20,6 @@ export default class PfPage extends Block<PfPageProps> {
     let form = new Form({
       input: inputsData.map((input) => ({
         ...input,
-        events: {
-          // focusin: () => this.form.validate(input.name),
-          // focusout: () => this.form.validate(input.name),
-        },
       })),
     });
     super({
@@ -39,6 +35,8 @@ export default class PfPage extends Block<PfPageProps> {
           click: () => {
             const data = form.getValues();
             console.log(data);
+            const isValid = form.isValid();
+            console.log("form is valid: ", isValid);
           },
         },
       }),

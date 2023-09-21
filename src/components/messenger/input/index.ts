@@ -37,6 +37,8 @@ export default class Input extends Block<InputProps> {
             e.preventDefault();
             const { value, name } = this.children.text;
             console.log({ [name]: value });
+            const isValid = form.isValid();
+            console.log("form is valid: ", isValid);
           },
         },
       }),
