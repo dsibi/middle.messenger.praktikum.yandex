@@ -5,7 +5,6 @@ import Logo, { LogoProps } from "../../components/logo/index";
 import Form, { FormProps } from "../../components/form/index";
 import Button, { ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
-import { renderDom } from "../../utils/renderDom";
 
 export interface RegPageProps {
   logo: LogoProps;
