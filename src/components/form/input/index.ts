@@ -1,7 +1,7 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Error from "./error";
+import { Error } from "./error";
 
 export interface InputProps {
   label: string;
@@ -12,7 +12,7 @@ export interface InputProps {
   validate: (value: string) => string;
 }
 
-export default class Input extends Block<InputProps> {
+export class Input extends Block<InputProps> {
   constructor(props: InputProps) {
     super(props);
     this.children.error = new Error({ text: props.errorText });

@@ -10,7 +10,7 @@ export interface AvaProps {
   };
 }
 
-export default class Avatar extends Block<AvaProps> {
+export class Avatar extends Block<AvaProps> {
   constructor(props: AvaProps) {
     super(props);
   }

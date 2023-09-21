@@ -1,7 +1,7 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Avatar, { AvaProps } from "../../avatar";
+import { Avatar, AvaProps } from "../../avatar";
 import myAvaPath from "../../../static/img/avatar.png";
 import settingsAvaPath from "../../../static/img/dots_white.png";
 import { renderDom } from "../../../utils/renderDom";
@@ -12,7 +12,7 @@ export interface HeaderProps {
   settingsAva: AvaProps;
 }
 
-export default class Header extends Block<HeaderProps> {
+export class Header extends Block<HeaderProps> {
   constructor() {
     super({
       myAva: new Avatar({

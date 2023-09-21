@@ -9,7 +9,7 @@ export interface LinkProps {
   };
 }
 
-export default class Link extends Block<LinkProps> {
+export class Link extends Block<LinkProps> {
   constructor(props: LinkProps) {
     super(props);
   }

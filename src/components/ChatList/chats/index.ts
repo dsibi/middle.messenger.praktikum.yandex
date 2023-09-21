@@ -15,7 +15,7 @@ export interface ChatsProps {
   // };
 }
 
-export default class Chats extends Block<ChatsProps> {
+export class Chats extends Block<ChatsProps> {
   constructor(props: ChatsProps) {
     super(props);
   }

@@ -1,7 +1,7 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Error, { ErrorProps } from "../../../components/error/index";
+import { Error, ErrorProps } from "../../../components/error/index";
 import path from "../../../static/img/error-404.png";
 
 export interface Error404PageProps {

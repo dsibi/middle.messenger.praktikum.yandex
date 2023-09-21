@@ -1,15 +1,15 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Button, { ButtonProps } from "../../button";
-import Text, { TextProps } from "./text";
+import { Button, ButtonProps } from "../../button";
+import { Text, TextProps } from "./text";
 
 export interface InputProps {
   text: TextProps;
   submitButton: ButtonProps;
 }
 
-export default class Input extends Block<InputProps> {
+export class Input extends Block<InputProps> {
   constructor() {
     super({
       text: new Text({
@@ -37,8 +37,6 @@ export default class Input extends Block<InputProps> {
             e.preventDefault();
             const { value, name } = this.children.text;
             console.log({ [name]: value });
-            const isValid = form.isValid();
-            console.log("form is valid: ", isValid);
           },
         },
       }),

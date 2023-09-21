@@ -10,7 +10,7 @@ export interface MessageProps {
   msgStyle: string;
 }
 
-export default class Message extends Block<MessageProps> {
+export class Message extends Block<MessageProps> {
   constructor(props: MessageProps) {
     if (props.isInbox) {
       props.msgStyle = "msgIncome";

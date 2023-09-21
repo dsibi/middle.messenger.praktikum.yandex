@@ -1,8 +1,8 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Header, { HeaderProps } from "./header";
-import Chats, { ChatsProps } from "./chats";
+import { Header, HeaderProps } from "./header";
+import { Chats, ChatsProps } from "./chats";
 import { Chat, DataSet } from "../../data/chats";
 
 export interface ChatListProps {
@@ -10,7 +10,7 @@ export interface ChatListProps {
   chats: ChatsProps;
 }
 
-export default class ChatList extends Block<ChatListProps> {
+export class ChatList extends Block<ChatListProps> {
   constructor() {
     super({
       header: new Header(),

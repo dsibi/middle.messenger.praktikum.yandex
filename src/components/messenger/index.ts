@@ -1,9 +1,9 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Header, { HeaderProps } from "./header";
-import Message, { MessageProps } from "./message";
-import Input, { InputProps } from "./input";
+import { Header, HeaderProps } from "./header";
+import { Message, MessageProps } from "./message";
+import { Input, InputProps } from "./input";
 import { bestFriendChat } from "../../data/chats";
 
 export interface MessengerProps {
@@ -12,7 +12,7 @@ export interface MessengerProps {
   input: InputProps;
 }
 
-export default class Messenger extends Block<MessengerProps> {
+export class Messenger extends Block<MessengerProps> {
   constructor() {
     super({
       header: new Header(),

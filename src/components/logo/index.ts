@@ -7,7 +7,7 @@ export interface LogoProps {
   logoPath: string;
 }
 
-export default class Logo extends Block<LogoProps> {
+export class Logo extends Block<LogoProps> {
   constructor() {
     super({ logoPath: path });
   }

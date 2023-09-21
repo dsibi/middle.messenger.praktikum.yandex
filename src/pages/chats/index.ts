@@ -1,8 +1,8 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import ChatList, { ChatListProps } from "../../components/ChatList";
-import Messenger, { MessengerProps } from "../../components/messenger";
+import { ChatList, ChatListProps } from "../../components/ChatList";
+import { Messenger, MessengerProps } from "../../components/messenger";
 
 export interface ChatsPageProps {
   chatList: ChatListProps;

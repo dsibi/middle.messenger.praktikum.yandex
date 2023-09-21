@@ -9,7 +9,7 @@ export interface TextProps {
   // };
 }
 
-export default class Text extends Block<TextProps> {
+export class Text extends Block<TextProps> {
   textElement: HTMLInputElement;
   constructor(props: TextProps) {
     super(props);

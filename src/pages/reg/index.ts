@@ -1,9 +1,9 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Logo, { LogoProps } from "../../components/logo/index";
-import Form, { FormProps } from "../../components/form/index";
-import Button, { ButtonProps } from "../../components/button/index";
+import { Logo, LogoProps } from "../../components/logo/index";
+import { Form, FormProps } from "../../components/form/index";
+import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
 
 export interface RegPageProps {

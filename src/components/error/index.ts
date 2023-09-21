@@ -7,7 +7,7 @@ export interface ErrorProps {
   errorPath: string;
 }
 
-export default class Error extends Block<ErrorProps> {
+export class Error extends Block<ErrorProps> {
   constructor(props: ErrorProps) {
     super(props);
   }

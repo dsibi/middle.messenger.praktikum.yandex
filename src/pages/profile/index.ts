@@ -1,10 +1,10 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import Avatar, { AvaProps } from "../../components/avatar";
+import { Avatar, AvaProps } from "../../components/avatar";
 import path from "../../static/img/avatar.png";
-import Form, { FormProps } from "../../components/form/index";
-import Button, { ButtonProps } from "../../components/button/index";
+import { Form, FormProps } from "../../components/form/index";
+import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/profile";
 import { renderDom } from "../../utils/renderDom";
 
