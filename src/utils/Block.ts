@@ -4,9 +4,7 @@ import { v4 as makeUUID } from "uuid";
 type Nullable<T> = T | null;
 
 // Нельзя создавать экземпляр данного класса
-export default abstract class Block<
-  Props extends Record<string | symbol, any>
-> {
+export default class Block<Props extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",

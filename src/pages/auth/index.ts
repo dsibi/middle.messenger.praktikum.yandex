@@ -6,7 +6,7 @@ import { Form, FormProps } from "../../components/form/index";
 import { Link, LinkProps } from "../../components/link/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/auth";
-import { renderDom } from "../../utils/renderDom";
+import Router from "../../utils/router";
 
 export interface AuthPageProps {
   logo: LogoProps;
@@ -29,29 +29,29 @@ export default class AuthPage extends Block<AuthPageProps> {
       link: new Link({
         linkText: "Forgot password?",
         events: {
-          click: () => renderDom("errorPage404"),
+          click: () => Router.go("/404"),
         },
       }),
       signInBtn: new Button({
         id: "signIn",
         label: "Sign In",
-        // events: {
-        //   click: () => renderDom("chatsPage"),
-        // },
         events: {
-          click: () => {
-            const data = form.getValues();
-            console.log(data);
-            const isValid = form.isValid();
-            console.log("form is valid: ", isValid);
-          },
+          click: () => Router.go("/chats"),
         },
+        // events: {
+        //   click: () => {
+        //     const data = form.getValues();
+        //     console.log(data);
+        //     const isValid = form.isValid();
+        //     console.log("form is valid: ", isValid);
+        //   },
+        // },
       }),
       signUpBtn: new Button({
         id: "signUp",
         label: "Sign Up",
         events: {
-          click: () => renderDom("registrationPage"),
+          click: () => Router.go("/signup"),
         },
       }),
     });

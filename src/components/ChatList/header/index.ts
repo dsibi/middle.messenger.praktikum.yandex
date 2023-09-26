@@ -4,7 +4,7 @@ import "./style.scss";
 import { Avatar, AvaProps } from "../../avatar";
 import myAvaPath from "../../../static/img/avatar.png";
 import settingsAvaPath from "../../../static/img/dots_white.png";
-import { renderDom } from "../../../utils/renderDom";
+import Router from "../../../utils/router";
 
 export interface HeaderProps {
   myAva: AvaProps;
@@ -24,7 +24,7 @@ export class Header extends Block<HeaderProps> {
         avaPath: settingsAvaPath,
         altText: "Settings",
         events: {
-          click: () => renderDom("profilePage"),
+          click: () => Router.go("/settings"),
         },
       }),
     });

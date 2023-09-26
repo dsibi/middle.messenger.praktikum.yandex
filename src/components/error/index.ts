@@ -5,6 +5,9 @@ import "./style.scss";
 export interface ErrorProps {
   desc: string;
   errorPath: string;
+  events: {
+    click: (e: Event) => void;
+  };
 }
 
 export class Error extends Block<ErrorProps> {

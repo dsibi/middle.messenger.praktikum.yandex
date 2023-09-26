@@ -1,43 +1,48 @@
-import Block, { BlockClass } from "./Block";
+import Block from "./Block";
 
-export class Route<Props = any> {
-  private pathname: string;
-  private blockClass: BlockClass<any>;
-  private block: Block | null = null;
-  private props: Props;
+function isEqual(lhs: string, rhs: string) {
+  return lhs === rhs;
+}
 
-  constructor(pathname: string, view: BlockClass<Props>, props: Props) {
-    this.pathname = pathname;
-    this.blockClass = view;
-    this.props = props;
+function render(query: string, block: Block) {
+  const root = document.querySelector(query);
+  if (root === null) {
+    throw new Error(`root по селектору ${query} не найден`);
   }
+  root.innerHTML = "";
+  root.append(block.getContent()!);
+  return root;
+}
+
+export default class Route {
+  private block: Block | null = null;
+
+  constructor(
+    private pathname: string,
+    private readonly blockClass: typeof Block,
+    private readonly query: string
+  ) {}
 
   navigate(pathname: string) {
     if (this.match(pathname)) {
+      this.pathname = pathname;
       this.render();
     }
   }
 
   leave() {
-    if (this.block) {
-      this.block.hide();
-    }
+    this.block = null;
   }
 
   match(pathname: string) {
-    return pathname === this.pathname;
+    return isEqual(pathname, this.pathname);
   }
 
   render() {
     if (!this.block) {
-      this.block = new this.blockClass({ ...this.props });
-      const root = document.querySelector("#app");
-      if (root) {
-        root.innerHTML = "";
-        root.appendChild(this.block.getContent());
-      }
+      this.block = new this.blockClass({});
+      render(this.query, this.block);
       return;
     }
-    this.block.show();
   }
 }
