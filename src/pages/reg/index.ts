@@ -5,7 +5,9 @@ import { Logo, LogoProps } from "../../components/logo/index";
 import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
-import Router from "../../utils/router";
+// import Router from "../../utils/router";
+import RegController from "../../controllers/Reg-controller";
+import { SignupData } from "../../api/Auth-api";
 
 export interface RegPageProps {
   logo: LogoProps;
@@ -35,7 +37,14 @@ export default class RegPage extends Block<RegPageProps> {
         //   },
         // },
         events: {
-          click: () => Router.go("/chats"),
+          click: () => {
+            const data = form.getValues();
+            // console.log(data);
+            const isValid = form.isValid();
+            console.log("form is valid: ", isValid);
+            // RegController.signup(data as SignupData);
+            RegController.logout();
+          },
         },
       }),
     });

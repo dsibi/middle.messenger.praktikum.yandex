@@ -6,6 +6,7 @@ import PfPage from "./pages/profile";
 import ChatsPage from "./pages/chats";
 import RegPage from "./pages/reg";
 
+// DOMContentLoaded срабатывает на построение DOM-дерева
 window.addEventListener("DOMContentLoaded", async () => {
   Router.use("/", AuthPage)
     .use("/login", AuthPage)

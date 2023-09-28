@@ -7,6 +7,8 @@ import { Link, LinkProps } from "../../components/link/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/auth";
 import Router from "../../utils/router";
+import RegController from "../../controllers/Reg-controller";
+import { SignupData } from "../../api/Auth-api";
 
 export interface AuthPageProps {
   logo: LogoProps;
@@ -36,7 +38,10 @@ export default class AuthPage extends Block<AuthPageProps> {
         id: "signIn",
         label: "Sign In",
         events: {
-          click: () => Router.go("/chats"),
+          click: () => {
+            const data = form.getValues();
+            RegController.signin(data as SignupData);
+          },
         },
         // events: {
         //   click: () => {
