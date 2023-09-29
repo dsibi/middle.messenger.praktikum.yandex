@@ -94,8 +94,6 @@ export class HTTPTransport {
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        console.log(JSON.stringify(data));
-
         xhr.send(JSON.stringify(data));
       }
     });

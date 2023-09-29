@@ -7,7 +7,7 @@ import { Link, LinkProps } from "../../components/link/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/auth";
 import Router from "../../utils/router";
-import RegController from "../../controllers/Reg-controller";
+import AuthController from "../../controllers/Auth-controller";
 import { SignupData } from "../../api/Auth-api";
 
 export interface AuthPageProps {
@@ -40,17 +40,13 @@ export default class AuthPage extends Block<AuthPageProps> {
         events: {
           click: () => {
             const data = form.getValues();
-            RegController.signin(data as SignupData);
+            console.log("data:", data);
+            const isValid = form.isValid();
+            if (isValid) {
+              AuthController.signin(data as SignupData);
+            }
           },
         },
-        // events: {
-        //   click: () => {
-        //     const data = form.getValues();
-        //     console.log(data);
-        //     const isValid = form.isValid();
-        //     console.log("form is valid: ", isValid);
-        //   },
-        // },
       }),
       signUpBtn: new Button({
         id: "signUp",

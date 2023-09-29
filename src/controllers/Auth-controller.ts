@@ -1,18 +1,17 @@
-import RegAPI, { SignupData } from "../api/Auth-api";
+import AuthAPI, { SignupData } from "../api/Auth-api";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
 
-export class RegController {
+export class AuthController {
   private readonly api;
 
   constructor() {
-    this.api = RegAPI;
+    this.api = AuthAPI;
   }
 
   async signup(data: SignupData) {
     try {
       await this.api.signup(data);
-      //   await this.fetchUser();
       Router.go("/chats");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
@@ -21,9 +20,15 @@ export class RegController {
 
   async signin(data: SignupData) {
     try {
-      await this.api.signin(data);
-      //   await this.fetchUser();
-      Router.go("/chats");
+      const response = await this.api.signin(data);
+      console.log(
+        (response as XMLHttpRequest).status == 200
+          ? (response as XMLHttpRequest).response
+          : JSON.parse((response as XMLHttpRequest).response).reason
+      );
+      if ((response as XMLHttpRequest).status == 200) {
+        Router.go("/chats");
+      }
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
@@ -32,11 +37,10 @@ export class RegController {
   async logout() {
     try {
       await this.api.logout();
-      //   await this.fetchUser();
       Router.go("/");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
   }
 }
-export default new RegController();
+export default new AuthController();

@@ -6,7 +6,7 @@ import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
 // import Router from "../../utils/router";
-import RegController from "../../controllers/Reg-controller";
+import RegController from "../../controllers/Auth-controller";
 import { SignupData } from "../../api/Auth-api";
 
 export interface RegPageProps {
