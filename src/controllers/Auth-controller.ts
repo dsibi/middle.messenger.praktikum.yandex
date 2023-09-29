@@ -11,8 +11,15 @@ export class AuthController {
 
   async signup(data: SignupData) {
     try {
-      await this.api.signup(data);
-      Router.go("/chats");
+      const response = await this.api.signup(data);
+      console.log(
+        (response as XMLHttpRequest).status == 200
+          ? (response as XMLHttpRequest).response
+          : JSON.parse((response as XMLHttpRequest).response).reason
+      );
+      if ((response as XMLHttpRequest).status == 200) {
+        Router.go("/chats");
+      }
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }

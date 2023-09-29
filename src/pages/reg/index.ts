@@ -5,8 +5,7 @@ import { Logo, LogoProps } from "../../components/logo/index";
 import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
-// import Router from "../../utils/router";
-import RegController from "../../controllers/Auth-controller";
+import AuthController from "../../controllers/Auth-controller";
 import { SignupData } from "../../api/Auth-api";
 
 export interface RegPageProps {
@@ -28,22 +27,14 @@ export default class RegPage extends Block<RegPageProps> {
       regBtn: new Button({
         id: "regBtn",
         label: "Registration",
-        // events: {
-        //   click: () => {
-        //     const data = form.getValues();
-        //     console.log(data);
-        //     const isValid = form.isValid();
-        //     console.log("form is valid: ", isValid);
-        //   },
-        // },
         events: {
           click: () => {
             const data = form.getValues();
-            // console.log(data);
+            console.log("data:", data);
             const isValid = form.isValid();
-            console.log("form is valid: ", isValid);
-            // RegController.signup(data as SignupData);
-            RegController.logout();
+            if (isValid) {
+              AuthController.signup(data as SignupData);
+            }
           },
         },
       }),
