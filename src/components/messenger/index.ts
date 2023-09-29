@@ -33,14 +33,3 @@ export class Messenger extends Block<MessengerProps> {
     return this.compile(template, { ...this.props });
   }
 }
-
-// events: {
-//   click: () => {
-//     const data = form.getValues();
-//     // console.log(data);
-//     const isValid = form.isValid();
-//     console.log("form is valid: ", isValid);
-//     // RegController.signup(data as SignupData);
-//     RegController.logout();
-//   },
-// },

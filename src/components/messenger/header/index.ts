@@ -3,6 +3,7 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 import { Avatar, AvaProps } from "../../avatar";
 import settingsAvaPath from "../../../static/img/dots_white.png";
+import AuthController from "../../../controllers/Auth-controller";
 
 export interface HeaderProps {
   name: string;
@@ -16,6 +17,9 @@ export class Header extends Block<HeaderProps> {
       settingsAva: new Avatar({
         avaPath: settingsAvaPath,
         altText: "Settings",
+        events: {
+          click: () => AuthController.logout(),
+        },
       }),
     });
   }
