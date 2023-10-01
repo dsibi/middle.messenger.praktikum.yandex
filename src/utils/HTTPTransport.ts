@@ -6,7 +6,7 @@ type Options = {
   withCredentials?: boolean;
 };
 
-type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
+type HTTPMethod = (url: string | URL, options?: Options) => Promise<unknown>;
 
 const METHODS = {
   GET: "GET",
@@ -26,34 +26,47 @@ function queryStringify(data: any) {
 
 export class HTTPTransport {
   private baseURL: string = "https://ya-praktikum.tech/api/v2";
-  protected fullURL: URL;
+  protected fullURL: string;
 
   constructor(url: string) {
-    this.fullURL = new URL(this.baseURL + url);
+    this.fullURL = this.baseURL + url;
   }
 
-  get: HTTPMethod = (url, options = {}) =>
-    this.request(
-      options.data ? `${url}?${queryStringify(options.data)}` : url,
+  get: HTTPMethod = (url, options = {}) => {
+    const newURL = new URL(this.fullURL + url).href;
+    return this.request(
+      options.data ? `${newURL}?${queryStringify(options.data)}` : newURL,
       { ...options, method: METHODS.GET }
     );
+  };
+
+  // get: HTTPMethod = (url, options = {}) => {
+  //   const newURL = new URL(this.fullURL + url).href;
+  //   if (Object.keys(options).length) {
+  //     Object.entries(options).map(([key, value]) => {
+  //       if (value) {
+  //         newURL.searchParams.set(key, value.toString());
+  //       }
+  //     });
+  //   }
+  //   return this.request(newURL, { ...options, method: METHODS.GET });
+  // };
 
   post: HTTPMethod = (url, options = {}) => {
-    const newURL = new URL(this.fullURL + url).href;
+    const newURL = new URL(this.fullURL + url);
     return this.request(newURL, { ...options, method: METHODS.POST });
   };
 
-  put: HTTPMethod = (url, options = {}) =>
-    this.request(url, {
-      ...options,
-      method: METHODS.PUT,
-    });
+  // put: HTTPMethod = (url, options = {}) => {
+  //   const newURL = new URL(this.fullURL + url).href;
+  //   return this.request(newURL, { ...options, method: METHODS.PUT });
+  // };
 
-  delete: HTTPMethod = (url, options = {}) =>
-    this.request(url, {
-      ...options,
-      method: METHODS.DELETE,
-    });
+  // delete: HTTPMethod = (url, options = {}) =>
+  //   this.request(url, {
+  //     ...options,
+  //     method: METHODS.DELETE,
+  //   });
 
   request: HTTPMethod = (url, options = {}) => {
     const {

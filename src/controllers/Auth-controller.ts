@@ -1,6 +1,7 @@
-import AuthAPI, { SignupData } from "../api/Auth-api";
+import AuthAPI, { SignupData, UserData } from "../api/Auth-api";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
+import Store from "../utils/Store";
 
 export class AuthController {
   private readonly api;
@@ -45,6 +46,17 @@ export class AuthController {
     try {
       await this.api.logout();
       Router.go("/");
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+  }
+
+  async user() {
+    try {
+      const userData = ((await this.api.user()) as XMLHttpRequest)
+        .response as UserData;
+      Store.set("user", userData);
+      Router.go("/settings");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }

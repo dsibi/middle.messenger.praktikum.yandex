@@ -7,6 +7,7 @@ import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/profile";
 import Router from "../../utils/router";
+import { connect } from "../../utils/connect";
 
 export interface PfPageProps {
   myAva: AvaProps;
@@ -15,8 +16,13 @@ export interface PfPageProps {
   cancelBtn: ButtonProps;
 }
 
-export default class PfPage extends Block<PfPageProps> {
-  constructor() {
+class PfPage extends Block<PfPageProps> {
+  constructor(props: any) {
+    const serverData = JSON.parse(props.user);
+    Object.values(inputsData).forEach((input) => {
+      let name = input.name;
+      input.value = serverData[name];
+    });
     let form = new Form({
       input: inputsData.map((input) => ({
         ...input,
@@ -57,3 +63,6 @@ export default class PfPage extends Block<PfPageProps> {
     return this.compile(template, { ...this.props });
   }
 }
+
+const ProfileWithStore = connect((state) => ({ user: state.user }))(PfPage);
+export default ProfileWithStore;

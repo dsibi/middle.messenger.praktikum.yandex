@@ -10,6 +10,17 @@ export interface SignupData {
   phone: string;
 }
 
+export interface UserData {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  avatar: string;
+  email: string;
+  phone: string;
+}
+
 class AuthAPI extends BaseAPI {
   protected http: HTTPTransport;
   constructor() {
@@ -27,6 +38,10 @@ class AuthAPI extends BaseAPI {
 
   logout() {
     return this.http.post("/logout");
+  }
+
+  user() {
+    return this.http.get("/user");
   }
 }
 
