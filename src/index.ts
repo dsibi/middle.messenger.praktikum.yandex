@@ -5,6 +5,7 @@ import Error500 from "./pages/errors/500";
 import ProfileWithStore from "./pages/profile";
 import ChatsPage from "./pages/chats";
 import RegPage from "./pages/reg";
+import AuthController from "./controllers/Auth-controller";
 
 // DOMContentLoaded срабатывает на построение DOM-дерева
 window.addEventListener("DOMContentLoaded", async () => {
@@ -14,6 +15,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     .use("/settings", ProfileWithStore)
     .use("/404", Error404)
     .use("/500", Error500)
-    .use("/chats", ChatsPage)
-    .start();
+    .use("/chats", ChatsPage);
+  AuthController.isUserLoggedIn();
+  Router.start();
 });

@@ -57,10 +57,10 @@ export class HTTPTransport {
     return this.request(newURL, { ...options, method: METHODS.POST });
   };
 
-  // put: HTTPMethod = (url, options = {}) => {
-  //   const newURL = new URL(this.fullURL + url).href;
-  //   return this.request(newURL, { ...options, method: METHODS.PUT });
-  // };
+  put: HTTPMethod = (url, options = {}) => {
+    const newURL = new URL(this.fullURL + url).href;
+    return this.request(newURL, { ...options, method: METHODS.PUT });
+  };
 
   // delete: HTTPMethod = (url, options = {}) =>
   //   this.request(url, {

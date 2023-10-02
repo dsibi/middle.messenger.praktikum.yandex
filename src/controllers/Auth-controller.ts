@@ -3,7 +3,7 @@ import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
 import Store from "../utils/Store";
 
-export class AuthController {
+class AuthController {
   private readonly api;
 
   constructor() {
@@ -57,6 +57,17 @@ export class AuthController {
         .response as UserData;
       Store.set("user", userData);
       Router.go("/settings");
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+  }
+
+  async isUserLoggedIn() {
+    try {
+      const status = ((await this.api.user()) as XMLHttpRequest).status;
+      if (status == 200) {
+        Router.go("/chats");
+      }
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }

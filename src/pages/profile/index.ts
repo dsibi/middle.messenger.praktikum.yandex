@@ -8,6 +8,8 @@ import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/profile";
 import Router from "../../utils/router";
 import { connect } from "../../utils/connect";
+import UserController from "../../controllers/User-controller";
+import { UserData } from "../../api/User-api";
 
 export interface PfPageProps {
   myAva: AvaProps;
@@ -37,16 +39,15 @@ class PfPage extends Block<PfPageProps> {
       confirmBtn: new Button({
         id: "confirm",
         label: "Confirm",
-        // events: {
-        //   click: () => {
-        //     const data = form.getValues();
-        //     console.log(data);
-        //     const isValid = form.isValid();
-        //     console.log("form is valid: ", isValid);
-        //   },
-        // },
         events: {
-          click: () => Router.go("/chats"),
+          click: () => {
+            const data = form.getValues();
+            console.log("data:", data);
+            const isValid = form.isValid();
+            if (isValid) {
+              UserController.profile(data as UserData);
+            }
+          },
         },
       }),
       cancelBtn: new Button({

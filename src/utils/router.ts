@@ -47,8 +47,6 @@ class Router {
 
   public go(pathname: string) {
     this.history.pushState({}, "", pathname);
-    console.log(this.history);
-
     this._onRoute(pathname);
   }
 
