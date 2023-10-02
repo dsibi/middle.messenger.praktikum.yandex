@@ -10,6 +10,11 @@ export interface UserData {
   phone: string;
 }
 
+export interface PassData {
+  oldPassword: string;
+  newPassword: string;
+}
+
 class UserAPI extends BaseAPI {
   protected http: HTTPTransport;
   constructor() {
@@ -19,6 +24,10 @@ class UserAPI extends BaseAPI {
 
   profile(data: UserData) {
     return this.http.put("/profile", { data });
+  }
+
+  password(data: PassData) {
+    return this.http.put("/password", { data });
   }
 }
 

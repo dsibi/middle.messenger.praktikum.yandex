@@ -5,17 +5,19 @@ import { Avatar, AvaProps } from "../../components/avatar";
 import path from "../../static/img/avatar.png";
 import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
-import { inputsData } from "../../data/profile";
+import { inputsData, passData } from "../../data/profile";
 import Router from "../../utils/router";
 import { connect } from "../../utils/connect";
 import UserController from "../../controllers/User-controller";
-import { UserData } from "../../api/User-api";
+import { PassData, UserData } from "../../api/User-api";
 
 export interface PfPageProps {
   myAva: AvaProps;
-  form: FormProps;
+  userDataForm: FormProps;
   confirmBtn: ButtonProps;
   cancelBtn: ButtonProps;
+  passForm: FormProps;
+  confirmPassBtn: ButtonProps;
 }
 
 class PfPage extends Block<PfPageProps> {
@@ -25,8 +27,13 @@ class PfPage extends Block<PfPageProps> {
       let name = input.name;
       input.value = serverData[name];
     });
-    let form = new Form({
+    let userDataForm = new Form({
       input: inputsData.map((input) => ({
+        ...input,
+      })),
+    });
+    let passForm = new Form({
+      input: passData.map((input) => ({
         ...input,
       })),
     });
@@ -35,15 +42,15 @@ class PfPage extends Block<PfPageProps> {
         avaPath: path,
         altText: "My Ava",
       }),
-      form: form,
+      userDataForm: userDataForm,
       confirmBtn: new Button({
         id: "confirm",
         label: "Confirm",
         events: {
           click: () => {
-            const data = form.getValues();
+            const data = userDataForm.getValues();
             console.log("data:", data);
-            const isValid = form.isValid();
+            const isValid = userDataForm.isValid();
             if (isValid) {
               UserController.profile(data as UserData);
             }
@@ -51,6 +58,28 @@ class PfPage extends Block<PfPageProps> {
         },
       }),
       cancelBtn: new Button({
+        id: "cancel",
+        label: "Cancel",
+        events: {
+          click: () => Router.go("/chats"),
+        },
+      }),
+      passForm: passForm,
+      confirmPassBtn: new Button({
+        id: "confirm",
+        label: "Change password",
+        events: {
+          click: () => {
+            const data = passForm.getValues();
+            console.log("data:", data);
+            const isValid = passForm.isValid();
+            if (isValid) {
+              UserController.password(data as PassData);
+            }
+          },
+        },
+      }),
+      cancelPassBtn: new Button({
         id: "cancel",
         label: "Cancel",
         events: {

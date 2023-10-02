@@ -1,7 +1,6 @@
-import UserAPI, { UserData } from "../api/User-api";
+import UserAPI, { PassData, UserData } from "../api/User-api";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
-import Store from "../utils/Store";
 
 class UserController {
   private readonly api;
@@ -12,9 +11,18 @@ class UserController {
 
   async profile(data: UserData) {
     try {
-      const updatedData = await this.api.profile(data);
-      Store.set("user", updatedData);
+      await this.api.profile(data);
       showNotification("Данные профиля успешно обновлены");
+      Router.go("/chats");
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+  }
+
+  async password(data: PassData) {
+    try {
+      await this.api.password(data);
+      showNotification("Пароль успешно обновлен");
       Router.go("/chats");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);

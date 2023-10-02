@@ -43,6 +43,9 @@ export let inputsData: InputProps[] = [
     value: "+7-777-777-7777",
     validate: isValidPhone,
   },
+];
+
+export let passData: InputProps[] = [
   {
     label: "Old password",
     name: "oldPassword",
