@@ -6,7 +6,7 @@ import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
 import AuthController from "../../controllers/Auth-controller";
-import { SignupData } from "../../api/Auth-api";
+import { UserData } from "../../api/BaseAPI";
 
 export interface RegPageProps {
   logo: LogoProps;
@@ -33,7 +33,7 @@ export default class RegPage extends Block<RegPageProps> {
             console.log("data:", data);
             const isValid = form.isValid();
             if (isValid) {
-              AuthController.signup(data as SignupData);
+              AuthController.signup(data as UserData);
             }
           },
         },

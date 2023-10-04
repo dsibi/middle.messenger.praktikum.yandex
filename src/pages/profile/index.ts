@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import { Avatar, AvaProps } from "../../components/avatar";
+import { AvatarCopy, AvaCopyProps } from "../../components/avatar copy";
 import path from "../../static/img/avatar.png";
 import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
@@ -9,10 +9,10 @@ import { inputsData, passData } from "../../data/profile";
 import Router from "../../utils/router";
 import { connect } from "../../utils/connect";
 import UserController from "../../controllers/User-controller";
-import { PassData, UserData } from "../../api/User-api";
+import { PassData, UserData } from "../../api/BaseAPI";
 
 export interface PfPageProps {
-  myAva: AvaProps;
+  myAva: AvaCopyProps;
   userDataForm: FormProps;
   confirmBtn: ButtonProps;
   cancelBtn: ButtonProps;
@@ -22,7 +22,7 @@ export interface PfPageProps {
 
 class PfPage extends Block<PfPageProps> {
   constructor(props: any) {
-    const serverData = JSON.parse(props.user);
+    const serverData = props.user;
     Object.values(inputsData).forEach((input) => {
       let name = input.name;
       input.value = serverData[name];
@@ -38,9 +38,22 @@ class PfPage extends Block<PfPageProps> {
       })),
     });
     super({
-      myAva: new Avatar({
+      myAva: new AvatarCopy({
         avaPath: path,
         altText: "My Ava",
+        // events: {
+        //   submit: () => {
+        //     const myUserForm = document.getElementById(
+        //       "avatar"
+        //     ) as HTMLInputElement;
+        //     const formData = new FormData();
+        //     formData.append("avatar", myUserForm);
+        //     // console.log(avatar);
+
+        //     // const avatar = new FormData();
+        //     UserController.avatar(formData as FormData);
+        //   },
+        // },
       }),
       userDataForm: userDataForm,
       confirmBtn: new Button({

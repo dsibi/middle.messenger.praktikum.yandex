@@ -1,19 +1,5 @@
 import { HTTPTransport } from "../utils/HTTPTransport";
-import { BaseAPI } from "./BaseAPI";
-
-export interface UserData {
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-}
-
-export interface PassData {
-  oldPassword: string;
-  newPassword: string;
-}
+import { BaseAPI, UserData, PassData, APIError } from "./BaseAPI";
 
 class UserAPI extends BaseAPI {
   protected http: HTTPTransport;
@@ -22,12 +8,16 @@ class UserAPI extends BaseAPI {
     this.http = new HTTPTransport("/user");
   }
 
-  profile(data: UserData) {
+  profile(data: UserData): Promise<UserData | APIError> {
     return this.http.put("/profile", { data });
   }
 
-  password(data: PassData) {
+  password(data: PassData): Promise<PassData | APIError> {
     return this.http.put("/password", { data });
+  }
+
+  avatar(avatar: FormData): Promise<void | APIError> {
+    return this.http.put("/profile/avatar", { avatar });
   }
 }
 

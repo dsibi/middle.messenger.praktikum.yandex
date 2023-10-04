@@ -11,7 +11,6 @@ export interface HeaderProps {
   name: string;
   settingsAva: AvaProps;
 }
-
 export class Header extends Block<HeaderProps> {
   constructor() {
     super({

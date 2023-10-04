@@ -1,4 +1,6 @@
-import AuthAPI, { SignupData, UserData } from "../api/Auth-api";
+import AuthAPI from "../api/Auth-api";
+import { UserData } from "../api/BaseAPI";
+import { apiHasError } from "../utils/apiHasError";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
 import Store from "../utils/Store";
@@ -10,41 +12,37 @@ class AuthController {
     this.api = AuthAPI;
   }
 
-  async signup(data: SignupData) {
+  async signup(data: UserData) {
     try {
       const response = await this.api.signup(data);
-      console.log(
-        (response as XMLHttpRequest).status == 200
-          ? (response as XMLHttpRequest).response
-          : JSON.parse((response as XMLHttpRequest).response).reason
-      );
-      if ((response as XMLHttpRequest).status == 200) {
-        Router.go("/chats");
+      if (apiHasError(response)) {
+        throw Error(response.reason);
       }
+      await this.user();
+      Router.go("/chats");
     } catch (e: any) {
-      showNotification(e.reason, NotificationTypes.Warning);
+      showNotification(e.message, NotificationTypes.Warning);
     }
   }
 
-  async signin(data: SignupData) {
+  async signin(data: UserData) {
     try {
       const response = await this.api.signin(data);
-      console.log(
-        (response as XMLHttpRequest).status == 200
-          ? (response as XMLHttpRequest).response
-          : JSON.parse((response as XMLHttpRequest).response).reason
-      );
-      if ((response as XMLHttpRequest).status == 200) {
-        Router.go("/chats");
+      if (apiHasError(response)) {
+        throw Error(response.reason);
       }
+      Router.go("/chats");
     } catch (e: any) {
-      showNotification(e.reason, NotificationTypes.Warning);
+      showNotification(e.message, NotificationTypes.Warning);
     }
   }
 
   async logout() {
     try {
-      await this.api.logout();
+      const response = await this.api.logout();
+      if (apiHasError(response)) {
+        throw Error(response.reason);
+      }
       Router.go("/");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
@@ -53,9 +51,11 @@ class AuthController {
 
   async user() {
     try {
-      const userData = ((await this.api.user()) as XMLHttpRequest)
-        .response as UserData;
-      Store.set("user", userData);
+      const response = await this.api.user();
+      if (apiHasError(response)) {
+        throw Error(response.reason);
+      }
+      Store.set("user", response);
       Router.go("/settings");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
@@ -64,10 +64,11 @@ class AuthController {
 
   async isUserLoggedIn() {
     try {
-      const status = ((await this.api.user()) as XMLHttpRequest).status;
-      if (status == 200) {
-        Router.go("/chats");
+      const response = await this.api.user();
+      if (apiHasError(response)) {
+        throw Error(response.reason);
       }
+      Router.go("/chats");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }

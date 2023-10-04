@@ -8,7 +8,7 @@ import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/auth";
 import Router from "../../utils/router";
 import AuthController from "../../controllers/Auth-controller";
-import { SignupData } from "../../api/Auth-api";
+import { UserData } from "../../api/BaseAPI";
 
 export interface AuthPageProps {
   logo: LogoProps;
@@ -43,7 +43,7 @@ export default class AuthPage extends Block<AuthPageProps> {
             console.log("data:", data);
             const isValid = form.isValid();
             if (isValid) {
-              AuthController.signin(data as SignupData);
+              AuthController.signin(data as UserData);
             }
           },
         },

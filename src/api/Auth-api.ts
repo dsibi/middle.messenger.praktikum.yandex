@@ -1,25 +1,5 @@
 import { HTTPTransport } from "../utils/HTTPTransport";
-import { BaseAPI } from "./BaseAPI";
-
-export interface SignupData {
-  first_name: string;
-  second_name: string;
-  login: string;
-  email: string;
-  password: string;
-  phone: string;
-}
-
-export interface UserData {
-  id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  avatar: string;
-  email: string;
-  phone: string;
-}
+import { BaseAPI, UserData, APIError } from "./BaseAPI";
 
 class AuthAPI extends BaseAPI {
   protected http: HTTPTransport;
@@ -28,19 +8,19 @@ class AuthAPI extends BaseAPI {
     this.http = new HTTPTransport("/auth");
   }
 
-  signup(data: SignupData) {
+  signup(data: UserData) {
     return this.http.post("/signup", { data });
   }
 
-  signin(data: SignupData) {
+  signin(data: UserData): Promise<void | APIError> {
     return this.http.post("/signin", { data });
   }
 
-  logout() {
+  logout(): Promise<void | APIError> {
     return this.http.post("/logout");
   }
 
-  user() {
+  user(): Promise<UserData | APIError> {
     return this.http.get("/user");
   }
 }

@@ -9,7 +9,6 @@ function render(query: string, block: Block) {
   if (root === null) {
     throw new Error(`root по селектору ${query} не найден`);
   }
-  // root.innerHTML = "";
   root.append(block.getContent()!);
   return root;
 }
