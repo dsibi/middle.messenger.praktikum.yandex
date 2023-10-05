@@ -23,7 +23,7 @@ export class Header extends Block<HeaderProps> {
         avaPath: settingsAvaPath,
         altText: "Settings",
         events: {
-          click: () => AuthController.user(),
+          click: () => AuthController.userData(),
         },
       }),
     });

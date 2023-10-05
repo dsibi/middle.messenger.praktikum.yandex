@@ -16,8 +16,8 @@ class UserAPI extends BaseAPI {
     return this.http.put("/password", { data });
   }
 
-  avatar(avatar: FormData): Promise<void | APIError> {
-    return this.http.put("/profile/avatar", { avatar });
+  avatar(data: FormData): Promise<void | APIError> {
+    return this.http.put("/profile/avatar", { data });
   }
 }
 

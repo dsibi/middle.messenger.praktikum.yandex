@@ -69,13 +69,24 @@ export class HTTPTransport {
   ): Promise<Response> {
     const { method, data } = options;
 
-    const response = await fetch(url, {
-      method,
-      credentials: "include",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-      body: data ? JSON.stringify(data) : null,
-    });
+    let response;
+
+    if (data instanceof FormData) {
+      response = await fetch(url, {
+        method,
+        credentials: "include",
+        mode: "cors",
+        body: data,
+      });
+    } else {
+      response = await fetch(url, {
+        method,
+        credentials: "include",
+        mode: "cors",
+        headers: { "Content-Type": "application/json" },
+        body: data ? JSON.stringify(data) : null,
+      });
+    }
 
     const isJson = response.headers
       .get("content-type")

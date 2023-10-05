@@ -55,8 +55,8 @@ export enum StoreEvents {
 }
 
 // наследуем Store от EventBus, чтобы его методы были сразу доступны у экземпляра Store
-class Store extends EventBus {
-  private state: any = {};
+class Store<State extends Record<string, any>> extends EventBus {
+  private state: State = {} as State;
 
   public getState() {
     return this.state;

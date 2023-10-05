@@ -1,8 +1,7 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import { AvatarCopy, AvaCopyProps } from "../../components/avatar copy";
-import path from "../../static/img/avatar.png";
+import { AvatarCopy, AvaCopyProps } from "../../components/avatarPf";
 import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData, passData } from "../../data/profile";
@@ -23,6 +22,8 @@ export interface PfPageProps {
 class PfPage extends Block<PfPageProps> {
   constructor(props: any) {
     const serverData = props.user;
+    console.log(serverData);
+
     Object.values(inputsData).forEach((input) => {
       let name = input.name;
       input.value = serverData[name];
@@ -39,21 +40,21 @@ class PfPage extends Block<PfPageProps> {
     });
     super({
       myAva: new AvatarCopy({
-        avaPath: path,
+        avaPath:
+          "https://ya-praktikum.tech/api/v2/resources" + serverData.avatar,
         altText: "My Ava",
-        // events: {
-        //   submit: () => {
-        //     const myUserForm = document.getElementById(
-        //       "avatar"
-        //     ) as HTMLInputElement;
-        //     const formData = new FormData();
-        //     formData.append("avatar", myUserForm);
-        //     // console.log(avatar);
-
-        //     // const avatar = new FormData();
-        //     UserController.avatar(formData as FormData);
-        //   },
-        // },
+        events: {
+          submit: (event) => {
+            event.preventDefault();
+            const avatar = document.getElementById(
+              "avatar"
+            ) as HTMLInputElement;
+            const avaForm = new FormData();
+            avaForm.append("avatar", avatar!.files![0]);
+            UserController.avatar(avaForm);
+            Router.go("/chats");
+          },
+        },
       }),
       userDataForm: userDataForm,
       confirmBtn: new Button({

@@ -12,6 +12,18 @@ class AuthController {
     this.api = AuthAPI;
   }
 
+  async user() {
+    try {
+      const response = await this.api.user();
+      if (apiHasError(response)) {
+        throw Error(response.reason);
+      }
+      return response;
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+  }
+
   async signup(data: UserData) {
     try {
       const response = await this.api.signup(data);
@@ -31,6 +43,9 @@ class AuthController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
+      const user = await this.user();
+      console.log(user);
+      // Store.set("chats", user);
       Router.go("/chats");
     } catch (e: any) {
       showNotification(e.message, NotificationTypes.Warning);
@@ -49,17 +64,11 @@ class AuthController {
     }
   }
 
-  async user() {
-    try {
-      const response = await this.api.user();
-      if (apiHasError(response)) {
-        throw Error(response.reason);
-      }
-      Store.set("user", response);
-      Router.go("/settings");
-    } catch (e: any) {
-      showNotification(e.reason, NotificationTypes.Warning);
-    }
+  async userData() {
+    const response = await this.api.user();
+    Store.set("user", response);
+    Router.go("/settings");
+    return response;
   }
 
   async isUserLoggedIn() {

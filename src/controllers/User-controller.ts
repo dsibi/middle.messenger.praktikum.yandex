@@ -31,18 +31,20 @@ class UserController {
       }
       Router.go("/chats");
     } catch (e: any) {
-      showNotification(e.reason, NotificationTypes.Warning);
+      showNotification(e, NotificationTypes.Warning);
     }
   }
 
-  async avatar(avatar: FormData) {
+  async avatar(data: FormData) {
     try {
-      const response = await this.api.avatar(avatar);
+      const response = await this.api.avatar(data);
+      console.log(response);
+
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
     } catch (e: any) {
-      showNotification(e.reason, NotificationTypes.Warning);
+      showNotification(e, NotificationTypes.Warning);
     }
   }
 }
