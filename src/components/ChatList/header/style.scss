@@ -19,10 +19,17 @@
       font-weight: bold;
       color: #efefef;
     }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-    .image-cropper {
-      padding: 10px;
+    img {
+      width: 30px;
+    }
 
+    .image-cropperSet {
       img {
         width: 50px;
       }

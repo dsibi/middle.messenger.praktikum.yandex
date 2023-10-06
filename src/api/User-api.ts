@@ -1,5 +1,5 @@
 import { HTTPTransport } from "../utils/HTTPTransport";
-import { BaseAPI, UserData, PassData, APIError } from "./BaseAPI";
+import { BaseAPI } from "./BaseAPI";
 
 class UserAPI extends BaseAPI {
   protected http: HTTPTransport;

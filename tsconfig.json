@@ -16,6 +16,7 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "ESNext",
+    "typeRoots": ["node_modules/@types", "declaration.d.ts"],
     "useDefineForClassFields": true
   },
   "include": ["src"],

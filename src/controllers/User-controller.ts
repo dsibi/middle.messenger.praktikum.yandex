@@ -1,5 +1,4 @@
 import UserAPI from "../api/User-api";
-import { PassData, UserData } from "../api/BaseAPI";
 import { apiHasError } from "../utils/apiHasError";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";

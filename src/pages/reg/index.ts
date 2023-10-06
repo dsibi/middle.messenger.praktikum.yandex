@@ -6,7 +6,6 @@ import { Form, FormProps } from "../../components/form/index";
 import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/reg";
 import AuthController from "../../controllers/Auth-controller";
-import { UserData } from "../../api/BaseAPI";
 
 export interface RegPageProps {
   logo: LogoProps;

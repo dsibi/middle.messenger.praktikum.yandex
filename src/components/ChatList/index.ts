@@ -4,6 +4,7 @@ import "./style.scss";
 import { Header, HeaderProps } from "./header";
 import { Chats, ChatsProps } from "./chats";
 import { Chat, DataSet } from "../../data/chats";
+import { connect } from "../../utils/connect";
 
 export interface ChatListProps {
   header: HeaderProps;
@@ -32,3 +33,6 @@ export class ChatList extends Block<ChatListProps> {
     return this.compile(template, { ...this.props });
   }
 }
+
+const ChatListWithStore = connect((state) => ({ user: state.user }))(ChatList);
+export default ChatListWithStore;

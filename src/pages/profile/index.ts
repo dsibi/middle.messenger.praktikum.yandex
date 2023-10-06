@@ -8,7 +8,6 @@ import { inputsData, passData } from "../../data/profile";
 import Router from "../../utils/router";
 import { connect } from "../../utils/connect";
 import UserController from "../../controllers/User-controller";
-import { PassData, UserData } from "../../api/BaseAPI";
 
 export interface PfPageProps {
   myAva: AvaCopyProps;

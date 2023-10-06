@@ -1,5 +1,4 @@
 import AuthAPI from "../api/Auth-api";
-import { UserData } from "../api/BaseAPI";
 import { apiHasError } from "../utils/apiHasError";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";

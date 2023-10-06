@@ -9,13 +9,13 @@ class ChatAPI extends BaseAPI {
     this.http = new HTTPTransport("/chats");
   }
 
-  createChat(data: Record<string, any>) {
+  createChat(data: CreateChat) {
     return this.http.post("/", { data });
   }
 
-  getChats(params: Record<string, any>) {
-    return this.http.get("/", params);
-  }
+  // getChats(params: Record<string, any>) {
+  //   return this.http.get("/", params);
+  // }
 }
 
 export default new ChatAPI();

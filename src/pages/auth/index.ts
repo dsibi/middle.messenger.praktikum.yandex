@@ -8,7 +8,6 @@ import { Button, ButtonProps } from "../../components/button/index";
 import { inputsData } from "../../data/auth";
 import Router from "../../utils/router";
 import AuthController from "../../controllers/Auth-controller";
-import { UserData } from "../../api/BaseAPI";
 
 export interface AuthPageProps {
   logo: LogoProps;

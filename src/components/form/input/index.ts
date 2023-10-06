@@ -9,7 +9,7 @@ export interface InputProps {
   type: string;
   errorText?: string;
   value?: string;
-  validate: (value: string) => string;
+  validate?: (value: string) => string;
 }
 
 export class Input extends Block<InputProps> {

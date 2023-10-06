@@ -1,5 +1,5 @@
 import { HTTPTransport } from "../utils/HTTPTransport";
-import { BaseAPI, UserData, APIError } from "./BaseAPI";
+import { BaseAPI } from "./BaseAPI";
 
 class AuthAPI extends BaseAPI {
   protected http: HTTPTransport;
@@ -12,11 +12,11 @@ class AuthAPI extends BaseAPI {
     return this.http.post("/signup", { data });
   }
 
-  signin(data: UserData): Promise<void | APIError> {
+  signin(data: UserData): Promise<UserData | APIError> {
     return this.http.post("/signin", { data });
   }
 
-  logout(): Promise<void | APIError> {
+  logout(): Promise<UserData | APIError> {
     return this.http.post("/logout");
   }
 

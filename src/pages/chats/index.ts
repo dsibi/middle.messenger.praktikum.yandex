@@ -1,7 +1,7 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import { ChatList, ChatListProps } from "../../components/ChatList";
+import ChatListWithStore, { ChatListProps } from "../../components/ChatList";
 import { Messenger, MessengerProps } from "../../components/messenger";
 
 export interface ChatsPageProps {
@@ -11,7 +11,7 @@ export interface ChatsPageProps {
 
 export default class ChatsPage extends Block<ChatsPageProps> {
   init() {
-    this.children.chatList = new ChatList();
+    this.children.chatList = new ChatListWithStore(this.props);
     this.children.messenger = new Messenger();
   }
 
