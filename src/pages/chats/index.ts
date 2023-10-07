@@ -3,6 +3,7 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 import ChatListWithStore, { ChatListProps } from "../../components/ChatList";
 import { Messenger, MessengerProps } from "../../components/messenger";
+import ChatsController from "../../controllers/Chats-controller";
 
 export interface ChatsPageProps {
   chatList: ChatListProps;
@@ -10,9 +11,15 @@ export interface ChatsPageProps {
 }
 
 export default class ChatsPage extends Block<ChatsPageProps> {
-  init() {
-    this.children.chatList = new ChatListWithStore(this.props);
-    this.children.messenger = new Messenger();
+  constructor() {
+    super({
+      chatList: new ChatListWithStore({}),
+      messenger: new Messenger(),
+    });
+    this.loadChats();
+  }
+  loadChats() {
+    ChatsController.getChats();
   }
 
   render() {

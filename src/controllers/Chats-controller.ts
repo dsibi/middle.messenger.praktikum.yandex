@@ -16,9 +16,21 @@ class ChatController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      Store.set("user", response);
+      Store.set("chat_id", response);
       const dialog: HTMLDialogElement | null = document.querySelector("dialog");
       dialog!.close();
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+  }
+
+  async getChats() {
+    try {
+      const response = await this.api.getChats();
+      if (apiHasError(response)) {
+        throw Error(response.reason);
+      }
+      console.log(response);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }

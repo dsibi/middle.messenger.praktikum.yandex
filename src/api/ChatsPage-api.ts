@@ -13,9 +13,9 @@ class ChatAPI extends BaseAPI {
     return this.http.post("/", { data });
   }
 
-  // getChats(params: Record<string, any>) {
-  //   return this.http.get("/", params);
-  // }
+  getChats() {
+    return this.http.get("/", {});
+  }
 }
 
 export default new ChatAPI();

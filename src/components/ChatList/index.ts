@@ -29,6 +29,7 @@ export class ChatList extends Block<ChatListProps> {
       ),
     });
   }
+
   render() {
     return this.compile(template, { ...this.props });
   }

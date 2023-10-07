@@ -28,6 +28,12 @@ declare global {
   export interface Response {
     response: string;
   }
+
+  export interface IChatsGet {
+    offset?: number;
+    limit?: number;
+    title?: string;
+  }
 }
 
 export {};

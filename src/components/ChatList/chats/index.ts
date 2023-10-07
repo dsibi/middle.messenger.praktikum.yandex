@@ -19,6 +19,7 @@ export class Chats extends Block<ChatsProps> {
   constructor(props: ChatsProps) {
     super(props);
   }
+
   render() {
     return this.compile(template, { ...this.props });
   }
