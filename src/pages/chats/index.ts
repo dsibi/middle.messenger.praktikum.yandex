@@ -1,28 +1,34 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import ChatListWithStore, { ChatListProps } from "../../components/ChatList";
+import { ChatList, ChatListProps } from "../../components/ChatList";
 import { Messenger, MessengerProps } from "../../components/messenger";
-import ChatsController from "../../controllers/Chats-controller";
+import { connect } from "../../utils/connect";
+import { Chats, ChatsProps } from "../../components/ChatList/chats";
 
 export interface ChatsPageProps {
   chatList: ChatListProps;
   messenger: MessengerProps;
 }
 
-export default class ChatsPage extends Block<ChatsPageProps> {
-  constructor() {
+export class ChatsPage extends Block<ChatsPageProps> {
+  constructor(props: any) {
     super({
-      chatList: new ChatListWithStore({}),
+      chatList: new ChatList({
+        user: props.user,
+        chats: props.chats,
+      }),
       messenger: new Messenger(),
     });
-    this.loadChats();
-  }
-  loadChats() {
-    ChatsController.getChats();
   }
 
   render() {
     return this.compile(template, { ...this.props });
   }
 }
+
+const ChatsPageWithStore = connect((state) => ({
+  user: state.user,
+  chats: state.chats,
+}))(ChatsPage);
+export default ChatsPageWithStore;

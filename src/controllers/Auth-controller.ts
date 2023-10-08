@@ -3,6 +3,7 @@ import { apiHasError } from "../utils/apiHasError";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
 import Store from "../utils/Store";
+import ChatsController from "./Chats-controller";
 
 class AuthController {
   private readonly api;
@@ -17,6 +18,7 @@ class AuthController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
+      Store.set("user", response);
       return response;
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
@@ -72,10 +74,8 @@ class AuthController {
 
   async isUserLoggedIn() {
     try {
-      const response = await this.api.user();
-      if (apiHasError(response)) {
-        throw Error(response.reason);
-      }
+      await this.user();
+      await ChatsController.getChats();
       Router.go("/chats");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);

@@ -1,26 +1,19 @@
 import Block from "../../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import { Avatar, AvaProps } from "../../avatar";
-import myAvaPath from "../../../static/img/avatar.png";
+import { Avatar } from "../../avatar";
 import addChatAvaPath from "../../../static/img/plus.png";
 import settingsAvaPath from "../../../static/img/dots_white.png";
 import AuthController from "../../../controllers/Auth-controller";
-import { Button, ButtonProps } from "../../button";
-import { Input, InputProps } from "../../form/input";
+import { Button } from "../../button";
+import { Input } from "../../form/input";
 import ChatsController from "../../../controllers/Chats-controller";
 
 export interface HeaderProps {
-  myAva: AvaProps;
-  name: string;
-  addChatAva: AvaProps;
-  chatName: InputProps;
-  createChatBtn: ButtonProps;
-  closeBtn: ButtonProps;
-  settingsAva: AvaProps;
+  user: UserData;
 }
 export class Header extends Block<HeaderProps> {
-  constructor() {
+  constructor(props: HeaderProps) {
     let chatName = new Input({
       label: "Chat Name",
       name: "chat_name",
@@ -28,10 +21,11 @@ export class Header extends Block<HeaderProps> {
     });
     super({
       myAva: new Avatar({
-        avaPath: myAvaPath,
+        avaPath:
+          "https://ya-praktikum.tech/api/v2/resources" + props.user.avatar,
         altText: "My Ava",
       }),
-      name: "Dmitry Sib",
+      name: props.user.first_name,
       addChatAva: new Avatar({
         avaPath: addChatAvaPath,
         altText: "Add Chat",

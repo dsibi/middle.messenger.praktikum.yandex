@@ -122,7 +122,7 @@ export class DataSet {
   }
 }
 
-type RandomData = {
+type ContactsList = {
   _msgText: string;
   time: Date;
   isInbox: boolean;
@@ -132,7 +132,7 @@ type RandomData = {
   settings: string[];
 };
 
-const data: RandomData[] = [
+const data: ContactsList[] = [
   {
     _msgText: "TypeScript is",
     time: new Date("2023-07-07 20:11:55"),
@@ -198,8 +198,8 @@ const data: RandomData[] = [
   },
 ];
 
-const preparedData: Chat[] = data.map((rd: RandomData, index) => {
-  let makeMessages = (msgData: RandomData) => [
+const preparedData: Chat[] = data.map((rd: ContactsList, index) => {
+  let makeMessages = (msgData: ContactsList) => [
     new Message(
       msgData._msgText,
       new Date(msgData.time),

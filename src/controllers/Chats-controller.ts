@@ -30,7 +30,7 @@ class ChatController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      console.log(response);
+      Store.set("chats", response);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }

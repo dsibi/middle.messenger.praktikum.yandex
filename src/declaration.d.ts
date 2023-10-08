@@ -2,6 +2,7 @@ declare global {
   declare module "*.hbs";
   declare module "*.png";
   declare module "*.scss";
+
   export interface UserData {
     first_name: string;
     second_name: string;
@@ -9,6 +10,7 @@ declare global {
     email: string;
     password: string;
     phone: string;
+    avatar: string;
     reason?: string;
   }
 
