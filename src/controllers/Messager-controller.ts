@@ -77,8 +77,8 @@ class MessageController {
     }, 10000);
   };
 
-  private readonly _handleError = (e: ErrorEvent) => {
-    console.log(e.message);
+  private readonly _handleError = (e: Event) => {
+    console.log(e as ErrorEvent);
   };
 
   private readonly _handleClose = (e: CloseEventInit) => {
