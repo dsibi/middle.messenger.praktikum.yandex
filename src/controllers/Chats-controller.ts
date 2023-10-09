@@ -35,6 +35,18 @@ class ChatController {
       showNotification(e.reason, NotificationTypes.Warning);
     }
   }
+
+  async addUsersToChat(data: AddUser) {
+    try {
+      const response = await this.api.addUsersToChat(data);
+      if (apiHasError(response)) {
+        throw Error(response.reason);
+      }
+      Store.set("chats", response);
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+  }
 }
 
 export default new ChatController();

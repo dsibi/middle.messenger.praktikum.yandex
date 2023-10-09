@@ -2,7 +2,7 @@ import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
 import { Header } from "./header";
-import { Chats, ChatsProps } from "./chats";
+import { Chats } from "./chats";
 
 export interface ChatListProps {
   user: UserData;

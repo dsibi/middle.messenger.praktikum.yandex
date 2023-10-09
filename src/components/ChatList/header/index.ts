@@ -31,8 +31,9 @@ export class Header extends Block<HeaderProps> {
         altText: "Add Chat",
         events: {
           click: () => {
-            const dialog: HTMLDialogElement | null =
-              document.querySelector("dialog");
+            const dialog = document.getElementById(
+              "chatDialog"
+            ) as HTMLDialogElement;
             dialog!.showModal();
           },
         },
@@ -54,8 +55,9 @@ export class Header extends Block<HeaderProps> {
         label: "Close",
         events: {
           click: () => {
-            const dialog: HTMLDialogElement | null =
-              document.querySelector("dialog");
+            const dialog = document.getElementById(
+              "chatDialog"
+            ) as HTMLDialogElement;
             dialog!.close();
           },
         },

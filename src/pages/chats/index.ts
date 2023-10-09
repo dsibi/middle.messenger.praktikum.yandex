@@ -4,7 +4,6 @@ import "./style.scss";
 import { ChatList, ChatListProps } from "../../components/ChatList";
 import { Messenger, MessengerProps } from "../../components/messenger";
 import { connect } from "../../utils/connect";
-import { Chats, ChatsProps } from "../../components/ChatList/chats";
 
 export interface ChatsPageProps {
   chatList: ChatListProps;
@@ -18,7 +17,7 @@ export class ChatsPage extends Block<ChatsPageProps> {
         user: props.user,
         chats: props.chats,
       }),
-      messenger: new Messenger(),
+      messenger: new Messenger({ chats: props.chats }),
     });
   }
 

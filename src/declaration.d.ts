@@ -14,8 +14,25 @@ declare global {
     reason?: string;
   }
 
+  export interface ChatsProps {
+    id: number;
+    title: string;
+    avatar: string;
+    unread_count: number;
+    created_by: number;
+    last_message: {
+      time: string;
+      content: string;
+    };
+  }
+
   export interface CreateChat {
     title: string;
+  }
+
+  export interface AddUser {
+    users: number[];
+    chatId: number;
   }
 
   export interface APIError {

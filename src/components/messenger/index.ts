@@ -1,21 +1,19 @@
 import Block from "../../utils/Block";
 import template from "./tmpl.hbs";
 import "./style.scss";
-import { Header, HeaderProps } from "./header";
-import { Message, MessageProps } from "./message";
-import { Input, InputProps } from "./input";
+import { Header } from "./header";
+import { Message } from "./message";
+import { Input } from "./input";
 import { bestFriendChat } from "../../data/chats";
 
 export interface MessengerProps {
-  header: HeaderProps;
-  message: MessageProps;
-  input: InputProps;
+  chats: ChatsProps[];
 }
 
 export class Messenger extends Block<MessengerProps> {
-  constructor() {
+  constructor(props: MessengerProps) {
     super({
-      header: new Header(),
+      header: new Header({ chats: props.chats }),
       message: bestFriendChat.messageCollection.map(
         (message) =>
           new Message({

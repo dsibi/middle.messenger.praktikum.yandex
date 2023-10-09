@@ -16,6 +16,10 @@ class ChatAPI extends BaseAPI {
   getChats() {
     return this.http.get("/", {});
   }
+
+  addUsersToChat(data: AddUser) {
+    return this.http.put("/users", { data });
+  }
 }
 
 export default new ChatAPI();
