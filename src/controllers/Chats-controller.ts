@@ -47,6 +47,21 @@ class ChatController {
       showNotification(e.reason, NotificationTypes.Warning);
     }
   }
+
+  async getChatToken(id: number) {
+    let response;
+    try {
+      response = await this.api.getChatToken(id);
+      if (apiHasError(response)) {
+        throw Error(response.reason);
+      }
+      // console.log(response);
+      // Store.set("chats", response);
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
+    return response as Token;
+  }
 }
 
 export default new ChatController();

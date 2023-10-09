@@ -29,5 +29,8 @@ export class ChatsPage extends Block<ChatsPageProps> {
 const ChatsPageWithStore = connect((state) => ({
   user: state.user,
   chats: state.chats,
+  messages: [...(state.messages || [])],
+  activeChat: state.activeChat,
+  searchChatText: state.searchChatText,
 }))(ChatsPage);
 export default ChatsPageWithStore;

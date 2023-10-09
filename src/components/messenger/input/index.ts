@@ -3,6 +3,7 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 import { Button, ButtonProps } from "../../button";
 import { Text, TextProps } from "./text";
+import MessageController from "../../../controllers/Messager-controller";
 
 export interface InputProps {
   text: TextProps;
@@ -37,6 +38,7 @@ export class Input extends Block<InputProps> {
             e.preventDefault();
             const { value, name } = this.children.text;
             console.log({ [name]: value });
+            MessageController.sendMessage(value);
           },
         },
       }),

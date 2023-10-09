@@ -4,6 +4,7 @@ import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
 import Store from "../utils/Store";
 import ChatsController from "./Chats-controller";
+import MessagerController from "./Messager-controller";
 
 class AuthController {
   private readonly api;
@@ -13,16 +14,17 @@ class AuthController {
   }
 
   async user() {
+    let response;
     try {
-      const response = await this.api.user();
+      response = await this.api.user();
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
       Store.set("user", response);
-      return response;
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
+    return response;
   }
 
   async signup(data: UserData) {
@@ -74,8 +76,11 @@ class AuthController {
 
   async isUserLoggedIn() {
     try {
-      await this.user();
+      const userId = ((await this.user()) as UserData).id;
       await ChatsController.getChats();
+      const id = 27787;
+      const token: Token = await ChatsController.getChatToken(id);
+      MessagerController.connect({ userId, chatId: id, token: token.token });
       Router.go("/chats");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);

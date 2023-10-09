@@ -4,6 +4,7 @@ declare global {
   declare module "*.scss";
 
   export interface UserData {
+    id: number;
     first_name: string;
     second_name: string;
     login: string;
@@ -28,6 +29,11 @@ declare global {
 
   export interface CreateChat {
     title: string;
+  }
+
+  export interface Token {
+    token: string;
+    reason?: string;
   }
 
   export interface AddUser {

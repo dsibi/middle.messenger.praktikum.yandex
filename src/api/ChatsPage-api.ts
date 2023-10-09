@@ -20,6 +20,10 @@ class ChatAPI extends BaseAPI {
   addUsersToChat(data: AddUser) {
     return this.http.put("/users", { data });
   }
+
+  getChatToken(chatId: number): Promise<Token | APIError> {
+    return this.http.post(`/token/${chatId}`, {});
+  }
 }
 
 export default new ChatAPI();
