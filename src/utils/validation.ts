@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-useless-escape */
 const regexp = {
   name: /^[A-Z][a-zA-Z-\.]{1,}$/,
   login: /^[a-zA-Z][a-zA-Z0-9-_\.]{2,20}$/,

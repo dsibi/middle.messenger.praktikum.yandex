@@ -1,0 +1,16 @@
+$font-color: #393939;
+$purple: #8639db;
+$green: #8edb39;
+$purpleLight: #e585f2;
+
+body {
+  color: $font-color;
+  font: 16px Tahoma, sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 100px;
+}

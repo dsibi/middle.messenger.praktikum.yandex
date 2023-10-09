@@ -1,0 +1,38 @@
+@import "/default.scss";
+
+.header {
+  display: flex;
+  background-color: #8639db;
+  align-items: center;
+  height: 40px;
+
+  img {
+    width: 47px;
+  }
+
+  .nameSettings {
+    flex-grow: 1;
+
+    .name {
+      margin-left: 10px;
+      font-size: smaller;
+      font-weight: bold;
+      color: #efefef;
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    img {
+      width: 30px;
+    }
+
+    .image-cropperSet {
+      img {
+        width: 50px;
+      }
+    }
+  }
+}

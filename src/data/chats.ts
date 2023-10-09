@@ -18,12 +18,12 @@ let goodFriendContact = new Contact(
 );
 
 export class Message {
-  _msgText: string;
+  msgText: string;
   time: Date;
   isInbox: boolean;
   isRead?: boolean;
   constructor(msgText: string, time: Date, isInbox: boolean, isRead?: boolean) {
-    this._msgText = msgText;
+    this.msgText = msgText;
     this.time = time;
     this.isInbox = isInbox;
     this.isRead = isRead;
@@ -122,9 +122,9 @@ export class DataSet {
   }
 }
 
-type RandomData = {
+type ContactsList = {
   _msgText: string;
-  time: string;
+  time: Date;
   isInbox: boolean;
   isRead: boolean;
   name: string;
@@ -132,10 +132,10 @@ type RandomData = {
   settings: string[];
 };
 
-const data: RandomData[] = [
+const data: ContactsList[] = [
   {
     _msgText: "TypeScript is",
-    time: "2023-07-07 20:11:55",
+    time: new Date("2023-07-07 20:11:55"),
     isInbox: false,
     isRead: true,
     name: "Tarik Kirby",
@@ -144,7 +144,7 @@ const data: RandomData[] = [
   },
   {
     _msgText: "TypeScript is a free and open-source high-level",
-    time: "2023-12-16 10:15:41",
+    time: new Date("2023-12-16 10:15:41"),
     isInbox: true,
     isRead: true,
     name: "Dennis Hawkins",
@@ -153,7 +153,7 @@ const data: RandomData[] = [
   },
   {
     _msgText: "TypeScript is a free and open-source high-level programming",
-    time: "2023-11-12 06:37:42",
+    time: new Date("2023-11-12 06:37:42"),
     isInbox: true,
     isRead: true,
     name: "Nissim Finch",
@@ -162,7 +162,7 @@ const data: RandomData[] = [
   },
   {
     _msgText: "TypeScript is a free and",
-    time: "2022-09-26 00:52:55",
+    time: new Date("2022-09-26 00:52:55"),
     isInbox: true,
     isRead: false,
     name: "Quentin Miller",
@@ -171,7 +171,7 @@ const data: RandomData[] = [
   },
   {
     _msgText: "TypeScript is a free and open-source high-level programming",
-    time: "2023-08-26 13:05:24",
+    time: new Date("2023-08-26 13:05:24"),
     isInbox: true,
     isRead: true,
     name: "Owen Foley",
@@ -180,7 +180,7 @@ const data: RandomData[] = [
   },
   {
     _msgText: "TypeScript is a free and",
-    time: "2022-10-19 06:50:51",
+    time: new Date("2022-10-19 06:50:51"),
     isInbox: true,
     isRead: true,
     name: "Lenore Daniels",
@@ -189,45 +189,17 @@ const data: RandomData[] = [
   },
   {
     _msgText: "TypeScript is a free and",
-    time: "2023-07-28 20:24:21",
+    time: new Date("2023-07-28 20:24:21"),
     isInbox: true,
     isRead: false,
     name: "Wayne Bailey",
     isActive: false,
     settings: ["Clear history", "Delete chat"],
   },
-  // {
-  //   _msgText:
-  //     "TypeScript is a free and open-source high-level programming language",
-  //   time: "2023-10-18 19:45:42",
-  //   isInbox: true,
-  //   isRead: false,
-  //   name: "Aidan Shaw",
-  //   isActive: false,
-  //   settings: ["Clear history", "Delete chat"],
-  // },
-  // {
-  //   _msgText: "TypeScript is a free and",
-  //   time: "2023-06-03 12:13:59",
-  //   isInbox: true,
-  //   isRead: true,
-  //   name: "Leila Delaney",
-  //   isActive: false,
-  //   settings: ["Clear history", "Delete chat"],
-  // },
-  // {
-  //   _msgText: "TypeScript is",
-  //   time: "2024-06-12 15:06:47",
-  //   isInbox: true,
-  //   isRead: true,
-  //   name: "Maggy Collier",
-  //   isActive: false,
-  //   settings: ["Clear history", "Delete chat"],
-  // },
 ];
 
-const preparedData: Chat[] = data.map((rd: RandomData, index) => {
-  let makeMessages = (msgData: RandomData) => [
+const preparedData: Chat[] = data.map((rd: ContactsList, index) => {
+  let makeMessages = (msgData: ContactsList) => [
     new Message(
       msgData._msgText,
       new Date(msgData.time),

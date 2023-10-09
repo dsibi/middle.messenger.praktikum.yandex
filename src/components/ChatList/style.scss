@@ -1,0 +1,8 @@
+@import "/default.scss";
+
+.chatList {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  border-right: 1px solid #bababa;
+}

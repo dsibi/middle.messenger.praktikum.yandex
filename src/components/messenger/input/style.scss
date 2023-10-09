@@ -1,0 +1,42 @@
+@import "/default.scss";
+
+.chatInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .text {
+    flex-grow: 1;
+    border: none;
+    height: 20px;
+  }
+
+  .text::placeholder {
+    color: #90da3d;
+  }
+
+  .attachIcon,
+  .smileIcon {
+    width: 25px;
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    margin: 4px 10px;
+  }
+
+  #submit {
+    width: 25px;
+    height: 25px;
+    /* background-color: transparent; */
+    border: none;
+    background-image: url("../../../static/img/smile.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+    cursor: pointer;
+    line-height: 0;
+  }
+}

@@ -1,0 +1,26 @@
+@import "/default.scss";
+
+.regFormCont {
+  display: flex;
+  justify-content: center;
+
+  .regForm {
+    width: 340px;
+    padding: 15px 30px 30px;
+    box-sizing: border-box;
+
+    .logoBox {
+      display: flex;
+      justify-content: center;
+      margin: 15px;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    .buttonCont {
+      margin: 0px 80px;
+    }
+  }
+}

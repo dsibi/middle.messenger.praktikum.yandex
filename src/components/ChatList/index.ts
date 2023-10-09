@@ -1,30 +1,23 @@
 import Block from "../../utils/Block";
-import template from "./template.hbs";
-import style from "./style.module.css";
-import { Header } from "./Header";
-import { ChatListContact } from "./ChatListContact";
-import { Chat, DataSet } from "../../data/chats";
+import template from "./tmpl.hbs";
+import "./style.scss";
+import { Header } from "./header";
+import { Chats } from "./chats";
 
-export class ChatList extends Block {
-  init() {
-    this.children.header = new Header();
-    this.children.chatListContact = DataSet.chats.map(
-      (chat: Chat) =>
-        new ChatListContact({
-          logo: chat.contact.avatar,
-          contact: chat.contact.name,
-          lastMsgTime: chat.lastMsg.time.toLocaleDateString(),
-          lastMsgIsInbox: chat.lastMsg.isInbox,
-          lastMsgText: chat.lastMsg._msgText,
-          unreadNumber: chat.unreadNumber,
-          isActive: chat.isActive,
-        })
-    );
+export interface ChatListProps {
+  user: UserData;
+  chats: ChatsProps[];
+}
+
+export class ChatList extends Block<ChatListProps> {
+  constructor(props: ChatListProps) {
+    super({
+      header: new Header({ user: props.user }),
+      chats: props.chats.map((chat: ChatsProps) => new Chats(chat)),
+    });
   }
 
   render() {
-    // console.log(this);
-
-    return this.compile(template, { style });
+    return this.compile(template, { ...this.props });
   }
 }

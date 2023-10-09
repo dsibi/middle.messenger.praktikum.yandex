@@ -2,3 +2,4 @@
 **/*.min.js
 /node_modules
 vite.config.js
+vite-plugin-handlebars-precompile.ts

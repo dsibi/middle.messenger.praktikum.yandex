@@ -1,105 +1,111 @@
-/* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-import { renderDom } from "../../utils/renderDom";
-import template from "./template.hbs";
-import style from "./style.module.css";
-import { Form } from "../../components/Form";
-import { FormInputProps } from "../../components/Form/FormInput";
-import { Header } from "../../components/Header";
-import { Avatar } from "../../components/Avatar";
-import avaPath from "../../../static/img/avatar.png";
-import { Button, ButtonProps } from "../../components/Button";
-import {
-  isValidLogin,
-  isValidEmail,
-  isValidName,
-  isValidPhone,
-  isValidPassword,
-} from "../../utils/validation";
+import template from "./tmpl.hbs";
+import "./style.scss";
+import { AvatarCopy, AvaCopyProps } from "../../components/avatarPf";
+import { Form, FormProps } from "../../components/form/index";
+import { Button, ButtonProps } from "../../components/button/index";
+import { inputsData, passData } from "../../data/profile";
+import Router from "../../utils/router";
+import { connect } from "../../utils/connect";
+import UserController from "../../controllers/User-controller";
 
-class ProfileField implements FormInputProps {
-  for: string;
-  label: string;
-  name: string;
-  type: string;
-  id: string;
-  value: string;
-  error?: string | undefined;
-  events!: { click: () => void };
-  validate: (value: string) => string;
-  constructor(
-    id: string,
-    label: string,
-    value: string,
-    validate: (value: string) => string
-  ) {
-    this.for = id;
-    this.label = label;
-    this.id = id;
-    this.value = value;
-    this.type = id;
-    this.name = id;
-    this.validate = validate;
-  }
+export interface PfPageProps {
+  myAva: AvaCopyProps;
+  userDataForm: FormProps;
+  confirmBtn: ButtonProps;
+  cancelBtn: ButtonProps;
+  passForm: FormProps;
+  confirmPassBtn: ButtonProps;
 }
 
-const pfFields: ProfileField[] = [
-  new ProfileField("first_name", "First Name", "Dmitry", isValidName),
-  new ProfileField("second_name", "Second Name", "Sib", isValidName),
-  new ProfileField("display_name", "Display Name", "Dmitry Sib", isValidName),
-  new ProfileField("login", "Login", "dimas", isValidLogin),
-  new ProfileField("email", "Email", "dimas@dimas.world", isValidEmail),
-  new ProfileField("phone", "Phone", "+7-777-777-7777", isValidPhone),
-  new ProfileField("old_password", "Old Password", "********", isValidPassword),
-  new ProfileField("new_password", "New Password", "********", isValidPassword),
-];
+class PfPage extends Block<PfPageProps> {
+  constructor(props: any) {
+    const serverData = props.user;
+    console.log(serverData);
 
-export interface ProfilePagePageProps {
-  save: ButtonProps;
-  cancel: ButtonProps;
-}
-
-// console.log(regFields);
-
-export class ProfilePage extends Block<ProfilePagePageProps> {
-  form = this.children.form as Form;
-
-  init() {
-    this.children.header = new Header();
-    this.children.avatar = new Avatar({ avaPath: avaPath, width: "100px" });
-    this.children.form = new Form({
-      inputs: pfFields.map((pfField) => ({
-        ...pfField,
-        events: {
-          focusin: () => this.form.validate(pfField.name),
-          focusout: () => this.form.validate(pfField.name),
-        },
+    Object.values(inputsData).forEach((input) => {
+      let name = input.name;
+      input.value = serverData[name];
+    });
+    let userDataForm = new Form({
+      input: inputsData.map((input) => ({
+        ...input,
       })),
     });
-    this.children.save = new Button({
-      label: "Save",
-      class: style.button,
-      events: {
-        click: (e: Event) => {
-          e.preventDefault();
-          const isValid = this.form.isValid();
-          const data = this.form.getValues();
-          console.log("form is valid: ", isValid);
-          console.log(data);
-        },
-      },
+    let passForm = new Form({
+      input: passData.map((input) => ({
+        ...input,
+      })),
     });
-    this.children.cancel = new Button({
-      label: "Cancel",
-      events: {
-        click: () => renderDom("authorizationPage"),
-      },
-      class: style.button,
+    super({
+      myAva: new AvatarCopy({
+        avaPath:
+          "https://ya-praktikum.tech/api/v2/resources" + serverData.avatar,
+        altText: "My Ava",
+        events: {
+          submit: (event) => {
+            event.preventDefault();
+            const avatar = document.getElementById(
+              "avatar"
+            ) as HTMLInputElement;
+            const avaForm = new FormData();
+            avaForm.append("avatar", avatar!.files![0]);
+            UserController.avatar(avaForm);
+            Router.go("/chats");
+          },
+        },
+      }),
+      userDataForm: userDataForm,
+      confirmBtn: new Button({
+        id: "confirm",
+        label: "Confirm",
+        events: {
+          click: () => {
+            const data = userDataForm.getValues();
+            console.log("data:", data);
+            const isValid = userDataForm.isValid();
+            if (isValid) {
+              UserController.profile(data as UserData);
+            }
+          },
+        },
+      }),
+      cancelBtn: new Button({
+        id: "cancel",
+        label: "Cancel",
+        events: {
+          click: () => Router.go("/chats"),
+        },
+      }),
+      passForm: passForm,
+      confirmPassBtn: new Button({
+        id: "confirm",
+        label: "Change password",
+        events: {
+          click: () => {
+            const data = passForm.getValues();
+            console.log("data:", data);
+            const isValid = passForm.isValid();
+            if (isValid) {
+              UserController.password(data as PassData);
+            }
+          },
+        },
+      }),
+      cancelPassBtn: new Button({
+        id: "cancel",
+        label: "Cancel",
+        events: {
+          click: () => Router.go("/chats"),
+        },
+      }),
     });
   }
 
   render() {
-    // console.log(this.children.form.inputsElements);
-    return this.compile(template, { style });
+    return this.compile(template, { ...this.props });
   }
 }
+
+const ProfileWithStore = connect((state) => ({ user: state.user }))(PfPage);
+export default ProfileWithStore;

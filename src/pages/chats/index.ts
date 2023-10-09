@@ -1,17 +1,36 @@
-/* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-import template from "./template.hbs";
-import style from "./style.module.css";
-import { ChatList } from "../../components/ChatList";
-import { Chat } from "../../components/Chat";
+import template from "./tmpl.hbs";
+import "./style.scss";
+import { ChatList, ChatListProps } from "../../components/ChatList";
+import { Messenger, MessengerProps } from "../../components/messenger";
+import { connect } from "../../utils/connect";
 
-export class ChatsPage extends Block {
-  init() {
-    this.children.chatList = new ChatList();
-    this.children.chat = new Chat();
+export interface ChatsPageProps {
+  chatList: ChatListProps;
+  messenger: MessengerProps;
+}
+
+export class ChatsPage extends Block<ChatsPageProps> {
+  constructor(props: any) {
+    super({
+      chatList: new ChatList({
+        user: props.user,
+        chats: props.chats,
+      }),
+      messenger: new Messenger({ chats: props.chats }),
+    });
   }
 
   render() {
-    return this.compile(template, { style });
+    return this.compile(template, { ...this.props });
   }
 }
+
+const ChatsPageWithStore = connect((state) => ({
+  user: state.user,
+  chats: state.chats,
+  messages: [...(state.messages || [])],
+  activeChat: state.activeChat,
+  searchChatText: state.searchChatText,
+}))(ChatsPage);
+export default ChatsPageWithStore;

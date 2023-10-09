@@ -1,95 +1,63 @@
-/* eslint-disable @typescript-eslint/semi */
 import Block from "../../utils/Block";
-import template from "./template.hbs";
-import style from "./style.module.css";
-import { renderDom } from "../../utils/renderDom";
-import { Form } from "../../components/Form";
-import { Header } from "../../components/Header";
-import { Button, ButtonProps } from "../../components/Button";
-import { Link } from "../../components/Link";
-import { isValidLogin, isValidPassword } from "../../utils/validation";
+import template from "./tmpl.hbs";
+import "./style.scss";
+import { Logo, LogoProps } from "../../components/logo/index";
+import { Form, FormProps } from "../../components/form/index";
+import { Link, LinkProps } from "../../components/link/index";
+import { Button, ButtonProps } from "../../components/button/index";
+import { inputsData } from "../../data/auth";
+import Router from "../../utils/router";
+import AuthController from "../../controllers/Auth-controller";
 
-const inputs: Array<{
-  for: string;
-  label: string;
-  name: string;
-  type: string;
-  error: string;
-  value: string;
-  validate: (value: string) => string;
-}> = [
-  {
-    for: "login",
-    label: "Login",
-    name: "login",
-    type: "text",
-    error: "",
-    value: "",
-    validate: isValidLogin,
-  },
-  {
-    for: "password",
-    label: "Password",
-    name: "password",
-    type: "password",
-    error: "",
-    value: "",
-    validate: isValidPassword,
-  },
-];
-
-export interface AuthorizationPageProps {
-  firstButton: ButtonProps;
-  secondButton: ButtonProps;
-  forgot: Link;
+export interface AuthPageProps {
+  logo: LogoProps;
+  form: FormProps;
+  link: LinkProps;
+  signInBtn: ButtonProps;
+  signUpBtn: ButtonProps;
 }
 
-// console.log(inputs);
-
-export class AuthorizationPage extends Block<AuthorizationPageProps> {
-  form = this.children.form as Form;
-
-  init() {
-    this.children.header = new Header();
-    this.children.form = new Form({
-      inputs: inputs.map((input) => ({
+export default class AuthPage extends Block<AuthPageProps> {
+  constructor() {
+    let form = new Form({
+      input: inputsData.map((input) => ({
         ...input,
-        events: {
-          focusin: () => this.form.validate(input.name),
-          focusout: () => this.form.validate(input.name),
-        },
       })),
     });
-    this.children.firstButton = new Button({
-      label: "Log In",
-      class: style.login,
-      events: {
-        click: (e: Event) => {
-          e.preventDefault();
-          const isValid = this.form.isValid();
-          const data = this.form.getValues();
-          console.log("form is valid: ", isValid);
-          console.log(data);
+    super({
+      logo: new Logo(),
+      form: form,
+      link: new Link({
+        linkText: "Forgot password?",
+        events: {
+          click: () => Router.go("/404"),
         },
-      },
-    });
-    this.children.secondButton = new Button({
-      label: "Sign Up",
-      type: "button",
-      class: style.signup,
-      events: {
-        click: () => renderDom("registrationPage"),
-      },
-    });
-    this.children.forgot = new Link({
-      text: "Forgot password",
-      events: {
-        click: () => renderDom("errorPage404"),
-      },
+      }),
+      signInBtn: new Button({
+        id: "signIn",
+        label: "Sign In",
+        events: {
+          click: () => {
+            const data = form.getValues();
+            console.log("data:", data);
+            const isValid = form.isValid();
+            if (isValid) {
+              AuthController.signin(data as UserData);
+            }
+          },
+        },
+      }),
+      signUpBtn: new Button({
+        id: "signUp",
+        label: "Sign Up",
+        events: {
+          click: () => Router.go("/signup"),
+        },
+      }),
     });
   }
 
   render() {
-    return this.compile(template, { style });
+    return this.compile(template, { ...this.props });
   }
 }
