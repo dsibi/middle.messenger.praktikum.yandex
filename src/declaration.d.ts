@@ -22,7 +22,7 @@ declare global {
     unread_count: number;
     created_by: number;
     last_message: {
-      time: string;
+      time: Date;
       content: string;
     };
   }

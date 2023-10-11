@@ -57,13 +57,27 @@ class ChatController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      // console.log(response);
+      console.log(response);
       // Store.set("chats", response);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
     return response as Token;
   }
+
+  // async chatChange(data: number) {
+  //   try {
+  //     const token: Token = await ChatsController.getChatToken(latestChatId);
+  //     MessageController.connect({
+  //       userId,
+  //       chatId: latestChatId,
+  //       token: token.token,
+  //     });
+  //     MessageController.getMessages({ offset: 0 });
+  //   } catch (e: any) {
+  //     showNotification(e, NotificationTypes.Warning);
+  //   }
+  // }
 }
 
 export default new ChatController();

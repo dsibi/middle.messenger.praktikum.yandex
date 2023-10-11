@@ -4,17 +4,17 @@
   </div>
   <div class="data">
     <div>
-      <div class="contactName">{{contactName}}</div>
+      <div class="contactName" id={{{chatID}}}>{{contactName}}</div>
       <div class="date">{{lastMsgTime}}</div>
     </div>
     <div>
       <div class="lastMsg">
-        {{#unless lastMsgIsInbox}}<span>You: </span>{{/unless}}
+        {{!-- {{#unless lastMsgIsInbox}}<span>You: </span>{{/unless}} --}}
         {{lastMsgText}}
       </div>
-      {{#if unreadNumber}}<div
+      {{!-- {{#if unreadNumber}}<div
           class="unreadNumber"
-        >{{unreadNumber}}</div>{{/if}}
+        >{{unreadNumber}}</div>{{/if}} --}}
     </div>
   </div>
 </div>
