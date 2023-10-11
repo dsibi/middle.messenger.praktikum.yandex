@@ -16,7 +16,7 @@ export default class Block<Props extends Record<string, any> = any> {
   protected children;
   private id: Nullable<string> = null;
   private _element: Nullable<HTMLElement> = null;
-  private eventBus;
+  private eventBus: EventBus;
   private setUpdate: boolean = false;
 
   // Создаём в конструкторе необходимые ресурсы для компонента:

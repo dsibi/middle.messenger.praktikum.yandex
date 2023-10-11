@@ -11,11 +11,11 @@ import AuthController from "./controllers/Auth-controller";
 window.addEventListener("DOMContentLoaded", async () => {
   Router.use("/", AuthPage)
     .use("/login", AuthPage)
-    .use("/signup", RegPage)
+    .use("/sign-up", RegPage)
     .use("/settings", ProfileWithStore)
     .use("/404", Error404)
     .use("/500", Error500)
-    .use("/chats", ChatsPageWithStore);
+    .use("/messenger", ChatsPageWithStore);
   await AuthController.isUserLoggedIn();
   Router.start();
 });

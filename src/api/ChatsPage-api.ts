@@ -13,8 +13,8 @@ class ChatAPI extends BaseAPI {
     return this.http.post("/", { data });
   }
 
-  getChats() {
-    return this.http.get("/", {});
+  getChats(data?: IChatsGet) {
+    return this.http.get("/", { data });
   }
 
   addUsersToChat(data: AddUser) {

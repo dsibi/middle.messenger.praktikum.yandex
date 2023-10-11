@@ -24,9 +24,10 @@ class ChatController {
     }
   }
 
-  async getChats() {
+  async getChats(data?: IChatsGet) {
+    let response;
     try {
-      const response = await this.api.getChats();
+      response = await this.api.getChats(data);
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
@@ -34,6 +35,7 @@ class ChatController {
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
+    return response;
   }
 
   async addUsersToChat(data: AddUser) {

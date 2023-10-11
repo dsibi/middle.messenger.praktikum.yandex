@@ -27,6 +27,12 @@ declare global {
     };
   }
 
+  export interface IChatsGet {
+    offset?: number;
+    limit?: number;
+    title?: string;
+  }
+
   export interface CreateChat {
     title: string;
   }
@@ -54,10 +60,15 @@ declare global {
     response: string;
   }
 
-  export interface IChatsGet {
-    offset?: number;
-    limit?: number;
-    title?: string;
+  export interface IMessage {
+    chat_id: number;
+    content: string;
+    file: string | null;
+    id: number;
+    is_read: boolean;
+    time: string;
+    type: string;
+    user_id: number;
   }
 }
 

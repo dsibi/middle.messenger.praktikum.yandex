@@ -22,27 +22,27 @@ export interface IWebSocket {
 }
 
 class MessageController {
-  private _webSocket!: WebSocket;
-  private _chatId!: number;
-  private _userId!: number;
+  private _webSocket: WebSocket | null = null;
+  private _chatId: number = 0;
+  private _userId: number = 0;
   private _ping: any;
-  private _token!: string;
+  private _token: string = "";
 
   private _addEventListeners() {
-    this._webSocket.addEventListener(WebSockets.Open, this._handleOpen);
-    this._webSocket.addEventListener(WebSockets.Close, this._handleClose);
-    this._webSocket.addEventListener(WebSockets.Message, this._handleMessage);
-    this._webSocket.addEventListener(WebSockets.Error, this._handleError);
+    this._webSocket?.addEventListener(WebSockets.Open, this._handleOpen);
+    this._webSocket?.addEventListener(WebSockets.Close, this._handleClose);
+    this._webSocket?.addEventListener(WebSockets.Message, this._handleMessage);
+    this._webSocket?.addEventListener(WebSockets.Error, this._handleError);
   }
 
   private _removeEventListeners() {
-    this._webSocket.removeEventListener(WebSockets.Open, this._handleOpen);
-    this._webSocket.removeEventListener(WebSockets.Close, this._handleClose);
-    this._webSocket.removeEventListener(
+    this._webSocket?.removeEventListener(WebSockets.Open, this._handleOpen);
+    this._webSocket?.removeEventListener(WebSockets.Close, this._handleClose);
+    this._webSocket?.removeEventListener(
       WebSockets.Message,
       this._handleMessage
     );
-    this._webSocket.removeEventListener(WebSockets.Error, this._handleError);
+    this._webSocket?.removeEventListener(WebSockets.Error, this._handleError);
   }
 
   private readonly _handleMessage = (e: MessageEvent) => {
@@ -64,12 +64,13 @@ class MessageController {
     }
 
     console.log("Получены данные", e.data);
+    // return e.data;
   };
 
   private readonly _handleOpen = () => {
     this.getMessages({ offset: 0 });
     this._ping = setInterval(() => {
-      this._webSocket.send(
+      this._webSocket?.send(
         JSON.stringify({
           type: WebSockets.Ping,
         })
@@ -105,15 +106,21 @@ class MessageController {
   }
 
   public getMessages(options: IMessage) {
-    this._webSocket.send(
-      JSON.stringify({
-        content: options.offset.toString(),
-        type: WebSockets.GetOld,
-      })
-    );
+    if (this._webSocket?.readyState == 1) {
+      this._webSocket?.send(
+        JSON.stringify({
+          content: options.offset.toString(),
+          type: WebSockets.GetOld,
+        })
+      );
+    }
   }
 
   public connect(options: IWebSocket) {
+    // if (this._webSocket) {
+    //   throw new Error("The socket is already connected");
+    // }
+
     this._chatId = options.chatId;
     this._userId = options.userId;
     this._token = options.token;
@@ -125,12 +132,13 @@ class MessageController {
 
   public exit() {
     clearInterval(this._ping);
-    this._webSocket.close();
+    this._webSocket?.close();
     this._removeEventListeners();
+    // this._webSocket=null
   }
 
   public sendMessage(message: string) {
-    this._webSocket.send(
+    this._webSocket?.send(
       JSON.stringify({
         content: message,
         type: WebSockets.Message,

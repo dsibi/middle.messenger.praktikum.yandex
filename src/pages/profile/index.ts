@@ -51,7 +51,7 @@ class PfPage extends Block<PfPageProps> {
             const avaForm = new FormData();
             avaForm.append("avatar", avatar!.files![0]);
             UserController.avatar(avaForm);
-            Router.go("/chats");
+            Router.go("/messenger");
           },
         },
       }),

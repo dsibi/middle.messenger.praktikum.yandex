@@ -4,29 +4,43 @@ import "./style.scss";
 import { Header } from "./header";
 import { Message } from "./message";
 import { Input } from "./input";
-import { bestFriendChat } from "../../data/chats";
 
 export interface MessengerProps {
   chats: ChatsProps[];
+  messages: IMessage[];
 }
 
 export class Messenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
+    props.messages = [
+      {
+        id: 1,
+        user_id: 1346581,
+        chat_id: 27785,
+        type: "message",
+        time: "2023-10-10T14:54:40+00:00",
+        content: "Сообщения, ",
+        is_read: true,
+        file: null,
+      },
+      {
+        id: 2,
+        user_id: 1346581,
+        chat_id: 27785,
+        type: "message",
+        time: "2023-10-10T14:54:38+00:00",
+        content: "которых я жду обновления",
+        is_read: true,
+        file: null,
+      },
+    ];
     super({
       header: new Header({ chats: props.chats }),
-      message: bestFriendChat.messageCollection.map(
-        (message) =>
-          new Message({
-            msgText: message.msgText,
-            time: message.time.toLocaleTimeString().replace(/(.*)\D\d+/, "$1"),
-            isInbox: message.isInbox,
-            isRead: message.isRead,
-            msgStyle: "",
-          })
-      ),
+      message: props.messages.map((message: IMessage) => new Message(message)),
       input: new Input(),
     });
   }
+
   render() {
     return this.compile(template, { ...this.props });
   }
