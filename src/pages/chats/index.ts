@@ -27,6 +27,30 @@ export class ChatsPage extends Block<ChatsPageProps> {
     });
   }
 
+  componentDidUpdate(oldProps: any, newProps: any) {
+    if (oldProps !== newProps) {
+      this.children.chatList.setProps({
+        user: newProps.user,
+        chats: newProps.chats,
+      });
+      this.children.messenger.setProps({
+        chats: newProps.chats,
+        messages: newProps.messages,
+      });
+    }
+    return true;
+  }
+
+  // componentDidUpdate(oldProps: any, newProps: any) {
+  //   if (oldProps.chats !== newProps.chats) {
+  //     this.children.messenger.setProps({
+  //       chats: newProps.chats,
+  //       messages: newProps.messages,
+  //     });
+  //   }
+  //   return true;
+  // }
+
   // setProps(newProps: unknown) {
   //   console.log(this.props);
   //   super.setProps(newProps);

@@ -71,6 +71,16 @@ export class Header extends Block<HeaderProps> {
       }),
     });
   }
+
+  // componentDidUpdate(oldProps: any, newProps: any) {
+  //   if (oldProps.chats !== newProps.chats) {
+  //     this.children.header.setProps({
+  //       user: newProps.user.avaPath,
+  //     });
+  //   }
+  //   return true;
+  // }
+
   render() {
     return this.compile(template, { ...this.props });
   }

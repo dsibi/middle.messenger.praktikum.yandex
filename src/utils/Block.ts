@@ -210,6 +210,14 @@ export default class Block<Props extends Record<string, any> = any> {
     return oldProps !== newProps;
   }
 
+  // setProps = (newProps: unknown) => {
+  //   if (!newProps) {
+  //     return;
+  //   }
+
+  //   Object.assign(this.props, newProps);
+  // };
+
   setProps(newProps: unknown) {
     if (!newProps) {
       return;
@@ -220,9 +228,9 @@ export default class Block<Props extends Record<string, any> = any> {
 
     const { children, props } = this.getChildrenAndProps(newProps);
 
-    if (Object.values(children).length) {
-      Object.assign(this.children, children);
-    }
+    // if (Object.values(children).length) {
+    //   Object.assign(this.children, children);
+    // }
 
     if (Object.values(props).length) {
       Object.assign(this.props, props);

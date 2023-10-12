@@ -17,6 +17,22 @@ export class ChatList extends Block<ChatListProps> {
     });
   }
 
+  componentDidUpdate(oldProps: any, newProps: any) {
+    if (oldProps.chats !== newProps.chats) {
+      this.children.header.setProps({
+        user: newProps.user,
+      });
+      if (newProps.chats) {
+        // this.children.chats = newProps;
+        // let quantity = this.children.chats
+        for (let i = 0; i < this.children.chats.length; i++) {
+          this.children.chats[i].setProps(newProps.chats[i]);
+        }
+      }
+    }
+    return true;
+  }
+
   render() {
     return this.compile(template, { ...this.props });
   }

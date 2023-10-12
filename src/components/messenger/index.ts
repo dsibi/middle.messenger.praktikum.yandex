@@ -41,6 +41,20 @@ export class Messenger extends Block<MessengerProps> {
     });
   }
 
+  componentDidUpdate(oldProps: any, newProps: any) {
+    if (oldProps !== newProps) {
+      this.children.header.setProps({
+        chats: newProps.chats,
+      });
+      if (newProps.messages) {
+        for (let i = 0; i < this.children.message.length; i++) {
+          this.children.message[i].setProps(newProps.messages[i]);
+        }
+      }
+    }
+    return true;
+  }
+
   render() {
     return this.compile(template, { ...this.props });
   }

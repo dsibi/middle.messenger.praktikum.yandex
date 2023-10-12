@@ -10,7 +10,7 @@ export class Message extends Block<IMessage> {
     //   props.msgStyle = "msgOutcome";
     // }
     super({
-      msgText: props.content,
+      content: props.content,
       time: props.time,
     });
   }

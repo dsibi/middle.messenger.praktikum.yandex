@@ -25,6 +25,15 @@ export class Chats extends Block<ChatsProps> {
     });
   }
 
+  // componentDidUpdate(oldProps: any, newProps: any) {
+  //   if (oldProps.chats !== newProps.chats) {
+  //     this.children.header.setProps({
+  //       user: newProps.user,
+  //     });
+  //   }
+  //   return true;
+  // }
+
   render() {
     return this.compile(template, { ...this.props });
   }
