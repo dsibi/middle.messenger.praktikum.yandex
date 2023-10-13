@@ -10,7 +10,7 @@ export interface InputProps {
   submitButton: ButtonProps;
 }
 
-export class Input extends Block<InputProps> {
+export class Input extends Block {
   constructor() {
     super({
       text: new Text({
@@ -36,7 +36,7 @@ export class Input extends Block<InputProps> {
         events: {
           click: (e) => {
             e.preventDefault();
-            const { value, name } = this.children.text;
+            const { value, name }: any = this.children.text;
             console.log({ [name]: value });
             MessageController.sendMessage(value);
           },

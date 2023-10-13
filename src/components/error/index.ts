@@ -10,7 +10,7 @@ export interface ErrorProps {
   };
 }
 
-export class Error extends Block<ErrorProps> {
+export class Error extends Block {
   constructor(props: ErrorProps) {
     super(props);
   }

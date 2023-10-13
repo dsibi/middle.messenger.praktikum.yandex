@@ -12,7 +12,7 @@ export interface InputProps {
   validate?: (value: string) => string;
 }
 
-export class Input extends Block<InputProps> {
+export class Input extends Block {
   constructor(props: InputProps) {
     super(props);
     this.children.error = new Error({ text: props.errorText });
@@ -36,7 +36,7 @@ export class Input extends Block<InputProps> {
 
   validate() {
     const error = this.props.validate(this.getHTMLInputElement().value);
-    this.children.error.error = error;
+    (this.children.error as Block<any>).error = error;
     return error;
   }
 

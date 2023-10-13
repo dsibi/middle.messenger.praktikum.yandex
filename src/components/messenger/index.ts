@@ -36,7 +36,7 @@ export class Messenger extends Block<MessengerProps> {
 
   componentDidUpdate(oldProps: any, newProps: any) {
     if (oldProps !== newProps) {
-      this.children.header.setProps({
+      (this.children.header as Block<any>).setProps({
         chats: newProps.chats,
         name: Store.getState().activeChatName,
       });

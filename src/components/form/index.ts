@@ -7,15 +7,15 @@ export interface FormProps {
   input: Array<InputProps>;
 }
 
-export class Form extends Block<FormProps> {
-  inputElements: Input[];
+export class Form extends Block {
+  inputElements;
   constructor(props: FormProps) {
     super({ input: props.input.map((input: InputProps) => new Input(input)) });
     this.inputElements = this.children.input;
   }
 
   getValues() {
-    return this.inputElements.reduce(
+    return (this.inputElements as Block<any>[]).reduce(
       (agg, input) => ({
         ...agg,
         [input.name]: input.value,
@@ -26,14 +26,14 @@ export class Form extends Block<FormProps> {
 
   isValid() {
     return this.inputElements.reduce(
-      (agg, input) => (input.validate().length === 0 ? agg : false),
+      (agg: any, input: any) => (input.validate().length === 0 ? agg : false),
       true
     );
   }
 
   validate(name: string) {
     const currentInput = this.inputElements.find(
-      (input) => input.name === name
+      (input: any) => input.name === name
     );
     if (!currentInput) throw new Error("input not found");
     currentInput.validate();
