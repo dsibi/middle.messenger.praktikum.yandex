@@ -1,7 +1,6 @@
 @import "/default.scss";
 
-.chats,
-.chatIsActive {
+.chats {
   padding: 12px 10px;
   display: flex;
   background-color: transparent;
@@ -9,7 +8,7 @@
 }
 
 .chatIsActive {
-  background-color: #e486ee;
+  font-weight: 700;
 }
 
 .avatar {

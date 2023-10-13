@@ -1,7 +1,9 @@
 import UserAPI from "../api/User-api";
+import Store from "../utils/Store";
 import { apiHasError } from "../utils/apiHasError";
 import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
+import AuthController from "./Auth-controller";
 
 class UserController {
   private readonly api;
@@ -16,7 +18,7 @@ class UserController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      Router.go("/chats");
+      Router.go("/messenger");
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
@@ -28,7 +30,7 @@ class UserController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      Router.go("/chats");
+      Router.go("/messenger");
     } catch (e: any) {
       showNotification(e, NotificationTypes.Warning);
     }
@@ -37,11 +39,12 @@ class UserController {
   async avatar(data: FormData) {
     try {
       const response = await this.api.avatar(data);
-      console.log(response);
-
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
+      AuthController.user();
+      Store.set("userAvaPath", response.avatar);
+      showNotification("Аватар успешно обновлен");
     } catch (e: any) {
       showNotification(e, NotificationTypes.Warning);
     }

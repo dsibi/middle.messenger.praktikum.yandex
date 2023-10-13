@@ -17,7 +17,7 @@ export interface AuthPageProps {
   signUpBtn: ButtonProps;
 }
 
-export default class AuthPage extends Block<AuthPageProps> {
+export default class AuthPage extends Block {
   constructor() {
     let form = new Form({
       input: inputsData.map((input) => ({

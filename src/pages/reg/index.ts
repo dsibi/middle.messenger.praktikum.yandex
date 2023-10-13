@@ -13,7 +13,7 @@ export interface RegPageProps {
   regBtn: ButtonProps;
 }
 
-export default class RegPage extends Block<RegPageProps> {
+export default class RegPage extends Block {
   constructor() {
     let form = new Form({
       input: inputsData.map((input) => ({

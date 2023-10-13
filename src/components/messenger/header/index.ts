@@ -8,6 +8,7 @@ import addUserAvaPath from "../../../static/img/plus.png";
 import { Input } from "../../form/input";
 import { Button } from "../../button";
 import ChatsController from "../../../controllers/Chats-controller";
+import Store from "../../../utils/Store";
 
 export interface HeaderProps {
   chats: ChatsProps[];
@@ -21,7 +22,7 @@ export class Header extends Block<HeaderProps> {
       type: "text",
     });
     super({
-      name: props.chats[0].title,
+      name: Store.getState().activeChatName,
       addUserAva: new Avatar({
         avaPath: addUserAvaPath,
         altText: "Add User",
@@ -70,6 +71,7 @@ export class Header extends Block<HeaderProps> {
       }),
     });
   }
+
   render() {
     return this.compile(template, { ...this.props });
   }

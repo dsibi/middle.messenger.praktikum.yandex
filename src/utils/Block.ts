@@ -2,33 +2,37 @@ import EventBus from "./EventBus";
 import { v4 as makeUUID } from "uuid";
 
 type Nullable<T> = T | null;
+type Props<P extends Record<string, unknown> = any> = {
+  events?: Record<string, (e?: Event) => void>;
+} & P;
 
 // Нельзя создавать экземпляр данного класса
-export default class Block<Props extends Record<string, any> = any> {
+export default class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render",
-  };
+  } as const;
 
-  protected props;
-  protected children;
+  protected props: Props<P>;
+  protected children: Record<string, Block | Block[]>;
   private id: Nullable<string> = null;
   private _element: Nullable<HTMLElement> = null;
-  private eventBus;
-  private setUpdate: boolean = false;
+  private eventBus: EventBus;
 
   // Создаём в конструкторе необходимые ресурсы для компонента:
-  constructor(propsAndChildren: Record<string | symbol, any> = {}) {
+  constructor(propsAndChildren: Props<P> = {} as Props<P>) {
     // элемент-обёртку,
     const { children, props } = this.getChildrenAndProps(propsAndChildren);
+    this.children = children;
     // создаём Event Bus => this.eventBus = () => eventBus;
     this.eventBus = new EventBus();
     this.id = makeUUID();
-    this.children = this.makePropsProxy({ ...children });
     // создаём Proxy-объекты => this.props = this._makePropsProxy(props);
     this.props = this.makePropsProxy({ ...props, __id: this.id });
+
+    this.initChildren();
     // регистрируем события => this._registerEvents(eventBus);
     this.registerEvents();
     this.eventBus.emit(Block.EVENTS.INIT); //eventBus.emit(Block.EVENTS.INIT);
@@ -101,30 +105,27 @@ export default class Block<Props extends Record<string, any> = any> {
     });
   }
 
-  getChildrenAndProps(propsAndChildren: Record<string | symbol, any>) {
-    const children:
-      | Record<string, Block<Props>>
-      | Record<string, Block<Props>[]> = {};
-    const props: Record<string | symbol, any> = {};
+  getChildrenAndProps(propsAndChildren: Props<P>): {
+    props: Props<P>;
+    children: Record<string, Block> | Record<string, Block[]>;
+  } {
+    const props: Record<string, unknown> = {};
+    const children: Record<string, Block> | Record<string, Block[]> = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        const result: Block<Props>[] = [];
-        value.map((el) => {
-          if (el instanceof Block) {
-            result.push(el);
-          }
-        });
-        children[key] = result;
-      }
       if (value instanceof Block) {
+        children[key] = value;
+      } else if (
+        Array.isArray(value) &&
+        value.every((v) => v instanceof Block)
+      ) {
         children[key] = value;
       } else {
         props[key] = value;
       }
     });
 
-    return { children, props };
+    return { props: props as Props<P>, children };
   }
 
   compile(template: (props: any) => string, props: any) {
@@ -164,12 +165,14 @@ export default class Block<Props extends Record<string, any> = any> {
         });
       }
 
-      const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
+      const stub = fragment.content.querySelector(
+        `[data-id="${(child as Block<any>).id}"]`
+      );
       // console.log(child);
       if (stub) {
         // console.log(stub);
 
-        stub.replaceWith(child.getContent()!);
+        stub.replaceWith((child as Block<any>).getContent()!);
       }
     });
 
@@ -201,57 +204,40 @@ export default class Block<Props extends Record<string, any> = any> {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  _componentDidUpdate(oldProps: any, newProps: any) {
+  _componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
     const isReRender = this.componentDidUpdate(oldProps, newProps);
     if (isReRender) this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  componentDidUpdate(oldProps: any, newProps: any) {
+  componentDidUpdate(oldProps: Props<P>, newProps: Props<P>) {
     return oldProps !== newProps;
   }
 
-  setProps(newProps: unknown) {
+  setProps(newProps: any) {
     if (!newProps) {
       return;
     }
-
-    this.setUpdate = true;
-    const oldValue = { ...this.props };
-
-    const { children, props } = this.getChildrenAndProps(newProps);
-
-    if (Object.values(children).length) {
-      Object.assign(this.children, children);
-    }
-
-    if (Object.values(props).length) {
-      Object.assign(this.props, props);
-    }
-
-    if (this.setUpdate) {
-      this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldValue, this.props);
-      this.setUpdate = false;
-    }
+    Object.assign(this.props, newProps);
   }
 
-  makePropsProxy(props: Record<string | symbol, any>) {
+  makePropsProxy(props: Props<P>) {
     const self = this;
     return new Proxy(props, {
       get(target, prop) {
-        const value = target[prop];
+        const value = target[prop as string];
         return typeof value === "function" ? value.bind(target) : value;
       },
       set(target, prop, value) {
-        if (target[prop] !== value) {
+        if (/*target[prop as string] !== value*/ true) {
           const oldProps = { ...target };
-          target[prop] = value;
+          target[prop as keyof Props<P>] = value;
           self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         }
         return true;
       },
       deleteProperty(target, prop) {
         const oldProps = { ...target };
-        delete target[prop];
+        delete target[prop as string];
         if (self.element) {
           self._removeAttributes(self.element, prop as string);
         }
@@ -308,4 +294,6 @@ export default class Block<Props extends Record<string, any> = any> {
   getContent() {
     return this._element;
   }
+
+  protected initChildren(): void {}
 }

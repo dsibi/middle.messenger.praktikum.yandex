@@ -4,7 +4,7 @@ import Router from "../utils/router";
 import { NotificationTypes, showNotification } from "../utils/showNotification";
 import Store from "../utils/Store";
 import ChatsController from "./Chats-controller";
-import MessagerController from "./Messager-controller";
+import MessageController from "./Messager-controller";
 
 class AuthController {
   private readonly api;
@@ -21,6 +21,7 @@ class AuthController {
         throw Error(response.reason);
       }
       Store.set("user", response);
+      Store.set("userAvaPath", response.avatar);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
@@ -34,7 +35,7 @@ class AuthController {
         throw Error(response.reason);
       }
       await this.user();
-      Router.go("/chats");
+      Router.go("/messenger");
     } catch (e: any) {
       showNotification(e.message, NotificationTypes.Warning);
     }
@@ -48,8 +49,7 @@ class AuthController {
       }
       const user = await this.user();
       console.log(user);
-      // Store.set("chats", user);
-      Router.go("/chats");
+      Router.go("/messenger");
     } catch (e: any) {
       showNotification(e.message, NotificationTypes.Warning);
     }
@@ -77,13 +77,21 @@ class AuthController {
   async isUserLoggedIn() {
     try {
       const userId = ((await this.user()) as UserData).id;
-      await ChatsController.getChats();
-      const id = 27787;
-      const token: Token = await ChatsController.getChatToken(id);
-      MessagerController.connect({ userId, chatId: id, token: token.token });
-      Router.go("/chats");
+      const latestChatId = (
+        (await ChatsController.getChats()) as ChatsProps[]
+      )[0].id;
+      const token: Token = await ChatsController.getChatToken(latestChatId);
+      MessageController.connect({
+        userId,
+        chatId: latestChatId,
+        token: token.token,
+      });
+      MessageController.getMessages({ offset: 0 });
+      if (window.location.pathname == "/") {
+        Router.go("/messenger");
+      }
     } catch (e: any) {
-      showNotification(e.reason, NotificationTypes.Warning);
+      showNotification(e, NotificationTypes.Warning);
     }
   }
 }

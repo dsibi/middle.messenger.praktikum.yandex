@@ -22,9 +22,18 @@ declare global {
     unread_count: number;
     created_by: number;
     last_message: {
-      time: string;
+      time: Date | undefined;
       content: string;
     };
+    events: {
+      click: () => void;
+    };
+  }
+
+  export interface IChatsGet {
+    offset?: number;
+    limit?: number;
+    title?: string;
   }
 
   export interface CreateChat {
@@ -54,10 +63,15 @@ declare global {
     response: string;
   }
 
-  export interface IChatsGet {
-    offset?: number;
-    limit?: number;
-    title?: string;
+  export interface IMessage {
+    chat_id?: number;
+    content: string;
+    file?: string | null;
+    id?: number;
+    is_read?: boolean;
+    time: string;
+    type?: string;
+    user_id?: number;
   }
 }
 

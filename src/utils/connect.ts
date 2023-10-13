@@ -10,7 +10,7 @@ function isEqual(lhs: any, rhs: any) {
 }
 
 export function connect(mapStateToProps: (state: Indexed) => Indexed) {
-  return function (Component: typeof Block) {
+  return function (Component: typeof Block<any>) {
     return class extends Component {
       constructor(props: any) {
         let state = mapStateToProps(store.getState());

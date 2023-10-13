@@ -9,7 +9,7 @@ export interface Error500PageProps {
   error: ErrorProps;
 }
 
-export default class Error500 extends Block<Error500PageProps> {
+export default class Error500 extends Block {
   constructor() {
     super({
       error: new Error({
