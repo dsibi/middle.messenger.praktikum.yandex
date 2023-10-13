@@ -8,6 +8,7 @@ type Props<P extends Record<string, unknown> = any> = {
 
 // Нельзя создавать экземпляр данного класса
 export default class Block<P extends Record<string, any> = any> {
+  [x: string]: any;
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",

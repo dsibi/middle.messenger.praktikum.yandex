@@ -1,3 +1,4 @@
+import { Avatar } from "../components/avatar";
 import { HTTPTransport } from "../utils/HTTPTransport";
 import { BaseAPI } from "./BaseAPI";
 
@@ -16,7 +17,7 @@ class UserAPI extends BaseAPI {
     return this.http.put("/password", { data });
   }
 
-  avatar(data: FormData): Promise<void | APIError> {
+  avatar(data: FormData): Promise<Avatar | APIError> {
     return this.http.put("/profile/avatar", { data });
   }
 }

@@ -14,7 +14,7 @@ export interface HeaderProps {
   chats: ChatsProps[];
 }
 
-export class Header extends Block<HeaderProps> {
+export class Header extends Block {
   constructor(props: HeaderProps) {
     let userID = new Input({
       label: "User ID",

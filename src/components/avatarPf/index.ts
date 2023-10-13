@@ -10,7 +10,7 @@ export interface AvaCopyProps {
   };
 }
 
-export class AvatarCopy extends Block<AvaCopyProps> {
+export class AvatarCopy extends Block {
   constructor(props: AvaCopyProps) {
     super(props);
   }
