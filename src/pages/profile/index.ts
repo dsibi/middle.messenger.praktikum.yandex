@@ -18,10 +18,9 @@ export interface PfPageProps {
   confirmPassBtn: ButtonProps;
 }
 
-class PfPage extends Block<PfPageProps> {
+class PfPage extends Block {
   constructor(props: any) {
     const serverData = props.user;
-    console.log(serverData);
 
     Object.values(inputsData).forEach((input) => {
       let name = input.name;
@@ -74,7 +73,7 @@ class PfPage extends Block<PfPageProps> {
         id: "cancel",
         label: "Cancel",
         events: {
-          click: () => Router.go("/chats"),
+          click: () => Router.go("/messenger"),
         },
       }),
       passForm: passForm,
@@ -96,10 +95,21 @@ class PfPage extends Block<PfPageProps> {
         id: "cancel",
         label: "Cancel",
         events: {
-          click: () => Router.go("/chats"),
+          click: () => Router.go("/messenger"),
         },
       }),
     });
+  }
+
+  componentDidUpdate(oldProps: any, newProps: any) {
+    if (oldProps !== newProps) {
+      (this.children.myAva as Block<any>).setProps({
+        avaPath:
+          "https://ya-praktikum.tech/api/v2/resources" + newProps.user.avatar,
+      });
+      return true;
+    }
+    return false;
   }
 
   render() {

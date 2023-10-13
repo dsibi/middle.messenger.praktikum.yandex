@@ -21,6 +21,7 @@ class AuthController {
         throw Error(response.reason);
       }
       Store.set("user", response);
+      Store.set("userAvaPath", response.avatar);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
@@ -86,7 +87,9 @@ class AuthController {
         token: token.token,
       });
       MessageController.getMessages({ offset: 0 });
-      Router.go("/messenger");
+      if (window.location.pathname == "/") {
+        Router.go("/messenger");
+      }
     } catch (e: any) {
       showNotification(e, NotificationTypes.Warning);
     }

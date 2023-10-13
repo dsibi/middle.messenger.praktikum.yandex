@@ -3,6 +3,8 @@ import template from "./tmpl.hbs";
 import "./style.scss";
 import { Header } from "./header";
 import { Chats } from "./chats";
+import ChatsController from "../../controllers/Chats-controller";
+import Store from "../../utils/Store";
 
 export interface ChatListProps {
   user: UserData;
@@ -11,26 +13,54 @@ export interface ChatListProps {
 
 export class ChatList extends Block<ChatListProps> {
   constructor(props: ChatListProps) {
-    super({
-      header: new Header({ user: props.user }),
-      chats: props.chats.map((chat: ChatsProps) => new Chats(chat)),
+    super({ ...props });
+    Store.set("activeChatId", props.chats[0].id);
+    Store.set("activeChatName", this.props.chats[0].title);
+  }
+
+  protected initChildren(): void {
+    this.children.header = new Header({ user: this.props.user });
+  }
+
+  protected init(): void {
+    this.children.chats = this.createChats({
+      chats: this.props.chats,
+      user: this.props.user,
     });
   }
 
   componentDidUpdate(oldProps: any, newProps: any) {
-    if (oldProps.chats !== newProps.chats) {
-      this.children.header.setProps({
-        user: newProps.user,
-      });
-      if (newProps.chats) {
-        // this.children.chats = newProps;
-        // let quantity = this.children.chats
-        for (let i = 0; i < this.children.chats.length; i++) {
-          this.children.chats[i].setProps(newProps.chats[i]);
-        }
+    if (oldProps !== newProps) {
+      if (newProps.user) {
+        (this.children.header as Block<any>).setProps({
+          user: newProps.user,
+        });
       }
+      if (newProps.chats) {
+        this.children.chats = this.createChats({
+          chats: newProps.chats,
+          user: newProps.user,
+        });
+      }
+      return true;
     }
-    return true;
+    return false;
+  }
+
+  private createChats(props: ChatListProps) {
+    let activeChatId = Store.getState().activeChatId;
+    return props.chats.map(
+      (data) =>
+        new Chats({
+          ...data,
+          activeChat: data.id == activeChatId ? "chatIsActive" : "",
+          events: {
+            click: () => {
+              ChatsController.selectChat(data.id);
+            },
+          },
+        })
+    );
   }
 
   render() {

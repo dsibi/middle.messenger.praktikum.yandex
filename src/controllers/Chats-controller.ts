@@ -16,9 +16,9 @@ class ChatController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      Store.set("chat_id", response);
       const dialog: HTMLDialogElement | null = document.querySelector("dialog");
       dialog!.close();
+      this.getChats();
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
@@ -57,27 +57,16 @@ class ChatController {
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
-      console.log(response);
-      // Store.set("chats", response);
+      Store.set("current_chat_token", response);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
     return response as Token;
   }
 
-  // async chatChange(data: number) {
-  //   try {
-  //     const token: Token = await ChatsController.getChatToken(latestChatId);
-  //     MessageController.connect({
-  //       userId,
-  //       chatId: latestChatId,
-  //       token: token.token,
-  //     });
-  //     MessageController.getMessages({ offset: 0 });
-  //   } catch (e: any) {
-  //     showNotification(e, NotificationTypes.Warning);
-  //   }
-  // }
+  selectChat(id: number) {
+    Store.set("selectedChat", id);
+  }
 }
 
 export default new ChatController();

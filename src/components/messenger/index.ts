@@ -4,6 +4,7 @@ import "./style.scss";
 import { Header } from "./header";
 import { Message } from "./message";
 import { Input } from "./input";
+import Store from "../../utils/Store";
 
 export interface MessengerProps {
   chats: ChatsProps[];
@@ -12,44 +13,38 @@ export interface MessengerProps {
 
 export class Messenger extends Block<MessengerProps> {
   constructor(props: MessengerProps) {
-    props.messages = [
-      {
-        id: 1,
-        user_id: 1346581,
-        chat_id: 27785,
-        type: "message",
-        time: "2023-10-10T14:54:40+00:00",
-        content: "Сообщения, ",
-        is_read: true,
-        file: null,
-      },
-      {
-        id: 2,
-        user_id: 1346581,
-        chat_id: 27785,
-        type: "message",
-        time: "2023-10-10T14:54:38+00:00",
-        content: "которых я жду обновления",
-        is_read: true,
-        file: null,
-      },
-    ];
-    super({
-      header: new Header({ chats: props.chats }),
-      message: props.messages.map((message: IMessage) => new Message(message)),
-      input: new Input(),
-    });
+    super({ ...props });
+  }
+
+  protected initChildren(): void {
+    this.children.header = new Header({ chats: this.props.chats });
+    this.children.input = new Input();
+  }
+
+  protected init(): void {
+    this.children.message = this.createMessages(this.props);
+  }
+
+  private createMessages(props: MessengerProps) {
+    if (props) {
+      if (props.messages) {
+        return props.messages.map((data) => new Message(data));
+      }
+    }
+    return [];
   }
 
   componentDidUpdate(oldProps: any, newProps: any) {
     if (oldProps !== newProps) {
       this.children.header.setProps({
         chats: newProps.chats,
+        name: Store.getState().activeChatName,
       });
       if (newProps.messages) {
-        for (let i = 0; i < this.children.message.length; i++) {
-          this.children.message[i].setProps(newProps.messages[i]);
-        }
+        this.children.message = this.createMessages({
+          chats: newProps.chats,
+          messages: newProps.messages,
+        });
       }
     }
     return true;

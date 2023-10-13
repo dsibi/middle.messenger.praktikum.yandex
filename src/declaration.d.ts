@@ -22,8 +22,11 @@ declare global {
     unread_count: number;
     created_by: number;
     last_message: {
-      time: Date;
+      time: Date | undefined;
       content: string;
+    };
+    events: {
+      click: () => void;
     };
   }
 
@@ -61,14 +64,14 @@ declare global {
   }
 
   export interface IMessage {
-    chat_id: number;
+    chat_id?: number;
     content: string;
-    file: string | null;
-    id: number;
-    is_read: boolean;
+    file?: string | null;
+    id?: number;
+    is_read?: boolean;
     time: string;
-    type: string;
-    user_id: number;
+    type?: string;
+    user_id?: number;
   }
 }
 

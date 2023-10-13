@@ -9,7 +9,7 @@ export interface Error404PageProps {
   error: ErrorProps;
 }
 
-export default class Error404 extends Block<Error404PageProps> {
+export default class Error404 extends Block {
   constructor() {
     super({
       error: new Error({

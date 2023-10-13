@@ -13,7 +13,7 @@ export interface ChatsPageProps {
   messenger: MessengerProps;
 }
 
-export class ChatsPage extends Block<ChatsPageProps> {
+export class ChatsPage extends Block {
   constructor(props: ChatsPageProps) {
     super({
       chatList: new ChatList({
@@ -29,32 +29,17 @@ export class ChatsPage extends Block<ChatsPageProps> {
 
   componentDidUpdate(oldProps: any, newProps: any) {
     if (oldProps !== newProps) {
-      this.children.chatList.setProps({
+      (this.children.chatList as Block<any>).setProps({
         user: newProps.user,
         chats: newProps.chats,
       });
-      this.children.messenger.setProps({
+      (this.children.messenger as Block<any>).setProps({
         chats: newProps.chats,
         messages: newProps.messages,
       });
     }
     return true;
   }
-
-  // componentDidUpdate(oldProps: any, newProps: any) {
-  //   if (oldProps.chats !== newProps.chats) {
-  //     this.children.messenger.setProps({
-  //       chats: newProps.chats,
-  //       messages: newProps.messages,
-  //     });
-  //   }
-  //   return true;
-  // }
-
-  // setProps(newProps: unknown) {
-  //   console.log(this.props);
-  //   super.setProps(newProps);
-  // }
 
   render() {
     return this.compile(template, { ...this.props });
@@ -65,7 +50,5 @@ const ChatsPageWithStore = connect((state) => ({
   user: state.user,
   chats: state.chats,
   messages: [...(state.messages || [])],
-  // activeChat: state.activeChat,
-  // searchChatText: state.searchChatText,
 }))(ChatsPage);
 export default ChatsPageWithStore;

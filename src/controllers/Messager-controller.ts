@@ -59,12 +59,11 @@ class MessageController {
         store.set("messages", messages);
       }
     } else if (typeof data === "object" && data.type === "message") {
-      const messages = [data, ...store.getState().messages];
+      const messages = [data, ...store.getState().messages].reverse();
       store.set("messages", messages);
     }
 
-    console.log("Получены данные", e.data);
-    // return e.data;
+    // console.log("Получены данные", e.data);
   };
 
   private readonly _handleOpen = () => {
@@ -117,10 +116,6 @@ class MessageController {
   }
 
   public connect(options: IWebSocket) {
-    // if (this._webSocket) {
-    //   throw new Error("The socket is already connected");
-    // }
-
     this._chatId = options.chatId;
     this._userId = options.userId;
     this._token = options.token;
@@ -134,7 +129,6 @@ class MessageController {
     clearInterval(this._ping);
     this._webSocket?.close();
     this._removeEventListeners();
-    // this._webSocket=null
   }
 
   public sendMessage(message: string) {
