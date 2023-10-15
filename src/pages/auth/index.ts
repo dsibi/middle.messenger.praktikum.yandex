@@ -51,7 +51,7 @@ export default class AuthPage extends Block {
         id: "signUp",
         label: "Sign Up",
         events: {
-          click: () => Router.go("/signup"),
+          click: () => Router.go("/sign-up"),
         },
       }),
     });

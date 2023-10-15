@@ -14,8 +14,11 @@ export interface InputProps {
 
 export class Input extends Block {
   constructor(props: InputProps) {
-    super(props);
-    this.children.error = new Error({ text: props.errorText });
+    super({ ...props });
+  }
+
+  protected init(): void {
+    this.children.error = new Error({ text: this.props.errorText });
   }
 
   getHTMLInputElement(): HTMLInputElement {
