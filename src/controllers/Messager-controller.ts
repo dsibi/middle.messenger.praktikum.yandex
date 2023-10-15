@@ -12,7 +12,7 @@ enum WebSockets {
   GetOld = "get old",
 }
 
-export interface IMessage {
+export interface WSMessage {
   offset: number;
 }
 
@@ -49,23 +49,25 @@ class MessageController {
   private readonly _handleMessage = (e: MessageEvent) => {
     try {
       const data = JSON.parse(e.data);
-
       if (Array.isArray(data)) {
         if (!data.length) {
           store.set("messages", []);
         } else if (data[0].id === 0) {
           store.set("messages", data);
         } else {
-          const messages = [...data];
-
+          const messages: IMessage[] = [...data];
+          messages.sort(
+            (a, b) => new Date(a.time).valueOf() - new Date(b.time).valueOf()
+          );
           store.set("messages", messages);
         }
       } else if (typeof data === "object" && data.type === "message") {
-        const messages = [data, ...store.getState().messages].reverse();
+        const messages: IMessage[] = [data, ...store.getState().messages];
+        messages.sort(
+          (a, b) => new Date(a.time).valueOf() - new Date(b.time).valueOf()
+        );
         store.set("messages", messages);
       }
-
-      // console.log("Получены данные", e.data);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
@@ -109,7 +111,7 @@ class MessageController {
     });
   }
 
-  public getMessages(options: IMessage) {
+  public getMessages(options: WSMessage) {
     if (this._webSocket?.readyState == 1) {
       this._webSocket?.send(
         JSON.stringify({

@@ -69,7 +69,7 @@ declare global {
     file?: string | null;
     id?: number;
     is_read?: boolean;
-    time: string;
+    time: Date;
     type?: string;
     user_id?: number;
   }
