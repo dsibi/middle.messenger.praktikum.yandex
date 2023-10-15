@@ -5,6 +5,7 @@ import { Button, ButtonProps } from "../../button";
 import { Text, TextProps } from "./text";
 import MessageController from "../../../controllers/Messager-controller";
 import smilesPath from "../../../static/img/smile.png";
+import attachIconPath from "../../../static/img/attach.png";
 import { isValidMessage } from "../../../utils/validation";
 
 export interface InputProps {
@@ -15,6 +16,7 @@ export interface InputProps {
 export class Input extends Block {
   constructor() {
     super({
+      attachIconPath: attachIconPath,
       smilesPath: smilesPath,
       text: new Text({
         placeholder: "Message...",
