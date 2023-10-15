@@ -4,6 +4,7 @@ import "./style.scss";
 import { Button, ButtonProps } from "../../button";
 import { Text, TextProps } from "./text";
 import MessageController from "../../../controllers/Messager-controller";
+import smilesPath from "../../../static/img/smile.png";
 
 export interface InputProps {
   text: TextProps;
@@ -13,6 +14,7 @@ export interface InputProps {
 export class Input extends Block {
   constructor() {
     super({
+      smilesPath: smilesPath,
       text: new Text({
         placeholder: "Message...",
         // events: {
