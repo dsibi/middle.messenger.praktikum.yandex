@@ -1,4 +1,5 @@
 import store from "../utils/Store";
+import { NotificationTypes, showNotification } from "../utils/showNotification";
 
 const CHAT_URL = "wss://ya-praktikum.tech/ws/chats/";
 
@@ -46,24 +47,28 @@ class MessageController {
   }
 
   private readonly _handleMessage = (e: MessageEvent) => {
-    const data = JSON.parse(e.data);
+    try {
+      const data = JSON.parse(e.data);
 
-    if (Array.isArray(data)) {
-      if (!data.length) {
-        store.set("messages", []);
-      } else if (data[0].id === 0) {
-        store.set("messages", data);
-      } else {
-        const messages = [...data];
+      if (Array.isArray(data)) {
+        if (!data.length) {
+          store.set("messages", []);
+        } else if (data[0].id === 0) {
+          store.set("messages", data);
+        } else {
+          const messages = [...data];
 
+          store.set("messages", messages);
+        }
+      } else if (typeof data === "object" && data.type === "message") {
+        const messages = [data, ...store.getState().messages].reverse();
         store.set("messages", messages);
       }
-    } else if (typeof data === "object" && data.type === "message") {
-      const messages = [data, ...store.getState().messages].reverse();
-      store.set("messages", messages);
-    }
 
-    // console.log("Получены данные", e.data);
+      // console.log("Получены данные", e.data);
+    } catch (e: any) {
+      showNotification(e.reason, NotificationTypes.Warning);
+    }
   };
 
   private readonly _handleOpen = () => {
