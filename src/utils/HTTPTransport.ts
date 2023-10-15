@@ -10,7 +10,7 @@ type OptionsWithoutMethod = Omit<Options, "method">;
 
 type TResponse = <R = unknown>(
   url: string,
-  options: OptionsWithoutMethod
+  options?: OptionsWithoutMethod
 ) => Promise<R>;
 
 const METHODS = {
