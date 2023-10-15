@@ -5,6 +5,7 @@ import { Button, ButtonProps } from "../../button";
 import { Text, TextProps } from "./text";
 import MessageController from "../../../controllers/Messager-controller";
 import smilesPath from "../../../static/img/smile.png";
+import { isValidMessage } from "../../../utils/validation";
 
 export interface InputProps {
   text: TextProps;
@@ -40,7 +41,9 @@ export class Input extends Block {
             e.preventDefault();
             const { value, name }: any = this.children.text;
             console.log({ [name]: value });
-            MessageController.sendMessage(value);
+            if (isValidMessage(value)) {
+              MessageController.sendMessage(value);
+            }
           },
         },
       }),
