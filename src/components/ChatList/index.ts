@@ -14,8 +14,6 @@ export interface ChatListProps {
 export class ChatList extends Block<ChatListProps> {
   constructor(props: ChatListProps) {
     super({ ...props });
-    Store.set("activeChatId", props.chats[0].id);
-    Store.set("activeChatName", this.props.chats[0].title);
   }
 
   protected initChildren(): void {

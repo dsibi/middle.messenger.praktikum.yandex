@@ -25,13 +25,16 @@ class ChatController {
   }
 
   async getChats(data?: IChatsGet) {
-    let response;
+    let response: any;
     try {
       response = await this.api.getChats(data);
       if (apiHasError(response)) {
         throw Error(response.reason);
       }
+
       Store.set("chats", response);
+      Store.set("activeChatId", response[0].id);
+      Store.set("activeChatName", response[0].title);
     } catch (e: any) {
       showNotification(e.reason, NotificationTypes.Warning);
     }
