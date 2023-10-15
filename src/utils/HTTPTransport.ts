@@ -8,6 +8,11 @@ type Options = {
 
 type OptionsWithoutMethod = Omit<Options, "method">;
 
+type TResponse = <R = unknown>(
+  url: string,
+  options: OptionsWithoutMethod
+) => Promise<R>;
+
 const METHODS = {
   GET: "GET",
   PUT: "PUT",
@@ -30,32 +35,23 @@ export class HTTPTransport {
     this.fullURL = this.baseURL + url;
   }
 
-  get<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {}
-  ): Promise<TResponse> {
+  get: TResponse = (url, options = {}) => {
     const newURL = new URL(this.fullURL + url).href;
-    return this.request<TResponse>(
+    return this.request(
       options.data ? `${newURL}?${queryStringify(options.data)}` : newURL,
       { ...options, method: METHODS.GET }
     );
-  }
+  };
 
-  post<Response>(
-    url: string,
-    options: OptionsWithoutMethod = {}
-  ): Promise<Response> {
+  post: TResponse = (url, options = {}) => {
     const newURL = new URL(this.fullURL + url).href;
-    return this.request<Response>(newURL, { ...options, method: METHODS.POST });
-  }
+    return this.request(newURL, { ...options, method: METHODS.POST });
+  };
 
-  put<TResponse>(
-    url: string,
-    options: OptionsWithoutMethod = {}
-  ): Promise<TResponse> {
+  put: TResponse = (url, options = {}) => {
     const newURL = new URL(this.fullURL + url).href;
     return this.request(newURL, { ...options, method: METHODS.PUT });
-  }
+  };
 
   // delete: HTTPMethod = (url, options = {}) =>
   //   this.request(url, {
@@ -63,10 +59,7 @@ export class HTTPTransport {
   //     method: METHODS.DELETE,
   //   });
 
-  async request<Response>(
-    url: string,
-    options: Options = { method: METHODS.GET }
-  ): Promise<Response> {
+  async request(url: string, options: Options = { method: METHODS.GET }) {
     const { method, data } = options;
 
     let response;
@@ -93,54 +86,6 @@ export class HTTPTransport {
       ?.includes("application/json");
     const resultData = (await isJson) ? response.json() : null;
 
-    return resultData as Response;
+    return resultData;
   }
-
-  // request<Response>(
-  //   url: string,
-  //   options: Options = { method: METHODS.GET }
-  // ): Promise<Response> {
-  //   const {
-  //     method,
-  //     data,
-  //     headers,
-  //     timeout = defaultTimeout,
-  //     withCredentials = true,
-  //   } = options;
-  //   const isFormData = headers?.["Content-Type"] === "multipart/form-data";
-  //   if (!method) throw new Error("request method is undefined");
-
-  //   return new Promise<Response>((resolve, reject) => {
-  //     const xhr = new XMLHttpRequest();
-  //     xhr.open(method, url);
-
-  //     if (!isFormData) {
-  //       xhr.setRequestHeader("Content-Type", "application/json");
-  //     }
-
-  //     if (headers) {
-  //       Object.entries(headers).forEach((item) => {
-  //         const [key, value] = item;
-  //         if (!isFormData) {
-  //           xhr.setRequestHeader(key, value);
-  //         }
-  //       });
-  //     }
-
-  //     xhr.timeout = timeout;
-
-  //     xhr.onload = () => resolve(xhr);
-  //     xhr.withCredentials = withCredentials;
-  //     xhr.onabort = reject;
-  //     xhr.onerror = reject;
-  //     xhr.ontimeout = reject;
-
-  //     if (method === METHODS.GET || !data) {
-  //       xhr.send();
-  //     } else {
-  //       // console.log(JSON.stringify(data));
-  //       xhr.send(JSON.stringify(data as any));
-  //     }
-  //   });
-  // }
 }
