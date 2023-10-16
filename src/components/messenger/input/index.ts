@@ -42,8 +42,8 @@ export class Input extends Block {
           click: (e) => {
             e.preventDefault();
             const { value, name }: any = this.children.text;
-            console.log({ [name]: value });
-            if (isValidMessage(value)) {
+            console.log({ value, name });
+            if (isValidMessage(value) != "the value cannot be empty") {
               MessageController.sendMessage(value);
             }
           },
